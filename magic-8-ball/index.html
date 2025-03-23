@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Magic 8 Ball</title>
+  <style>
+    /* Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+
+
+
+    }
+    
+    .eightball-container {
+      text-align: center;
+      perspective: 1200px;
+    }
+    
+    /* Outer ball */
+    .ball {
+      position: relative;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 40% 40%, #333, #000);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+      margin: 2rem auto;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+      overflow: hidden;
+    }
+    
+    .ball::before {
+      content: '';
+      position: absolute;
+      top: 10%;
+      left: 10%;
+      width: 60%;
+      height: 40%;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      transform: rotate(-30deg);
+      filter: blur(4px);
+    }
+    
+    /* Inner black circle with thinner white ring */
+    .inner-circle {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 150px;
+      height: 150px;
+      background: #000;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-sizing: border-box;
+      border: 5px solid #fff;
+      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.8);
+    }
+    
+    /* Container for the blue triangle and text */
+    .triangle-container {
+      position: relative;
+      width: 95%;
+      height: 95%;
+      opacity: 1;
+      transition: opacity 0.3s ease;
+    }
+    
+    /* SVG Triangle with rounded corners */
+    .triangle-container svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+      filter: drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.5));
+    }
+    
+    /* White answer text with shadow for readability */
+    .triangle-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #fff;
+      text-align: center;
+      padding: 0 10px;
+      font-size: 0.9em;
+      font-weight: bold;
+      pointer-events: none;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+    }
+    
+    button {
+      background: linear-gradient(145deg, #008CBA, #005f7f);
+      color: white;
+      font-size: 1.2em;
+      padding: 15px 30px;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 1rem;
+    }
+    
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    }
+    
+    button:active {
+      transform: translateY(0);
+    }
+    
+    /* Animations */
+    @keyframes shake {
+      0% { transform: rotate(0deg); }
+      25% { transform: rotate(15deg); }
+      50% { transform: rotate(-15deg); }
+      75% { transform: rotate(10deg); }
+      100% { transform: rotate(0deg); }
+    }
+    
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
+    }
+    
+    .shake {
+      animation: shake 0.8s ease-in-out;
+    }
+    
+    .float {
+      animation: float 3s ease-in-out infinite;
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 600px) {
+      .ball {
+        width: 250px;
+        height: 250px;
+      }
+      .inner-circle {
+        width: 125px;
+        height: 125px;
+        border-width: 4px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="eightball-container">
+    <div class="ball float" id="magicBall">
+      <div class="inner-circle">
+        <div class="triangle-container">
+          <!-- SVG Triangle with rounded corners (updated size & color) -->
+          <svg viewBox="0 0 100 100" preserveAspectRatio="none">
+            <path d="
+              M50,15
+              A10,10 0 0 1 60,25
+              L80,65
+              A10,10 0 0 1 75,75
+              L25,75
+              A10,10 0 0 1 20,65
+              L40,25
+              A10,10 0 0 1 50,15
+              Z" fill="#0047AB" />
+          </svg>
+          <div class="triangle-text" id="answer">Ask a question...</div>
+        </div>
+      </div>
+    </div>
+    <button id="askButton">Ask the Magic 8 Ball</button>
+  </div>
+  
+  <script>
+    const answers = [
+      { text: "It is certain", type: "positive" },
+      { text: "It is decidedly so", type: "positive" },
+      { text: "Without a doubt", type: "positive" },
+      { text: "Yes - definitely", type: "positive" },
+      { text: "You may rely on it", type: "positive" },
+      { text: "As I see it, yes", type: "positive" },
+      { text: "Most likely", type: "positive" },
+      { text: "Outlook good", type: "positive" },
+      { text: "Yes", type: "positive" },
+      { text: "Signs point to yes", type: "positive" },
+      { text: "Reply hazy, try again", type: "neutral" },
+      { text: "Ask again later", type: "neutral" },
+      { text: "Better not tell you now", type: "neutral" },
+      { text: "Cannot predict now", type: "neutral" },
+      { text: "Concentrate and ask again", type: "neutral" },
+      { text: "Don't count on it", type: "negative" },
+      { text: "My reply is no", type: "negative" },
+      { text: "My sources say no", type: "negative" },
+      { text: "Outlook not so good", type: "negative" },
+      { text: "Very doubtful", type: "negative" }
+    ];
+    
+    // Easter Egg Answers (1 in 50 chance)
+    const easterEggAnswers = [
+      { text: "The answer lies within you… or Google.", type: "easter-egg" },
+      { text: "Behold! The universe has spoken. The answer is: Meh.", type: "easter-egg" },
+      { text: "You have unlocked the secret of the 8 Ball. Now, roll a D20.", type: "easter-egg" }
+    ];
+    
+    const askButton = document.getElementById("askButton");
+    const answerDisplay = document.getElementById("answer");
+    const ball = document.getElementById("magicBall");
+    const triangleContainer = document.querySelector(".triangle-container");
+    
+    let isAnimating = false;
+    
+    askButton.addEventListener("click", () => {
+      if (isAnimating) return;
+      
+      isAnimating = true;
+      // Fade out the blue triangle and text during the shake
+      triangleContainer.style.opacity = "0";
+      ball.classList.remove("float");
+      ball.classList.add("shake");
+      
+      setTimeout(() => {
+        let response;
+        
+        // 1 in 50 chance for an Easter Egg answer
+        if (Math.random() < 1/50) {
+          response = easterEggAnswers[Math.floor(Math.random() * easterEggAnswers.length)];
+        } else {
+          response = answers[Math.floor(Math.random() * answers.length)];
+        }
+  
+        ball.classList.remove("shake");
+        ball.classList.add("float");
+        answerDisplay.textContent = response.text;
+        // Fade the triangle and answer back in
+        triangleContainer.style.opacity = "1";
+        isAnimating = false;
+      }, 2000);
+    });
+    
+    // Allow pressing Enter to ask a question
+    document.addEventListener("keypress", (e) => {
+      if (e.key === "Enter" && !isAnimating) {
+        askButton.click();
+      }
+    });
+  </script>
+</body>
+</html>
