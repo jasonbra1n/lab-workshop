@@ -121,3 +121,16 @@ footer {
     grid-template-columns: 1fr;
   }
 }
+.bubble {
+  position: absolute;
+  background: radial-gradient(circle, #00f0ff, transparent);
+  border-radius: 50%;
+  opacity: 0.3;
+  animation: float 5s infinite ease-in-out;
+}
+
+@keyframes{
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+  100% { transform: translateY(0); }
+}
