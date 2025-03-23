@@ -5,10 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Magic 8 Ball</title>
   <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../workshop.css">
+  <link rel="stylesheet" href="/workshop.css">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <div class="uv-background"></div>
   <div class="eightball-container">
     <div class="ball float" id="magicBall">
       <div class="inner-circle">
@@ -23,7 +24,7 @@
               A10,10 0 0 1 20,65
               L40,25
               A10,10 0 0 1 50,15
-              Z" fill="#4b0082" />
+              Z" fill="#00bfff" />
           </svg>
           <div class="triangle-text" id="answer">Ask a question...</div>
         </div>
@@ -31,6 +32,7 @@
     </div>
     <button id="askButton">Ask the Magic 8 Ball</button>
   </div>
+  <script src="/workshop.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
