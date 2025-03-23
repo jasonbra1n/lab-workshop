@@ -14,6 +14,8 @@ body {
   width: 100%;
   height: 100%;
   background: radial-gradient(circle at center, rgba(0, 15, 31, 0.2), #000000);
+  background-image: url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cpath d="M30 0L59.052 15v30L30 60 0.948 45V15L30 0z" fill="none" stroke="%2300f0ff" stroke-opacity="0.1" stroke-width="1"/%3E%3C/svg%3E');
+  background-size: 60px 60px;
   pointer-events: none;
   z-index: -1;
 }
@@ -27,6 +29,7 @@ header h1 {
   font-size: 3rem;
   color: #00f0ff;
   text-shadow: 0 0 10px #00f0ff, 0 0 20px #39ff14;
+  letter-spacing: 2px;
 }
 
 header p {
@@ -43,42 +46,43 @@ header p {
 }
 
 .tool-card {
-  background-color: #0a0a1a;
+  background: linear-gradient(135deg, #0a0a1a 0%, #1a1a2e 100%);
   border: 2px solid #00f0ff;
-  border-radius: 50%;
   padding: 1.5rem;
   text-align: center;
+  position: relative;
+  clip-path: polygon(10% 0%, 90% 0%, 100% 20%, 100% 80%, 90% 100%, 10% 100%, 0% 80%, 0% 20%);
   transition: all 0.3s ease;
   box-shadow: 0 0 10px #00f0ff;
-  position: relative;
-  overflow: hidden;
 }
 
 .tool-card::before {
   content: '';
   position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: radial-gradient(circle, rgba(57, 255, 20, 0.1), transparent);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(to right, transparent, #39ff14, transparent);
   opacity: 0;
   transition: opacity 0.3s ease;
 }
 
 .tool-card:hover::before {
   opacity: 1;
+  animation: scanline 1s infinite;
 }
 
 .tool-card:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 20px #39ff14;
+  transform: translateY(-5px) rotate(2deg);
   border-color: #39ff14;
+  box-shadow: 0 0 20px #39ff14, inset 0 0 10px #00f0ff;
 }
 
 .tool-card h2 {
   color: #00f0ff;
   text-shadow: 0 0 5px #00f0ff;
+  letter-spacing: 1px;
 }
 
 .tool-card p {
@@ -93,13 +97,15 @@ header p {
   color: #000000;
   text-decoration: none;
   border-radius: 5px;
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
   box-shadow: 0 0 5px #00f0ff;
+  letter-spacing: 1px;
 }
 
 .tool-card a:hover {
   background-color: #39ff14;
-  box-shadow: 0 0 10px #39ff14;
+  box-shadow: 0 0 15px #39ff14;
+  transform: scale(1.05);
 }
 
 footer {
@@ -108,6 +114,25 @@ footer {
   font-size: 0.8rem;
   color: #666;
   text-shadow: 0 0 2px #00f0ff;
+}
+
+.bubble {
+  position: absolute;
+  background: radial-gradient(circle, #00f0ff, transparent);
+  border-radius: 50%;
+  opacity: 0.3;
+  animation: float 5s infinite ease-in-out;
+}
+
+@keyframes float {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+  100% { transform: translateY(0); }
+}
+
+@keyframes scanline {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
 }
 
 @keyframes pulse {
@@ -120,17 +145,4 @@ footer {
   .workshop {
     grid-template-columns: 1fr;
   }
-}
-.bubble {
-  position: absolute;
-  background: radial-gradient(circle, #00f0ff, transparent);
-  border-radius: 50%;
-  opacity: 0.3;
-  animation: float 5s infinite ease-in-out;
-}
-
-@keyframes{
-  0% { transform: translateY(0); }
-  50% { transform: translateY(-20px); }
-  100% { transform: translateY(0); }
 }
