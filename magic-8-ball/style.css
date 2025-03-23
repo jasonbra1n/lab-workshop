@@ -1,155 +1,154 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+ /* Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
 
-body {
-  background-color: #1a1a2e;
-  color: #e0e0e0;
-  font-family: 'Courier New', monospace;
-}
 
-.eightball-container {
-  text-align: center;
-  perspective: 1200px;
-}
 
-.ball {
-  position: relative;
-  width: 300px;
-  height: 300px;
-  border-radius: 50%;
-  background: radial-gradient(circle at 40% 40%, #333, #000);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
-  margin: 2rem auto;
-  cursor: pointer;
-  transition: transform 0.3s ease;
-  overflow: hidden;
-}
-
-.ball::before {
-  content: '';
-  position: absolute;
-  top: 10%;
-  left: 10%;
-  width: 60%;
-  height: 40%;
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 50%;
-  transform: rotate(-30deg);
-  filter: blur(4px);
-}
-
-.inner-circle {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 150px;
-  height: 150px;
-  background: #000;
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 5px solid #ffd700;
-  box-shadow: inset 0 0 10px #ffd700;
-  animation: pulse 2s infinite;
-}
-
-.triangle-container {
-  position: relative;
-  width: 95%;
-  height: 95%;
-  opacity: 1;
-  transition: opacity 0.3s ease;
-}
-
-.triangle-container svg {
-  width: 100%;
-  height: 100%;
-  display: block;
-  filter: drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.5));
-}
-
-.triangle-text {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: #fff;
-  text-align: center;
-  padding: 0 10px;
-  font-size: 0.9em;
-  font-weight: bold;
-  pointer-events: none;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
-  font-family: 'Courier New', monospace;
-}
-
-button {
-  background-color: #ffd700;
-  color: #1a1a2e;
-  font-size: 1.2em;
-  padding: 0.5rem 1rem;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-top: 1rem;
-  font-family: 'Courier New', monospace;
-}
-
-button:hover {
-  background-color: #00ffff;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-}
-
-button:active {
-  transform: translateY(0);
-}
-
-@keyframes shake {
-  0% { transform: rotate(0deg); }
-  25% { transform: rotate(15deg); }
-  50% { transform: rotate(-15deg); }
-  75% { transform: rotate(10deg); }
-  100% { transform: rotate(0deg); }
-}
-
-@keyframes float {
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
-  100% { transform: translateY(0px); }
-}
-
-@keyframes pulse {
-  0% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.7); }
-  70% { box-shadow: 0 0 0 10px rgba(255, 215, 0, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0); }
-}
-
-.shake {
-  animation: shake 0.8s ease-in-out;
-}
-
-.float {
-  animation: float 3s ease-in-out infinite;
-}
-
-@media (max-width: 600px) {
-  .ball {
-    width: 250px;
-    height: 250px;
-  }
-  .inner-circle {
-    width: 125px;
-    height: 125px;
-    border-width: 4px;
-  }
-}
+    }
+    
+    .eightball-container {
+      text-align: center;
+      perspective: 1200px;
+    }
+    
+    /* Outer ball */
+    .ball {
+      position: relative;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 40% 40%, #333, #000);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+      margin: 2rem auto;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+      overflow: hidden;
+    }
+    
+    .ball::before {
+      content: '';
+      position: absolute;
+      top: 10%;
+      left: 10%;
+      width: 60%;
+      height: 40%;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      transform: rotate(-30deg);
+      filter: blur(4px);
+    }
+    
+    /* Inner black circle with thinner white ring */
+    .inner-circle {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 150px;
+      height: 150px;
+      background: #000;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-sizing: border-box;
+      border: 5px solid #fff;
+      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.8);
+    }
+    
+    /* Container for the blue triangle and text */
+    .triangle-container {
+      position: relative;
+      width: 95%;
+      height: 95%;
+      opacity: 1;
+      transition: opacity 0.3s ease;
+    }
+    
+    /* SVG Triangle with rounded corners */
+    .triangle-container svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+      filter: drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.5));
+    }
+    
+    /* White answer text with shadow for readability */
+    .triangle-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #fff;
+      text-align: center;
+      padding: 0 10px;
+      font-size: 0.9em;
+      font-weight: bold;
+      pointer-events: none;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+    }
+    
+    button {
+      background: linear-gradient(145deg, #008CBA, #005f7f);
+      color: white;
+      font-size: 1.2em;
+      padding: 15px 30px;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 1rem;
+    }
+    
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    }
+    
+    button:active {
+      transform: translateY(0);
+    }
+    
+    /* Animations */
+    @keyframes shake {
+      0% { transform: rotate(0deg); }
+      25% { transform: rotate(15deg); }
+      50% { transform: rotate(-15deg); }
+      75% { transform: rotate(10deg); }
+      100% { transform: rotate(0deg); }
+    }
+    
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
+    }
+    
+    .shake {
+      animation: shake 0.8s ease-in-out;
+    }
+    
+    .float {
+      animation: float 3s ease-in-out infinite;
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 600px) {
+      .ball {
+        width: 250px;
+        height: 250px;
+      }
+      .inner-circle {
+        width: 125px;
+        height: 125px;
+        border-width: 4px;
+      }
+    }
