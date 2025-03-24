@@ -8,8 +8,10 @@ body {
   background: #000; /* Fallback if uv-background fails */
   color: #e0e0e0;
   font-family: 'Share Tech Mono', monospace;
+  min-height: 100vh; /* Ensures content fills iframe */
 }
 
+/* Main container */
 .container {
   width: 100%;
   max-width: 500px;
@@ -22,6 +24,7 @@ body {
   text-align: center;
 }
 
+/* Label styling */
 label[for="dob"] {
   display: block;
   color: #39ff14;
@@ -30,11 +33,11 @@ label[for="dob"] {
   margin-bottom: 1rem;
 }
 
+/* Input and button wrapper */
 .input-container {
   display: flex;
+  flex-direction: column;
   gap: 1rem;
-  justify-content: center;
-  align-items: center;
 }
 
 #dob {
@@ -80,7 +83,8 @@ button:active {
   transform: translateY(0);
 }
 
-.result {
+/* Result section */
+#result {
   margin-top: 2rem;
   padding: 1rem;
   background: #000;
@@ -88,19 +92,23 @@ button:active {
   border-radius: 10px;
   color: #fff;
   text-shadow: 0 0 5px #39ff14;
-  display: none; /* Matches initial state in script */
+  font-size: 1.1em;
 }
 
-.result h2 {
+#result h2 {
   color: #00f0ff;
   text-shadow: 0 0 5px #00f0ff;
   font-size: 1.3em;
   margin-bottom: 1rem;
 }
 
-.result p {
+#result p {
   margin: 0.5rem 0;
-  font-size: 1.1em;
+}
+
+#result strong {
+  color: #39ff14;
+  text-shadow: 0 0 5px #39ff14;
 }
 
 #lifePathNumber, #personality, #birthCard {
@@ -109,6 +117,7 @@ button:active {
   font-weight: bold;
 }
 
+/* Responsive adjustments */
 @media (max-width: 600px) {
   .container {
     margin: 1rem;
@@ -117,15 +126,10 @@ button:active {
   label[for="dob"] {
     font-size: 1em;
   }
-  .input-container {
-    flex-direction: column;
-    gap: 0.5rem;
-  }
   #dob, button {
     font-size: 1em;
-    width: 100%;
   }
-  .result h2 {
+  #result h2 {
     font-size: 1.1em;
   }
 }
