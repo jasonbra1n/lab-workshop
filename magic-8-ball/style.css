@@ -10,11 +10,15 @@
   height: 300px;
   border-radius: 50%;
   background: radial-gradient(circle at 40% 40%, #333, #000);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 20px #00f0ff; /* Added neon glow */
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 20px #00f0ff;
   margin: 2rem auto;
-  cursor: pointer;
+  cursor: pointer; /* Indicates tappability */
   transition: transform 0.3s ease;
   overflow: hidden;
+}
+
+.ball:active {
+  transform: scale(0.95); /* Visual feedback on tap */
 }
 
 .ball::before {
@@ -24,7 +28,7 @@
   left: 10%;
   width: 60%;
   height: 40%;
-  background: rgba(57, 255, 20, 0.2); /* Neon green hint */
+  background: rgba(57, 255, 20, 0.2);
   border-radius: 50%;
   transform: rotate(-30deg);
   filter: blur(4px);
@@ -42,8 +46,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 5px solid #39ff14; /* Neon green from lab theme */
-  box-shadow: inset 0 0 10px #00f0ff; /* Neon blue glow */
+  border: 5px solid #39ff14;
+  box-shadow: inset 0 0 10px #00f0ff;
 }
 
 .triangle-container {
@@ -72,12 +76,12 @@
   font-size: 0.9em;
   font-weight: bold;
   pointer-events: none;
-  text-shadow: 0 0 8px #00f0ff; /* Matches lab theme glow */
+  text-shadow: 0 0 8px #00f0ff;
   font-family: 'Share Tech Mono', monospace;
 }
 
 button {
-  background: #00f0ff; /* Neon blue from lab theme */
+  background: #00f0ff;
   color: #000;
   font-size: 1.2em;
   padding: 0.5rem 1rem;
@@ -93,7 +97,7 @@ button {
 }
 
 button:hover {
-  background: #39ff14; /* Neon green from lab theme */
+  background: #39ff14;
   transform: translateY(-2px);
   box-shadow: 0 0 15px #39ff14;
 }
@@ -125,6 +129,9 @@ button:active {
 }
 
 @media (max-width: 600px) {
+  .eightball-container {
+    padding: 1.5rem;
+  }
   .ball {
     width: 250px;
     height: 250px;
@@ -133,5 +140,8 @@ button:active {
     width: 125px;
     height: 125px;
     border-width: 4px;
+  }
+  button {
+    font-size: 1em;
   }
 }
