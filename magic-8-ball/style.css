@@ -1,21 +1,16 @@
-body {
-  background-color: #000000; /* Matches workshop.css */
-}
-
 .eightball-container {
   text-align: center;
   perspective: 1200px;
   padding: 2rem;
-  position: relative;
 }
 
 .ball {
   position: relative;
   width: 300px;
   height: 300px;
-  border-radius: 50%; /* Keeps the classic ball shape */
-  background: radial-gradient(circle at 40% 40%, #1a1a2e, #000);
-  box-shadow: 0 0 20px #00f0ff, inset 0 0 15px #39ff14; /* Neon UV glow */
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 40%, #333, #000);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 20px #00f0ff; /* Added neon glow */
   margin: 2rem auto;
   cursor: pointer;
   transition: transform 0.3s ease;
@@ -29,7 +24,7 @@ body {
   left: 10%;
   width: 60%;
   height: 40%;
-  background: rgba(57, 255, 20, 0.2); /* Neon green highlight */
+  background: rgba(57, 255, 20, 0.2); /* Neon green hint */
   border-radius: 50%;
   transform: rotate(-30deg);
   filter: blur(4px);
@@ -47,9 +42,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 5px solid #39ff14; /* Neon green border */
-  box-shadow: 0 0 15px #39ff14, inset 0 0 10px #00f0ff; /* Dual glow */
-  animation: pulse 2s infinite;
+  border: 5px solid #39ff14; /* Neon green from lab theme */
+  box-shadow: inset 0 0 10px #00f0ff; /* Neon blue glow */
 }
 
 .triangle-container {
@@ -78,21 +72,20 @@ body {
   font-size: 0.9em;
   font-weight: bold;
   pointer-events: none;
-  text-shadow: 0 0 5px #00f0ff; /* Neon blue shadow */
+  text-shadow: 0 0 8px #00f0ff; /* Matches lab theme glow */
   font-family: 'Share Tech Mono', monospace;
-  letter-spacing: 1px; /* Futuristic spacing */
 }
 
 button {
-  background-color: #00f0ff; /* Neon blue */
-  color: #000000;
+  background: #00f0ff; /* Neon blue from lab theme */
+  color: #000;
   font-size: 1.2em;
   padding: 0.5rem 1rem;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
-  box-shadow: 0 0 10px #00f0ff; /* Matches workshop button */
+  box-shadow: 0 0 10px #00f0ff;
   text-transform: uppercase;
   letter-spacing: 1px;
   margin-top: 1rem;
@@ -100,7 +93,7 @@ button {
 }
 
 button:hover {
-  background-color: #39ff14; /* Neon green */
+  background: #39ff14; /* Neon green from lab theme */
   transform: translateY(-2px);
   box-shadow: 0 0 15px #39ff14;
 }
@@ -121,12 +114,6 @@ button:active {
   0% { transform: translateY(0px); }
   50% { transform: translateY(-10px); }
   100% { transform: translateY(0px); }
-}
-
-@keyframes pulse {
-  0% { box-shadow: 0 0 0 0 rgba(57, 255, 20, 0.7); }
-  70% { box-shadow: 0 0 0 15px rgba(57, 255, 20, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(57, 255, 20, 0); }
 }
 
 .shake {
