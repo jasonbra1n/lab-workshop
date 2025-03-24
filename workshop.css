@@ -48,33 +48,17 @@ header p {
 .tool-card {
   background: linear-gradient(135deg, #0a0a1a 0%, #1a1a2e 100%);
   border: 2px solid #00f0ff;
+  border-radius: 15px; /* Rounded corners instead of hexagon */
   padding: 1.5rem;
   text-align: center;
-  position: relative;
-  clip-path: polygon(10% 0%, 90% 0%, 100% 20%, 100% 80%, 90% 100%, 10% 100%, 0% 80%, 0% 20%);
   transition: all 0.3s ease;
   box-shadow: 0 0 10px #00f0ff;
-}
-
-.tool-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  background: linear-gradient(to right, transparent, #39ff14, transparent);
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.tool-card:hover::before {
-  opacity: 1;
-  animation: scanline 1s infinite;
+  position: relative;
+  overflow: hidden;
 }
 
 .tool-card:hover {
-  transform: translateY(-5px) rotate(2deg);
+  transform: translateY(-5px);
   border-color: #39ff14;
   box-shadow: 0 0 20px #39ff14, inset 0 0 10px #00f0ff;
 }
@@ -128,11 +112,6 @@ footer {
   0% { transform: translateY(0); }
   50% { transform: translateY(-20px); }
   100% { transform: translateY(0); }
-}
-
-@keyframes scanline {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(100%); }
 }
 
 @keyframes pulse {
