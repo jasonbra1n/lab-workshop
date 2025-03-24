@@ -8,20 +8,23 @@ body {
   background: #000; /* Fallback if uv-background fails */
   color: #e0e0e0;
   font-family: 'Share Tech Mono', monospace;
-  min-height: 100vh; /* Ensures content fills iframe */
+  min-height: 100vh; /* Full viewport height */
+  display: flex; /* Center content vertically and horizontally */
+  justify-content: center;
+  align-items: center;
 }
 
 /* Main container */
 .container {
   width: 100%;
   max-width: 500px;
-  margin: 2rem auto;
   padding: 2rem;
   background: linear-gradient(135deg, #0a0a1a 0%, #1a1a2e 100%);
   border: 2px solid #00f0ff;
   border-radius: 15px;
   box-shadow: 0 0 20px #00f0ff;
   text-align: center;
+  height: auto; /* Let content determine height */
 }
 
 /* Label styling */
@@ -120,7 +123,6 @@ button:active {
 /* Responsive adjustments */
 @media (max-width: 600px) {
   .container {
-    margin: 1rem;
     padding: 1.5rem;
   }
   label[for="dob"] {
