@@ -1,38 +1,83 @@
 .container {
-            width: 100%;
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
-            font-family: Arial, sans-serif;
-        }
+    width: 100%;
+    max-width: 600px;
+    margin: 2rem auto; /* Increased margin for spacing */
+    padding: 20px;
+    font-family: 'Share Tech Mono', monospace; /* Lab font */
+    background: linear-gradient(135deg, #0a0a1a 0%, #1a1a2e 100%); /* Subtle gradient */
+    border: 2px solid #00f0ff; /* Neon blue border */
+    box-shadow: 0 0 20px #00f0ff; /* Neon glow */
+    clip-path: polygon(10% 0%, 90% 0%, 100% 20%, 100% 80%, 90% 100%, 10% 100%, 0% 80%, 0% 20%); /* Hexagonal shape */
+}
 
-        /* Ensure label is on a separate line */
-        label {
-            display: block;
-            margin-bottom: 10px;
-        }
+label {
+    display: block;
+    margin-bottom: 10px;
+    color: #00f0ff; /* Neon blue */
+    text-shadow: 0 0 5px #00f0ff; /* Glow */
+    font-size: 1.2em;
+}
 
-        .input-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+.input-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
-        .input-container input {
-            flex-grow: 1;
-            padding: 5px;
-            margin-right: 10px;
-        }
+.input-container input {
+    flex-grow: 1;
+    padding: 8px;
+    margin-right: 10px;
+    background: #1a1a2e; /* Dark background */
+    color: #e0e0e0; /* Light text */
+    border: 2px solid #39ff14; /* Neon green border */
+    border-radius: 5px;
+    font-family: 'Share Tech Mono', monospace;
+    box-shadow: 0 0 5px #39ff14; /* Subtle glow */
+}
 
-        .input-container button {
-            padding: 6px 12px;
-        }
+.input-container button {
+    padding: 8px 16px;
+    background: #00f0ff; /* Neon blue */
+    color: #000; /* Black text for contrast */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 0 10px #00f0ff; /* Glow */
+    font-family: 'Share Tech Mono', monospace;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
 
-        .result {
-            display: none;
-            margin-top: 20px;
-        }
+.input-container button:hover {
+    background: #39ff14; /* Neon green */
+    transform: translateY(-2px);
+    box-shadow: 0 0 15px #39ff14;
+}
 
-        .result p {
-            margin: 5px 0;
-        }
+.input-container button:active {
+    transform: translateY(0);
+}
+
+.result {
+    display: none;
+    margin-top: 20px;
+    color: #e0e0e0; /* Light gray text */
+}
+
+.result h2 {
+    color: #39ff14; /* Neon green */
+    text-shadow: 0 0 5px #39ff14;
+    font-size: 1.5em;
+}
+
+.result p {
+    margin: 10px 0;
+    font-size: 1em;
+}
+
+.result span {
+    color: #00f0ff; /* Neon blue for values */
+    text-shadow: 0 0 5px #00f0ff;
+}
