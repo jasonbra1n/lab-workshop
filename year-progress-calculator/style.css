@@ -1,0 +1,111 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #000;
+    color: #e0e0e0;
+    font-family: 'Share Tech Mono', monospace;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    width: 100%;
+    max-width: 500px;
+    padding: 2rem;
+    background: linear-gradient(135deg, #0a0a1a 0%, #1a1a2e 100%);
+    border: 2px solid #00f0ff;
+    border-radius: 15px;
+    box-shadow: 0 0 20px #00f0ff;
+    text-align: center;
+}
+
+h1 {
+    color: #00f0ff;
+    text-shadow: 0 0 5px #00f0ff;
+    font-size: 1.5em;
+    margin-bottom: 1rem;
+}
+
+label[for="dateInput"] {
+    display: block;
+    color: #39ff14;
+    text-shadow: 0 0 5px #39ff14;
+    font-size: 1.2em;
+    margin-bottom: 1rem;
+}
+
+input {
+    padding: 0.5rem;
+    font-size: 1em;
+    background: #1a1a2e;
+    color: #e0e0e0;
+    border: 1px solid #00f0ff;
+    border-radius: 5px;
+    box-shadow: 0 0 5px #00f0ff;
+    font-family: 'Share Tech Mono', monospace;
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+input:focus {
+    outline: none;
+    border-color: #39ff14;
+    box-shadow: 0 0 10px #39ff14;
+}
+
+#result, #countdown {
+    color: #fff;
+    text-shadow: 0 0 5px #39ff14;
+    font-size: 1.1em;
+    margin: 1rem 0;
+}
+
+#progressBarContainer {
+    width: 100%;
+    background: #1a1a2e;
+    border: 1px solid #00f0ff;
+    border-radius: 5px;
+    margin: 1rem 0;
+    box-shadow: 0 0 5px #00f0ff;
+}
+
+#progressBar {
+    width: 0%;
+    height: 20px;
+    background: linear-gradient(90deg, #00f0ff, #39ff14);
+    border-radius: 5px;
+    transition: width 0.5s ease-in-out;
+    box-shadow: 0 0 10px #39ff14;
+}
+
+canvas {
+    margin-top: 1rem;
+    max-width: 100%;
+    width: 100%;
+    height: auto;
+}
+
+@media (max-width: 600px) {
+    .container {
+        padding: 1.5rem;
+    }
+    h1 {
+        font-size: 1.2em;
+    }
+    label[for="dateInput"] {
+        font-size: 1em;
+    }
+    input {
+        font-size: 0.9em;
+    }
+    #result, #countdown {
+        font-size: 1em;
+    }
+}
