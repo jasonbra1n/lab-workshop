@@ -3,22 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Magic 8 Ball</title>
+  <title>Magic 8 Ball - Jason's Lab</title>
   <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/workshop.css">
-  <link rel="stylesheet" href="style.css">
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-9SLVPCR997"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-9SLVPCR997');
-</script>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0633259514526906"
-     crossorigin="anonymous"></script>
-  
+  <link rel="stylesheet" href="/workshop.css"> <!-- Lab theme -->
+  <link rel="stylesheet" href="style.css">     <!-- Tool-specific styles -->
 </head>
 <body>
   <div class="uv-background"></div>
@@ -36,7 +24,7 @@
               A10,10 0 0 1 20,65
               L40,25
               A10,10 0 0 1 50,15
-              Z" fill="#c300ff" /> <!--  UV purple -->
+              Z" fill="#c300ff" /> <!-- UV purple for readability -->
           </svg>
           <div class="triangle-text" id="answer">Ask a question...</div>
         </div>
@@ -44,7 +32,7 @@
     </div>
     <button id="askButton">Ask the Magic 8 Ball</button>
   </div>
-  <script src="/workshop.js"></script>
-  <script src="script.js"></script>
+  <script src="/workshop.js"></script> <!-- Bubbles -->
+  <script src="script.js"></script>     <!-- Tool logic -->
 </body>
 </html>
