@@ -14,14 +14,14 @@
       background: linear-gradient(135deg, #0a0a1a 0%, #1a1a2e 100%);
       border: 2px solid #00f0ff;
       box-shadow: 0 0 20px #00f0ff;
-      border-radius: 15px; /* Rounded corners instead of hexagon */
+      border-radius: 15px;
     }
     .lab-container iframe {
       width: 100%;
       height: 600px;
       border: none;
       background: #000;
-      border-radius: 10px; /* Slight rounding on iframe for consistency */
+      border-radius: 10px;
     }
     .back-link {
       display: block;
@@ -39,14 +39,12 @@
 </head>
 <body>
   <div class="uv-background"></div>
-  <header>
-    <h1>Jason's UV Lab</h1>
-    <p>Experiments in Neon and Code</p>
-  </header>
+  <div id="header-placeholder"></div>
   <div class="lab-container">
     <iframe src="/magic-8-ball/index.html" title="Magic 8 Ball"></iframe>
   </div>
   <a href="/" class="back-link">Back to Lab</a>
-  <script src="/workshop.js"></script>
+  <div id="footer-placeholder"></div>
+  <script src="/load-components.js"></script>
 </body>
 </html>
