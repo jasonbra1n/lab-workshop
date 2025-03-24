@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Year Progress Calculator - Jason's Lab</title>
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/workshop.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="uv-background"></div>
+    <div class="container">
+        <h1>Year Progress Calculator</h1>
+        <label for="dateInput">Choose Date:</label>
+        <input type="date" id="dateInput" onchange="handleDateChange()">
+        <p id="result"></p>
+        <p id="countdown"></p>
+        <div id="progressBarContainer">
+            <div id="progressBar"></div>
+        </div>
+        <canvas id="yearProgressChart" width="200" height="200"></canvas>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
