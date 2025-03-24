@@ -27,13 +27,12 @@ const easterEggAnswers = [
   { text: "You have unlocked the secret of the 8 Ball. Now, roll a D20.", type: "easter-egg" }
 ];
 
-// Vibration patterns for mobile (in milliseconds)
 const vibrationPatterns = [
-  [100],           // Short pulse
-  [200, 100, 200], // Double pulse
-  [50, 50, 50, 50], // Quick bursts
-  [300],           // Longer pulse
-  [100, 100, 100]  // Triple pulse
+  [100],
+  [200, 100, 200],
+  [50, 50, 50, 50],
+  [300],
+  [100, 100, 100]
 ];
 
 const askButton = document.getElementById("askButton");
@@ -48,18 +47,26 @@ function getRandomVibration() {
   return vibrationPatterns[randomIndex];
 }
 
-function askQuestion() {
+function askQuestion(event) {
   if (isAnimating) return;
+
+  // Prevent default for touch events to ensure vibration works
+  if (event && event.type === "touchstart") {
+    event.preventDefault();
+  }
 
   isAnimating = true;
   triangleContainer.style.opacity = "0";
   ball.classList.remove("float");
   ball.classList.add("shake");
 
-  // Trigger vibration on mobile
+  // Trigger vibration
   if ("vibrate" in navigator) {
     const vibration = getRandomVibration();
+    console.log("Vibrating with pattern:", vibration); // Debug
     navigator.vibrate(vibration);
+  } else {
+    console.log("Vibration API not supported");
   }
 
   setTimeout(() => {
@@ -78,17 +85,19 @@ function askQuestion() {
   }, 2000);
 }
 
-// Event listeners for button and ball
+// Event listeners
 askButton.addEventListener("click", askQuestion);
 ball.addEventListener("click", askQuestion);
 
-// Support touch events for mobile
-ball.addEventListener("touchstart", (e) => {
-  e.preventDefault(); // Prevent scrolling or other defaults
-  askQuestion();
-});
+// Enhanced touch support for mobile
+ball.addEventListener("touchstart", askQuestion, { passive: false });
+// Optional: Add touchend for extra reliability
+ball.addEventListener("touchend", (e) => {
+  e.preventDefault();
+  askQuestion(e);
+}, { passive: false });
 
-// Allow Enter key to trigger
+// Enter key support
 document.addEventListener("keypress", (e) => {
   if (e.key === "Enter" && !isAnimating) {
     askQuestion();
