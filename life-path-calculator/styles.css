@@ -8,10 +8,21 @@ body {
   background: #000; /* Fallback if uv-background fails */
   color: #e0e0e0;
   font-family: 'Share Tech Mono', monospace;
-  min-height: 100vh; /* Full viewport height */
-  display: flex; /* Center content vertically and horizontally */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column; /* Stack title and container vertically */
   justify-content: center;
   align-items: center;
+}
+
+/* New title styling */
+h1 {
+  color: #00f0ff;
+  text-shadow: 0 0 5px #00f0ff;
+  font-size: 1.5em;
+  letter-spacing: 1px;
+  margin-bottom: 1rem;
+  text-align: center;
 }
 
 /* Main container */
@@ -24,7 +35,7 @@ body {
   border-radius: 15px;
   box-shadow: 0 0 20px #00f0ff;
   text-align: center;
-  height: auto; /* Let content determine height */
+  height: auto;
 }
 
 /* Label styling */
@@ -98,13 +109,6 @@ button:active {
   font-size: 1.1em;
 }
 
-#result h2 {
-  color: #00f0ff;
-  text-shadow: 0 0 5px #00f0ff;
-  font-size: 1.3em;
-  margin-bottom: 1rem;
-}
-
 #result p {
   margin: 0.5rem 0;
 }
@@ -122,6 +126,9 @@ button:active {
 
 /* Responsive adjustments */
 @media (max-width: 600px) {
+  h1 {
+    font-size: 1.2em;
+  }
   .container {
     padding: 1.5rem;
   }
@@ -130,8 +137,5 @@ button:active {
   }
   #dob, button {
     font-size: 1em;
-  }
-  #result h2 {
-    font-size: 1.1em;
   }
 }
