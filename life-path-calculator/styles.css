@@ -1,0 +1,38 @@
+.container {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Ensure label is on a separate line */
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .input-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .input-container input {
+            flex-grow: 1;
+            padding: 5px;
+            margin-right: 10px;
+        }
+
+        .input-container button {
+            padding: 6px 12px;
+        }
+
+        .result {
+            display: none;
+            margin-top: 20px;
+        }
+
+        .result p {
+            margin: 5px 0;
+        }
