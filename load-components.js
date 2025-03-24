@@ -1,31 +1,19 @@
 document.addEventListener('DOMContentLoaded', () => {
-  // Load Head
+  // Load Head (analytics and meta)
   fetch('/head.html')
     .then(response => response.text())
     .then(data => {
-      document.head.innerHTML += data; // Append AdSense script and other head content
-
-      // Wait for AdSense script to load
-      const adSenseScript = document.querySelector('script[src*="adsbygoogle.js"]');
-      if (adSenseScript) {
-        adSenseScript.onload = function() {
-          // Trigger ads once script is ready
-          if (document.querySelector('ins.adsbygoogle')) {
-            (adsbygoogle = window.adsbygoogle || []).push({});
-          } else {
-            console.log('No ad slots found yet; waiting for header/footer');
-          }
-        };
-        // If script somehow loaded already, trigger immediately
-        if (adSenseScript.complete) {
-          (adsbygoogle = window.adsbygoogle || []).push({});
-        }
-      }
+      document.head.innerHTML += data; // Append analytics and meta to head
 
       // Allow pages to override the title after loading
       const pageTitle = document.querySelector('meta[name="page-title"]');
       if (pageTitle) {
         document.title = pageTitle.getAttribute('content');
+      }
+
+      // Trigger AdSense if ad slots are already present (e.g., in index.html)
+      if (document.querySelector('ins.adsbygoogle') && window.adsbygoogle) {
+        (adsbygoogle = window.adsbygoogle || []).push({});
       }
     })
     .catch(error => console.error('Error loading head:', error));
@@ -35,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
     .then(response => response.text())
     .then(data => {
       document.getElementById('header-placeholder').innerHTML = data;
-      // If ad slots are in header, trigger AdSense
+      // Trigger AdSense if ad slots are in header
       if (document.querySelector('ins.adsbygoogle') && window.adsbygoogle) {
         (adsbygoogle = window.adsbygoogle || []).push({});
       }
@@ -47,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
     .then(response => response.text())
     .then(data => {
       document.getElementById('footer-placeholder').innerHTML = data;
-      // If ad slots are in footer, trigger AdSense
+      // Trigger AdSense if ad slots are in footer
       if (document.querySelector('ins.adsbygoogle') && window.adsbygoogle) {
         (adsbygoogle = window.adsbygoogle || []).push({});
       }
