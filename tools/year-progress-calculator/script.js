@@ -1,9 +1,15 @@
 window.onload = function() {
+    // Set default to current date
     const now = new Date();
     const year = now.getFullYear();
     const month = String(now.getMonth() + 1).padStart(2, '0');
     const day = String(now.getDate()).padStart(2, '0');
-    document.getElementById("dateInput").value = `${year}-${month}-${day}`;
+    const dateInput = document.getElementById("dateInput");
+    
+    // Set both the value and the HTML5 date input's displayed value
+    dateInput.value = `${year}-${month}-${day}`;
+    dateInput.defaultValue = `${year}-${month}-${day}`;
+    
     handleDateChange();
 };
 
