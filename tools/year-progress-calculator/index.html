@@ -3,24 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Year Progress Calculator - Jason's Lab</title>
-    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/workshop.css">
-    <link rel="stylesheet" href="styles.css">
+    <title>Year Progress Calculator</title>
+    <link rel="stylesheet" href="../styles.css"> <!-- Link to main styles -->
+    <link rel="stylesheet" href="styles.css"> <!-- Tool-specific styles -->
 </head>
 <body>
-    <div class="uv-background"></div>
     <div class="container">
         <h1>Year Progress Calculator</h1>
         <label for="dateInput">Choose Date:</label>
         <input type="date" id="dateInput" onchange="handleDateChange()">
+
         <p id="result"></p>
+        <p id="timeRemaining"></p>
         <p id="countdown"></p>
+
+        <!-- Progress Bar -->
         <div id="progressBarContainer">
             <div id="progressBar"></div>
         </div>
+
+        <!-- Pie Chart -->
         <canvas id="yearProgressChart" width="200" height="200"></canvas>
     </div>
-    <script src="script.js"></script>
+    <script src="../script.js"></script> <!-- Main theme script -->
+    <script src="script.js"></script> <!-- Tool-specific script -->
 </body>
 </html>
