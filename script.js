@@ -8,6 +8,7 @@ function initializeTheme() {
     } else if (prefersDark) {
         document.documentElement.classList.add('dark-theme');
     }
+    updateThemeIcon(); // Ensure icon matches initial theme
 }
 
 function toggleTheme() {
@@ -21,6 +22,18 @@ function toggleTheme() {
         htmlEl.classList.remove('light-theme');
         htmlEl.classList.add('dark-theme');
         localStorage.setItem('theme', 'dark-theme');
+    }
+    updateThemeIcon(); // Update icon immediately after toggle
+}
+
+function updateThemeIcon() {
+    const isDark = document.documentElement.classList.contains('dark-theme');
+    const sunIcon = document.getElementById('sun-icon');
+    const moonIcon = document.getElementById('moon-icon');
+    
+    if (sunIcon && moonIcon) {
+        sunIcon.style.display = isDark ? 'none' : 'block';
+        moonIcon.style.display = isDark ? 'block' : 'none';
     }
 }
 
@@ -52,13 +65,7 @@ function addThemeToggle() {
     
     toggle.addEventListener('click', toggleTheme);
     document.body.appendChild(toggle);
-    updateThemeIcon();
-}
-
-function updateThemeIcon() {
-    const isDark = document.documentElement.classList.contains('dark-theme');
-    document.getElementById('sun-icon').style.display = isDark ? 'none' : 'block';
-    document.getElementById('moon-icon').style.display = isDark ? 'block' : 'none';
+    updateThemeIcon(); // Set initial icon state
 }
 
 // Tool Loading System
