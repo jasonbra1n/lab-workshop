@@ -1,13 +1,22 @@
 :root {
-    /* Existing variables... */
+    --bg-color: #ffffff;
+    --text-color: #333333;
+    --primary-color: #2563eb;
+    --card-bg: #f8fafc;
+    --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     --console-bg: #f5f5f5;
     --border-color: #ddd;
     --primary-hover: #1d4ed8;
     --primary-active: #1e40af;
+    --font-family: 'Segoe UI', system-ui, sans-serif;
 }
 
 .dark-theme {
-    /* Existing dark theme variables... */
+    --bg-color: #1e293b;
+    --text-color: #f8fafc;
+    --primary-color: #3b82f6;
+    --card-bg: #334155;
+    --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
     --console-bg: #1f2937;
     --border-color: #374151;
     --primary-hover: #3b82f6;
@@ -15,8 +24,7 @@
 }
 
 body {
-    font-family: 'Segoe UI', system-ui, sans-serif;
-    line-height: 1.6;
+    font-family: var(--font-family);
     margin: 0;
     padding: 0;
     background-color: var(--bg-color);
@@ -26,74 +34,16 @@ body {
 
 header {
     text-align: center;
-    padding: 2rem 1rem;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-}
-
-.tools-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 1.5rem;
-    padding: 2rem;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.tool-card {
-    background: var(--card-bg);
-    border-radius: 8px;
-    padding: 1.5rem;
-    text-decoration: none;
-    color: inherit;
-    box-shadow: var(--card-shadow);
-    transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.tool-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
-}
-
-footer {
-    text-align: center;
-    padding: 1.5rem;
-    margin-top: 2rem;
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
-}
-body, .tool-card {
-    transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
-}
-
-/* Console Layout */
-#console-container {
-    display: flex;
-    flex-direction: column;
-    height: calc(100vh - 150px); /* Adjust based on header/footer height */
-    margin: 0;
-    padding: 0;
-    background-color: var(--console-bg, var(--card-bg));
-    border-top: 1px solid var(--border-color);
+    padding: 1rem;
     border-bottom: 1px solid var(--border-color);
 }
 
-#tool-frame-container {
-    flex: 1;
-    overflow: auto;
-    padding: 20px;
-}
-
-.welcome-message {
-    text-align: center;
-    margin-top: 100px;
-    color: var(--text-color);
-}
-
-/* Tool Navigation */
 .tool-nav {
     display: flex;
     gap: 10px;
-    padding: 10px 0;
-    overflow-x: auto;
+    justify-content: center;
+    padding: 10px;
+    flex-wrap: wrap;
 }
 
 .tool-btn {
@@ -103,7 +53,6 @@ body, .tool-card {
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    white-space: nowrap;
     transition: background-color 0.2s;
 }
 
@@ -116,13 +65,56 @@ body, .tool-card {
     font-weight: bold;
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
+#console-container {
+    min-height: calc(100vh - 180px);
+    background-color: var(--console-bg);
+    padding: 20px;
+}
+
+#tool-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.welcome-message {
+    text-align: center;
+    padding: 40px 20px;
+}
+
+footer {
+    text-align: center;
+    padding: 1rem;
+    border-top: 1px solid var(--border-color);
+}
+
+/* Tool-specific styles that will apply to loaded content */
+.tool-container {
+    background-color: var(--card-bg);
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: var(--card-shadow);
+    margin: 0 auto;
+}
+
+.tool-container input,
+.tool-container button {
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    border: 1px solid var(--primary-color);
+}
+
+.tool-container canvas {
+    background-color: var(--card-bg);
+}
+
+@media (max-width: 600px) {
     .tool-nav {
-        padding: 10px;
+        justify-content: flex-start;
+        overflow-x: auto;
+        padding: 10px 5px;
     }
     
     #console-container {
-        height: calc(100vh - 180px);
+        padding: 10px;
     }
 }
