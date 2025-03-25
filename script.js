@@ -21,4 +21,4 @@ function addThemeToggle() {
 }
 
 // Call this if you want manual theme control
-// addThemeToggle();
+addThemeToggle();
