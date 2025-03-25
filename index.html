@@ -10,20 +10,21 @@
     <header>
         <h1>Jason's Lab</h1>
         <p>A collection of handy web tools</p>
+        <nav class="tool-nav">
+            <button class="tool-btn" data-tool="image-to-webp-converter">Image to WebP</button>
+            <button class="tool-btn" data-tool="year-progress-calculator">Year Progress</button>
+            <!-- Add more tools as needed -->
+        </nav>
     </header>
     
-    <main class="tools-grid">
-        <a href="tools/image-to-webp-converter/" class="tool-card">
-            <h2>Image to WebP Converter</h2>
-            <p>Convert images to WebP format</p>
-        </a>
-        
-        <a href="tools/year-progress-calculator/" class="tool-card">
-            <h2>Year Progress Calculator</h2>
-            <p>See how much of the year has passed</p>
-        </a>
-        
-        <!-- More tools can be added here later -->
+    <main id="console-container">
+        <div id="tool-frame-container">
+            <!-- Tool content will load here -->
+            <div class="welcome-message">
+                <h2>Welcome to Jason's Lab</h2>
+                <p>Select a tool from the navigation above to begin.</p>
+            </div>
+        </div>
     </main>
     
     <footer>
