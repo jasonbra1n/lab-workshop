@@ -1,4 +1,54 @@
-//  only the calculator logic
+// Add this to your existing script.js
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Tool loading functionality
+    const toolButtons = document.querySelectorAll('.tool-btn');
+    const toolContainer = document.getElementById('tool-frame-container');
+    
+    toolButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            // Update active button
+            toolButtons.forEach(btn => btn.classList.remove('active'));
+            this.classList.add('active');
+            
+            // Load tool content
+            const toolName = this.getAttribute('data-tool');
+            loadTool(toolName);
+        });
+    });
+    
+    function loadTool(toolName) {
+        // Clear previous content
+        toolContainer.innerHTML = '';
+        
+        // Create iframe for the tool
+        const iframe = document.createElement('iframe');
+        iframe.src = `tools/${toolName}/`;
+        iframe.style.width = '100%';
+        iframe.style.height = '100%';
+        iframe.style.border = 'none';
+        iframe.title = `${toolName} tool`;
+        
+        // Add loading indicator
+        const loading = document.createElement('div');
+        loading.textContent = 'Loading tool...';
+        loading.style.textAlign = 'center';
+        loading.style.padding = '20px';
+        toolContainer.appendChild(loading);
+        
+        iframe.onload = function() {
+            toolContainer.removeChild(loading);
+        };
+        
+        toolContainer.appendChild(iframe);
+    }
+    
+    // Initialize theme (keep your existing theme code)
+    initializeTheme();
+    addThemeToggle();
+});
+
+// Keep all your existing theme-related functions
 window.onload = function() {
     const now = new Date();
     const year = now.getFullYear();
