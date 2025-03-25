@@ -8,7 +8,7 @@ function initializeTheme() {
     } else if (prefersDark) {
         document.documentElement.classList.add('dark-theme');
     }
-    updateThemeIcon(); // Ensure icon matches initial theme
+    updateThemeIcon();
 }
 
 function toggleTheme() {
@@ -23,7 +23,7 @@ function toggleTheme() {
         htmlEl.classList.add('dark-theme');
         localStorage.setItem('theme', 'dark-theme');
     }
-    updateThemeIcon(); // Update icon immediately after toggle
+    updateThemeIcon();
 }
 
 function updateThemeIcon() {
@@ -47,25 +47,9 @@ function addThemeToggle() {
         </svg>
     `;
     toggle.setAttribute('aria-label', 'Toggle dark mode');
-    toggle.style.position = 'fixed';
-    toggle.style.bottom = '20px';
-    toggle.style.right = '20px';
-    toggle.style.zIndex = '1000';
-    toggle.style.background = 'var(--primary-color)';
-    toggle.style.color = 'white';
-    toggle.style.border = 'none';
-    toggle.style.borderRadius = '50%';
-    toggle.style.width = '48px';
-    toggle.style.height = '48px';
-    toggle.style.display = 'flex';
-    toggle.style.alignItems = 'center';
-    toggle.style.justifyContent = 'center';
-    toggle.style.cursor = 'pointer';
-    toggle.style.boxShadow = '0 2px 10px rgba(0,0,0,0.2)';
-    
-    toggle.addEventListener('click', toggleTheme);
     document.body.appendChild(toggle);
-    updateThemeIcon(); // Set initial icon state
+    toggle.addEventListener('click', toggleTheme);
+    updateThemeIcon();
 }
 
 // Tool Loading System
