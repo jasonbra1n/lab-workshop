@@ -48,3 +48,67 @@ canvas {
         height: auto;
     }
 }
+/* Add these to your existing styles */
+
+/* Console Layout */
+#console-container {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 150px); /* Adjust based on header/footer height */
+    margin: 0;
+    padding: 0;
+    background-color: var(--console-bg, var(--card-bg));
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+}
+
+#tool-frame-container {
+    flex: 1;
+    overflow: auto;
+    padding: 20px;
+}
+
+.welcome-message {
+    text-align: center;
+    margin-top: 100px;
+    color: var(--text-color);
+}
+
+/* Tool Navigation */
+.tool-nav {
+    display: flex;
+    gap: 10px;
+    padding: 10px 0;
+    overflow-x: auto;
+}
+
+.tool-btn {
+    padding: 8px 16px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background-color 0.2s;
+}
+
+.tool-btn:hover {
+    background-color: var(--primary-hover);
+}
+
+.tool-btn.active {
+    background-color: var(--primary-active);
+    font-weight: bold;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .tool-nav {
+        padding: 10px;
+    }
+    
+    #console-container {
+        height: calc(100vh - 180px);
+    }
+}
