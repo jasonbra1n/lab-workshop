@@ -1,54 +1,3 @@
-// Add this to your existing script.js
-
-document.addEventListener('DOMContentLoaded', function() {
-    // Tool loading functionality
-    const toolButtons = document.querySelectorAll('.tool-btn');
-    const toolContainer = document.getElementById('tool-frame-container');
-    
-    toolButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            // Update active button
-            toolButtons.forEach(btn => btn.classList.remove('active'));
-            this.classList.add('active');
-            
-            // Load tool content
-            const toolName = this.getAttribute('data-tool');
-            loadTool(toolName);
-        });
-    });
-    
-    function loadTool(toolName) {
-        // Clear previous content
-        toolContainer.innerHTML = '';
-        
-        // Create iframe for the tool
-        const iframe = document.createElement('iframe');
-        iframe.src = `tools/${toolName}/`;
-        iframe.style.width = '100%';
-        iframe.style.height = '100%';
-        iframe.style.border = 'none';
-        iframe.title = `${toolName} tool`;
-        
-        // Add loading indicator
-        const loading = document.createElement('div');
-        loading.textContent = 'Loading tool...';
-        loading.style.textAlign = 'center';
-        loading.style.padding = '20px';
-        toolContainer.appendChild(loading);
-        
-        iframe.onload = function() {
-            toolContainer.removeChild(loading);
-        };
-        
-        toolContainer.appendChild(iframe);
-    }
-    
-    // Initialize theme (keep your existing theme code)
-    initializeTheme();
-    addThemeToggle();
-});
-
-// Keep all your existing theme-related functions
 window.onload = function() {
     const now = new Date();
     const year = now.getFullYear();
@@ -60,7 +9,7 @@ window.onload = function() {
 
 function handleDateChange() {
     calculateProgress();
-    updateCountdownAndProgressBar();
+    updateCountdown();
 }
 
 function calculateProgress() {
@@ -95,8 +44,8 @@ function calculateProgress() {
     const degreesPassed = (percentPassed / 100) * 360;
 
     document.getElementById("result").innerHTML = `
-        On ${month}/${day}/${year} (Day ${dayOfYear} of the year), approximately ${percentPassed.toFixed(6)}% of the year has passed.<br>
-        This is equivalent to about ${degreesPassed.toFixed(2)}° in a 360-degree circle.<br>
+        On ${month}/${day}/${year} (Day ${dayOfYear} of ${totalDays}),<br>
+        <strong>${percentPassed.toFixed(2)}%</strong> of the year has passed.<br>
         ${isLeap ? "This is a leap year." : "This is not a leap year."}
     `;
 
@@ -106,68 +55,51 @@ function calculateProgress() {
 function drawPieChart(percent) {
     const canvas = document.getElementById("yearProgressChart");
     const ctx = canvas.getContext("2d");
+    const size = Math.min(canvas.width, canvas.height);
     
-    canvas.width = canvas.clientWidth;
-    canvas.height = canvas.clientWidth;
+    canvas.width = size;
+    canvas.height = size;
 
-    const centerX = canvas.width / 2;
-    const centerY = canvas.height / 2;
-    const radius = centerX * 0.8;
+    const centerX = size / 2;
+    const centerY = size / 2;
+    const radius = size / 2 * 0.8;
+    const startAngle = -Math.PI / 2;
+    const endAngle = startAngle + (percent / 100) * 2 * Math.PI;
 
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    // Clear canvas
+    ctx.clearRect(0, 0, size, size);
 
-    // Use CSS variables for colors
-    const bgColor = getComputedStyle(document.documentElement).getPropertyValue('--card-bg').trim();
-    const progressColor = getComputedStyle(document.documentElement).getPropertyValue('--primary-color').trim();
-
+    // Draw background circle
     ctx.beginPath();
     ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
-    ctx.fillStyle = bgColor;
+    ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--console-bg').trim();
     ctx.fill();
 
-    const endAngle = (percent / 100) * 2 * Math.PI;
+    // Draw progress arc
     ctx.beginPath();
     ctx.moveTo(centerX, centerY);
-    ctx.arc(centerX, centerY, radius, -Math.PI / 2, endAngle - Math.PI / 2, false);
-    ctx.lineTo(centerX, centerY);
-    ctx.fillStyle = progressColor;
+    ctx.arc(centerX, centerY, radius, startAngle, endAngle);
+    ctx.closePath();
+    ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--primary-color').trim();
     ctx.fill();
 }
 
-function updateCountdownAndProgressBar() {
+function updateCountdown() {
     const dateInput = document.getElementById("dateInput").value;
     const selectedDate = new Date(dateInput + 'T23:59:59');
     const year = selectedDate.getFullYear();
     const endOfYear = new Date(year, 11, 31, 23, 59, 59);
 
-    if (isNaN(selectedDate.getTime())) {
-        document.getElementById("countdown").innerText = "Invalid date.";
-        return;
-    }
+    if (isNaN(selectedDate.getTime())) return;
 
     const timeRemaining = endOfYear - selectedDate;
     const days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
-    document.getElementById("countdown").innerText = `${days} days remaining`;
+    document.getElementById("countdown").innerHTML = `<strong>${days}</strong> days remaining in ${year}`;
 
     const startOfYear = new Date(year, 0, 1);
     const totalMs = endOfYear - startOfYear;
     const elapsedMs = selectedDate - startOfYear;
     const percentPassed = (elapsedMs / totalMs) * 100;
 
-    animateProgressBar(percentPassed);
-}
-
-function animateProgressBar(targetWidth) {
-    const progressBar = document.getElementById("progressBar");
-    let currentWidth = parseFloat(progressBar.style.width) || 0;
-
-    function step() {
-        currentWidth += (targetWidth - currentWidth) * 0.1;
-        progressBar.style.width = `${Math.min(currentWidth, 100)}%`;
-
-        if (Math.abs(currentWidth - targetWidth) > 0.5) {
-            requestAnimationFrame(step);
-        }
-    }
-    requestAnimationFrame(step);
+    document.getElementById("progressBar").style.width = `${percentPassed}%`;
 }
