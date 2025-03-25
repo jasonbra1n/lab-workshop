@@ -1,36 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jason's Lab</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <header>
-        <h1>Jason's Lab</h1>
-        <p>A collection of handy web tools</p>
-        <nav class="tool-nav">
-            <button class="tool-btn" data-tool="image-to-webp-converter">Image to WebP</button>
-            <button class="tool-btn" data-tool="year-progress-calculator">Year Progress</button>
-            <!-- Add more tools as needed -->
-        </nav>
-    </header>
-    
-    <main id="console-container">
-        <div id="tool-frame-container">
-            <!-- Tool content will load here -->
-            <div class="welcome-message">
-                <h2>Welcome to Jason's Lab</h2>
-                <p>Select a tool from the navigation above to begin.</p>
-            </div>
-        </div>
-    </main>
-    
-    <footer>
-        <p>Open source project by Jason</p>
-    </footer>
-    
-    <script src="script.js"></script>
-</body>
-</html>
+<div class="container">
+    <h2>Year Progress Calculator</h2>
+    <label for="dateInput">Choose Date:</label>
+    <input type="date" id="dateInput" onchange="handleDateChange()">
+
+    <div id="result"></div>
+    <div id="countdown"></div>
+
+    <div id="progressBarContainer">
+        <div id="progressBar"></div>
+    </div>
+
+    <canvas id="yearProgressChart" width="300" height="300"></canvas>
+</div>
