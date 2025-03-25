@@ -1,11 +1,31 @@
-/* Add these to your existing :root and theme variables */
 :root {
-    /* ... (keep your existing variables) ... */
-    --header-height: 120px;
+    --bg-color: #ffffff;
+    --text-color: #333333;
+    --primary-color: #2563eb;
+    --card-bg: #f8fafc;
+    --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --console-bg: #f5f5f5;
+    --border-color: #ddd;
+    --primary-hover: #1d4ed8;
+    --primary-active: #1e40af;
+    --font-family: 'Segoe UI', system-ui, sans-serif;
+    --header-height: 180px;
     --footer-height: 60px;
 }
 
-/* Replace your existing body styles with these */
+.dark-theme {
+    --bg-color: #1e293b;
+    --text-color: #f8fafc;
+    --primary-color: #3b82f6;
+    --card-bg: #334155;
+    --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    --console-bg: #1f2937;
+    --border-color: #374151;
+    --primary-hover: #3b82f6;
+    --primary-active: #2563eb;
+}
+
+/* Base Layout */
 body {
     font-family: var(--font-family);
     margin: 0;
@@ -18,22 +38,20 @@ body {
     min-height: 100vh;
 }
 
-/* Update header styles */
 header {
     text-align: center;
     padding: 1rem;
     border-bottom: 1px solid var(--border-color);
-    height: var(--header-height);
+    min-height: var(--header-height);
     box-sizing: border-box;
 }
 
-/* Update main content area */
 #console-container {
     flex: 1;
     display: flex;
     flex-direction: column;
-    padding: 20px;
     background-color: var(--console-bg);
+    padding: 20px;
 }
 
 #tool-container {
@@ -43,75 +61,100 @@ header {
     max-width: 800px;
     width: 100%;
     margin: 0 auto;
-    overflow-y: auto;
-    max-height: calc(100vh - var(--header-height) - var(--footer-height) - 40px);
-}
 }
 
-/* Update footer styles */
 footer {
     text-align: center;
     padding: 1rem;
     border-top: 1px solid var(--border-color);
-    height: var(--footer-height);
+    min-height: var(--footer-height);
     box-sizing: border-box;
-    margin-top: auto; /* This pushes footer to bottom */
 }
 
-/* Update welcome message */
+/* Content Styles */
 .welcome-message {
-    margin: auto; /* This centers the content vertically */
+    margin: auto;
     text-align: center;
     padding: 40px 20px;
 }
 
-/* Update tool navigation */
 .tool-nav {
     display: flex;
     gap: 10px;
     justify-content: center;
     padding: 10px;
     flex-wrap: wrap;
-    margin-bottom: 20px;
 }
 
-/* Update tool container styles */
+.tool-btn {
+    padding: 8px 16px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.tool-btn:hover {
+    background-color: var(--primary-hover);
+}
+
+.tool-btn.active {
+    background-color: var(--primary-active);
+    font-weight: bold;
+}
+
 .tool-container {
     background-color: var(--card-bg);
     border-radius: 8px;
     padding: 20px;
     box-shadow: var(--card-shadow);
-    margin: 0 auto;
     width: 100%;
-    flex: 1;
 }
 
-/* Responsive adjustments */
+/* Theme Toggle */
+#theme-toggle {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+
+/* Responsive Adjustments */
 @media (max-width: 768px) {
     :root {
-        --header-height: auto;
+        --header-height: 160px;
     }
     
-    header {
-        padding: 10px;
+    .tool-nav {
+        padding: 5px;
     }
     
     #console-container {
         padding: 10px;
     }
-    
-    .tool-nav {
-        padding: 5px;
-        margin-bottom: 10px;
-    }
 }
 
 @media (max-width: 480px) {
     :root {
+        --header-height: 200px;
         --footer-height: 80px;
     }
     
-    footer {
-        padding: 10px;
+    .tool-nav {
+        flex-direction: column;
+        align-items: center;
     }
 }
