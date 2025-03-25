@@ -1,10 +1,8 @@
-// Theme management with localStorage persistence
+// Theme Management
 function initializeTheme() {
-    // Check for saved theme preference
     const savedTheme = localStorage.getItem('theme');
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     
-    // Apply the preferred theme
     if (savedTheme) {
         document.documentElement.classList.add(savedTheme);
     } else if (prefersDark) {
@@ -12,7 +10,6 @@ function initializeTheme() {
     }
 }
 
-// Toggle between themes
 function toggleTheme() {
     const htmlEl = document.documentElement;
     
@@ -27,7 +24,6 @@ function toggleTheme() {
     }
 }
 
-// Create a stylish theme toggle button
 function addThemeToggle() {
     const toggle = document.createElement('button');
     toggle.id = 'theme-toggle';
@@ -38,9 +34,6 @@ function addThemeToggle() {
         </svg>
     `;
     toggle.setAttribute('aria-label', 'Toggle dark mode');
-    toggle.setAttribute('title', 'Toggle dark/light mode');
-    
-    // Position and style the toggle
     toggle.style.position = 'fixed';
     toggle.style.bottom = '20px';
     toggle.style.right = '20px';
@@ -59,116 +52,62 @@ function addThemeToggle() {
     
     toggle.addEventListener('click', toggleTheme);
     document.body.appendChild(toggle);
-    
-    // Update icon based on current theme
     updateThemeIcon();
 }
 
-// Update the toggle icon based on current theme
 function updateThemeIcon() {
     const isDark = document.documentElement.classList.contains('dark-theme');
     document.getElementById('sun-icon').style.display = isDark ? 'none' : 'block';
     document.getElementById('moon-icon').style.display = isDark ? 'block' : 'none';
 }
 
-// Update CSS to work with our theme classes
-function updateThemeStyles() {
-    const style = document.createElement('style');
-    style.textContent = `
-        .dark-theme {
-            --bg-color: #1e293b;
-            --text-color: #f8fafc;
-            --primary-color: #3b82f6;
-            --card-bg: #334155;
-            --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-        }
-        
-        .light-theme {
-            --bg-color: #ffffff;
-            --text-color: #333333;
-            --primary-color: #2563eb;
-            --card-bg: #f8fafc;
-            --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-    `;
-    document.head.appendChild(style);
-}
-
-// Initialize everything when DOM loads
-document.addEventListener('DOMContentLoaded', () => {
-    updateThemeStyles();
+// Tool Loading System
+document.addEventListener('DOMContentLoaded', function() {
     initializeTheme();
     addThemeToggle();
     
-    // Update icon when theme changes
-    document.addEventListener('themeChanged', updateThemeIcon);
-});
-
-// Modify the toggleTheme function to dispatch an event
-function toggleTheme() {
-    const htmlEl = document.documentElement;
-    
-    if (htmlEl.classList.contains('dark-theme')) {
-        htmlEl.classList.remove('dark-theme');
-        htmlEl.classList.add('light-theme');
-        localStorage.setItem('theme', 'light-theme');
-    } else {
-        htmlEl.classList.remove('light-theme');
-        htmlEl.classList.add('dark-theme');
-        localStorage.setItem('theme', 'dark-theme');
-    }
-    
-    // Dispatch custom event
-    htmlEl.dispatchEvent(new CustomEvent('themeChanged'));
-}
-// Add this to your existing script.js
-
-document.addEventListener('DOMContentLoaded', function() {
-    // Tool loading functionality
     const toolButtons = document.querySelectorAll('.tool-btn');
-    const toolContainer = document.getElementById('tool-frame-container');
+    const toolContainer = document.getElementById('tool-container');
     
     toolButtons.forEach(button => {
         button.addEventListener('click', function() {
-            // Update active button
             toolButtons.forEach(btn => btn.classList.remove('active'));
             this.classList.add('active');
-            
-            // Load tool content
-            const toolName = this.getAttribute('data-tool');
-            loadTool(toolName);
+            loadTool(this.dataset.tool);
         });
     });
     
-    function loadTool(toolName) {
-        // Clear previous content
-        toolContainer.innerHTML = '';
-        
-        // Create iframe for the tool
-        const iframe = document.createElement('iframe');
-        iframe.src = `tools/${toolName}/`;
-        iframe.style.width = '100%';
-        iframe.style.height = '100%';
-        iframe.style.border = 'none';
-        iframe.title = `${toolName} tool`;
-        
-        // Add loading indicator
-        const loading = document.createElement('div');
-        loading.textContent = 'Loading tool...';
-        loading.style.textAlign = 'center';
-        loading.style.padding = '20px';
-        toolContainer.appendChild(loading);
-        
-        iframe.onload = function() {
-            toolContainer.removeChild(loading);
-        };
-        
-        toolContainer.appendChild(iframe);
+    async function loadTool(toolName) {
+        try {
+            toolContainer.innerHTML = '<div class="loading">Loading tool...</div>';
+            
+            const response = await fetch(`tools/${toolName}/index.html`);
+            if (!response.ok) throw new Error('Tool not found');
+            
+            const html = await response.text();
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            const toolContent = doc.querySelector('.container') || doc.querySelector('body > div');
+            
+            if (!toolContent) throw new Error('Invalid tool format');
+            
+            toolContent.classList.add('tool-container');
+            toolContainer.innerHTML = '';
+            toolContainer.appendChild(toolContent);
+            
+            // Load the tool's JS
+            const script = document.createElement('script');
+            script.src = `tools/${toolName}/script.js`;
+            toolContainer.appendChild(script);
+            
+        } catch (error) {
+            toolContainer.innerHTML = `
+                <div class="error">
+                    <h3>Error loading tool</h3>
+                    <p>${error.message}</p>
+                    <button onclick="location.reload()">Return Home</button>
+                </div>
+            `;
+        }
     }
-    
-    // Initialize theme (keep your existing theme code)
-    initializeTheme();
-    addThemeToggle();
 });
-
-// Keep all your existing theme-related functions
