@@ -3,10 +3,10 @@
 <head>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0633259514526906" crossorigin="anonymous"></script>
   <meta name="page-title" content="Year Progress Calculator - Jason's UV Lab">
-  <style>
+    <style>
     .lab-container {
-      width: 90%;
-      max-width: 90%;
+      width: 90%; /* Reduced from 100% */
+      max-width: 600px;
       margin: 2rem auto;
       padding: 1rem;
       background: linear-gradient(135deg, #0a0a1a 0%, #1a1a2e 100%);
@@ -33,6 +33,7 @@
       color: #00f0ff;
       text-shadow: 0 0 10px #00f0ff;
     }
+    /* Mobile adjustments */
     @media (max-width: 600px) {
       .lab-container {
         width: 95%;
@@ -40,7 +41,7 @@
         padding: 0.5rem;
       }
       .lab-container iframe {
-        height: 500px;
+        height: 500px; /* Reduced for mobile */
       }
       .back-link {
         margin: 0.5rem 0;
