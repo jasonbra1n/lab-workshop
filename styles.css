@@ -6,16 +6,6 @@
     --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-@media (prefers-color-scheme: dark) {
-    :root {
-        --bg-color: #1e293b;
-        --text-color: #f8fafc;
-        --primary-color: #3b82f6;
-        --card-bg: #334155;
-        --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-    }
-}
-
 body {
     font-family: 'Segoe UI', system-ui, sans-serif;
     line-height: 1.6;
@@ -61,4 +51,7 @@ footer {
     padding: 1.5rem;
     margin-top: 2rem;
     border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+body, .tool-card {
+    transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
 }
