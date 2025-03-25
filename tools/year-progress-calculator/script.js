@@ -1,3 +1,4 @@
+//  only the calculator logic
 window.onload = function() {
     const now = new Date();
     const year = now.getFullYear();
@@ -44,9 +45,9 @@ function calculateProgress() {
     const degreesPassed = (percentPassed / 100) * 360;
 
     document.getElementById("result").innerHTML = `
-        On ${month}/${day}/${year} (Day ${dayOfYear}/${totalDays}), ~${percentPassed.toFixed(2)}% of the year has passed.<br>
-        ~${degreesPassed.toFixed(0)}° of a 360° circle.<br>
-        ${isLeap ? "Leap year." : "Not a leap year."}
+        On ${month}/${day}/${year} (Day ${dayOfYear} of the year), approximately ${percentPassed.toFixed(6)}% of the year has passed.<br>
+        This is equivalent to about ${degreesPassed.toFixed(2)}° in a 360-degree circle.<br>
+        ${isLeap ? "This is a leap year." : "This is not a leap year."}
     `;
 
     drawPieChart(percentPassed);
@@ -55,7 +56,7 @@ function calculateProgress() {
 function drawPieChart(percent) {
     const canvas = document.getElementById("yearProgressChart");
     const ctx = canvas.getContext("2d");
-
+    
     canvas.width = canvas.clientWidth;
     canvas.height = canvas.clientWidth;
 
@@ -65,21 +66,21 @@ function drawPieChart(percent) {
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+    // Use CSS variables for colors
+    const bgColor = getComputedStyle(document.documentElement).getPropertyValue('--card-bg').trim();
+    const progressColor = getComputedStyle(document.documentElement).getPropertyValue('--primary-color').trim();
+
     ctx.beginPath();
     ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
-    ctx.fillStyle = "#1a1a2e";
+    ctx.fillStyle = bgColor;
     ctx.fill();
-
-    const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-    gradient.addColorStop(0, "#00f0ff");
-    gradient.addColorStop(1, "#39ff14");
 
     const endAngle = (percent / 100) * 2 * Math.PI;
     ctx.beginPath();
     ctx.moveTo(centerX, centerY);
     ctx.arc(centerX, centerY, radius, -Math.PI / 2, endAngle - Math.PI / 2, false);
     ctx.lineTo(centerX, centerY);
-    ctx.fillStyle = gradient;
+    ctx.fillStyle = progressColor;
     ctx.fill();
 }
 
@@ -113,6 +114,7 @@ function animateProgressBar(targetWidth) {
     function step() {
         currentWidth += (targetWidth - currentWidth) * 0.1;
         progressBar.style.width = `${Math.min(currentWidth, 100)}%`;
+
         if (Math.abs(currentWidth - targetWidth) > 0.5) {
             requestAnimationFrame(step);
         }
