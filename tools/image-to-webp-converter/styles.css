@@ -19,7 +19,7 @@
     border-color: var(--primary-color);
 }
 .dark-theme #dropZone {
-    border-color: #6b7280; /* Lighter gray for dark mode visibility */
+    border-color: #6b7280;
 }
 #result {
     display: grid;
@@ -44,19 +44,6 @@
 .image-info {
     margin-top: 5px;
     font-size: 0.8em;
-}
-button {
-    padding: 8px 16px;
-    background-color: var(--primary-color);
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 0.9em;
-    transition: background-color 0.3s ease;
-}
-button:hover {
-    background-color: var(--primary-hover);
 }
 .card-download-btn {
     margin-top: 5px;
