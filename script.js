@@ -86,6 +86,15 @@ document.addEventListener('DOMContentLoaded', function() {
             toolContainer.innerHTML = '';
             toolContainer.appendChild(toolContent);
             
+            // Add mobile optimization
+            if (window.innerWidth <= 480) {
+                toolContent.classList.add('mobile-view');
+                toolContent.querySelectorAll('input, canvas, div').forEach(el => {
+                    el.style.maxWidth = '100%';
+                    el.style.boxSizing = 'border-box';
+                });
+            }
+            
             // Load the tool's JS
             const script = document.createElement('script');
             script.src = `tools/${toolName}/script.js`;
@@ -101,4 +110,20 @@ document.addEventListener('DOMContentLoaded', function() {
             `;
         }
     }
+    
+    // Handle mobile resize
+    window.addEventListener('resize', function() {
+        const toolContent = document.querySelector('.tool-container');
+        if (toolContent) {
+            if (window.innerWidth <= 480) {
+                toolContent.classList.add('mobile-view');
+                toolContent.querySelectorAll('input, canvas, div').forEach(el => {
+                    el.style.maxWidth = '100%';
+                    el.style.boxSizing = 'border-box';
+                });
+            } else {
+                toolContent.classList.remove('mobile-view');
+            }
+        }
+    });
 });
