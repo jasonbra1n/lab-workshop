@@ -1,59 +1,18 @@
-// Set current date immediately when script loads
+// Set current date on load
 document.addEventListener('DOMContentLoaded', function() {
-    // First create the date input element if it doesn't exist
-    if (!document.getElementById('dateInput')) {
-        const input = document.createElement('input');
-        input.type = 'date';
-        input.id = 'dateInput';
-        input.onchange = handleDateChange;
-        document.querySelector('.tool-content').prepend(input);
-    }
-
-    // Set current date (works in all browsers)
-    const today = new Date();
-    const year = today.getFullYear();
-    const month = String(today.getMonth() + 1).padStart(2, '0');
-    const day = String(today.getDate()).padStart(2, '0');
-    const dateStr = `${year}-${month}-${day}`;
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const day = String(now.getDate()).padStart(2, '0');
+    const dateInput = document.getElementById("dateInput");
     
-    const dateInput = document.getElementById('dateInput');
-    dateInput.value = dateStr;
-    
-    // Double-ensure the value sticks (some browsers need this)
-    setTimeout(() => {
-        dateInput.value = dateStr;
-        handleDateChange();
-    }, 50);
+    dateInput.value = `${year}-${month}-${day}`;
+    dateInput.dispatchEvent(new Event('change'));
 });
 
 function handleDateChange() {
     calculateProgress();
-    updateCountdown();
-}
-
-
-
-window.onload = function() {
-    // Set current date by default (fixed version)
-    const today = new Date();
-    const year = today.getFullYear();
-    const month = String(today.getMonth() + 1).padStart(2, '0');
-    const day = String(today.getDate()).padStart(2, '0');
-    const dateStr = `${year}-${month}-${day}`;
-    
-    const dateInput = document.getElementById("dateInput");
-    dateInput.value = dateStr;
-    
-    // Force the date input to recognize the new value
-    dateInput.dispatchEvent(new Event('change'));
-    
-    // Calculate immediately
-    handleDateChange();
-};
-
-function handleDateChange() {
-    calculateProgress();
-    updateCountdown();
+    updateCountdownAndProgressBar();
 }
 
 function calculateProgress() {
@@ -101,20 +60,13 @@ function drawPieChart(percent) {
     const ctx = canvas.getContext("2d");
     const size = Math.min(canvas.width, canvas.height);
     
-    canvas.style.width = '200px';
-    canvas.style.height = '200px';
-    const scale = window.devicePixelRatio || 1;
-    canvas.width = 200 * scale;
-    canvas.height = 200 * scale;
-    ctx.scale(scale, scale);
+    canvas.width = 200;
+    canvas.height = 200;
+    const centerX = canvas.width / 2;
+    const centerY = canvas.height / 2;
+    const radius = centerX * 0.8;
 
-    const centerX = 100;
-    const centerY = 100;
-    const radius = 80;
-    const startAngle = -Math.PI / 2;
-    const endAngle = startAngle + (percent / 100) * 2 * Math.PI;
-
-    ctx.clearRect(0, 0, 200, 200);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     // Background circle
     ctx.beginPath();
@@ -123,30 +75,49 @@ function drawPieChart(percent) {
     ctx.fill();
 
     // Progress arc
+    const endAngle = (percent / 100) * 2 * Math.PI;
     ctx.beginPath();
     ctx.moveTo(centerX, centerY);
-    ctx.arc(centerX, centerY, radius, startAngle, endAngle);
+    ctx.arc(centerX, centerY, radius, -Math.PI / 2, endAngle - Math.PI / 2);
     ctx.closePath();
     ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--primary-color').trim();
     ctx.fill();
 }
 
-function updateCountdown() {
+function updateCountdownAndProgressBar() {
     const dateInput = document.getElementById("dateInput").value;
     const selectedDate = new Date(dateInput + 'T23:59:59');
     const year = selectedDate.getFullYear();
     const endOfYear = new Date(year, 11, 31, 23, 59, 59);
 
-    if (isNaN(selectedDate.getTime())) return;
+    if (isNaN(selectedDate.getTime())) {
+        document.getElementById("countdown").innerText = "Invalid date.";
+        return;
+    }
 
     const timeRemaining = endOfYear - selectedDate;
     const days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
-    document.getElementById("countdown").innerHTML = `<strong>${days}</strong> days remaining in ${year}`;
+    document.getElementById("countdown").innerText = `${days} days remaining`;
 
     const startOfYear = new Date(year, 0, 1);
     const totalMs = endOfYear - startOfYear;
     const elapsedMs = selectedDate - startOfYear;
     const percentPassed = (elapsedMs / totalMs) * 100;
 
-    document.getElementById("progressBar").style.width = `${percentPassed}%`;
+    animateProgressBar(percentPassed);
+}
+
+function animateProgressBar(targetWidth) {
+    const progressBar = document.getElementById("progressBar");
+    let currentWidth = parseFloat(progressBar.style.width) || 0;
+
+    function step() {
+        currentWidth += (targetWidth - currentWidth) * 0.1;
+        progressBar.style.width = `${Math.min(currentWidth, 100)}%`;
+
+        if (Math.abs(currentWidth - targetWidth) > 0.5) {
+            requestAnimationFrame(step);
+        }
+    }
+    requestAnimationFrame(step);
 }
