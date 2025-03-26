@@ -17,12 +17,6 @@ label {
     margin-bottom: 10px;
 }
 
-.input-container {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
 #dob {
     padding: 10px;
     background-color: var(--card-bg);
