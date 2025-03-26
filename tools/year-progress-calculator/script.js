@@ -1,5 +1,5 @@
 window.onload = function() {
-    // Set current date by default
+    // Set current date by default (fixed version)
     const today = new Date();
     const year = today.getFullYear();
     const month = String(today.getMonth() + 1).padStart(2, '0');
@@ -8,9 +8,12 @@ window.onload = function() {
     
     const dateInput = document.getElementById("dateInput");
     dateInput.value = dateStr;
-    dateInput.defaultValue = dateStr; // Ensure it sticks
     
-    handleDateChange(); // Calculate immediately
+    // Force the date input to recognize the new value
+    dateInput.dispatchEvent(new Event('change'));
+    
+    // Calculate immediately
+    handleDateChange();
 };
 
 function handleDateChange() {
@@ -63,11 +66,8 @@ function drawPieChart(percent) {
     const ctx = canvas.getContext("2d");
     const size = Math.min(canvas.width, canvas.height);
     
-    // Set display size (smaller visual size)
     canvas.style.width = '200px';
     canvas.style.height = '200px';
-    
-    // Set actual internal size for sharp rendering
     const scale = window.devicePixelRatio || 1;
     canvas.width = 200 * scale;
     canvas.height = 200 * scale;
@@ -79,16 +79,15 @@ function drawPieChart(percent) {
     const startAngle = -Math.PI / 2;
     const endAngle = startAngle + (percent / 100) * 2 * Math.PI;
 
-    // Clear canvas
     ctx.clearRect(0, 0, 200, 200);
 
-    // Draw background circle
+    // Background circle
     ctx.beginPath();
     ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
     ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--console-bg').trim();
     ctx.fill();
 
-    // Draw progress arc
+    // Progress arc
     ctx.beginPath();
     ctx.moveTo(centerX, centerY);
     ctx.arc(centerX, centerY, radius, startAngle, endAngle);
