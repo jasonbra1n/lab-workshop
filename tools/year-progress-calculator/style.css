@@ -1,33 +1,37 @@
 .year-progress-container {
     font-family: var(--font-family, Arial, sans-serif);
     text-align: center;
-    margin: 20px auto;
+    margin: 0 auto;
+    padding: 20px;
     max-width: 600px;
     color: var(--text-color);
 }
 
 .year-progress-container input {
     padding: 10px;
-    margin: 10px;
+    margin: 10px auto;
     background-color: var(--card-bg);
     color: var(--text-color);
     border: 1px solid var(--primary-color);
     border-radius: 4px;
+    display: block;
+    width: 100%;
+    max-width: 300px;
 }
 
 #yearProgressChart {
+    display: block;
     margin: 20px auto;
     max-width: 100%;
-    display: block;
 }
 
 #progressBarContainer {
     width: 100%;
+    max-width: 400px;
     background-color: var(--console-bg);
     border-radius: 5px;
-    margin: 10px auto;
+    margin: 20px auto;
     overflow: hidden;
-    max-width: 400px;
 }
 
 #progressBar {
@@ -45,17 +49,12 @@
 
 @media (max-width: 600px) {
     .year-progress-container {
-        margin: 15px;
+        padding: 15px;
     }
     
     .year-progress-container input {
         width: calc(100% - 20px);
-        margin: 5px 0;
-    }
-    
-    #yearProgressChart {
-        width: 100%;
-        height: auto;
+        margin: 10px auto;
     }
     
     #progressBarContainer {
