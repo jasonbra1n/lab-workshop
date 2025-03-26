@@ -1,19 +1,17 @@
-.container {
-    max-width: 600px;
-    margin: 0 auto;
+.year-progress-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
     padding: 20px;
+    overflow: auto;
 }
 
-#dateInput {
-    padding: 8px;
-    margin: 10px 0;
-    width: 100%;
-    max-width: 300px;
-}
-
-#result {
-    margin: 20px 0;
-    line-height: 1.6;
+#yearProgressChart {
+    flex-shrink: 0;
+    max-width: 100%;
+    height: auto;
+    aspect-ratio: 1/1;
 }
 
 #progressBarContainer {
@@ -21,7 +19,6 @@
     height: 20px;
     background-color: var(--console-bg);
     border-radius: 10px;
-    margin: 20px 0;
     overflow: hidden;
 }
 
@@ -32,40 +29,27 @@
     transition: width 0.5s ease;
 }
 
-#yearProgressChart {
-    display: block;
-    margin: 20px auto;
-    max-width: 100%;
+#dateInput {
+    padding: 8px;
+    border: 1px solid var(--primary-color);
+    border-radius: 4px;
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    max-width: 300px;
 }
-/* Mobile-specific styles */
+
+/* Mobile styles */
 @media (max-width: 480px) {
-    .container {
-        padding: 10px !important;
-        margin: 0 !important;
-        width: 100% !important;
-        max-width: 100% !important;
-        box-sizing: border-box;
+    .year-progress-container {
+        padding: 15px;
+        gap: 15px;
     }
     
     #dateInput {
-        width: calc(100% - 20px) !important;
-        max-width: calc(100% - 20px) !important;
-        margin: 10px !important;
+        max-width: 100%;
     }
     
     #yearProgressChart {
         width: 100% !important;
-        height: auto !important;
-        max-width: 100vw !important;
-    }
-    
-    #progressBarContainer {
-        width: calc(100% - 20px) !important;
-        margin: 10px auto !important;
-    }
-    
-    #result, #countdown {
-        padding: 0 10px;
-        word-wrap: break-word;
     }
 }
