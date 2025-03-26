@@ -1,18 +1,18 @@
 function initLifePathCalculator() {
-    const dobInput = document.getElementById('dob');
+    const dateInput = document.getElementById('dateInput');
 
     // Set default date to today
     const today = new Date();
-    dobInput.value = today.toISOString().split('T')[0]; // Format: YYYY-MM-DD
+    dateInput.value = today.toISOString().split('T')[0];
 
     // Initial calculation
     calculateLifePath();
 
     // Recalculate on date change
-    dobInput.addEventListener('input', calculateLifePath);
+    dateInput.addEventListener('input', calculateLifePath);
 
     function calculateLifePath() {
-        const dob = dobInput.value;
+        const dob = dateInput.value;
         if (!dob) {
             document.getElementById("result").style.display = "none";
             return;
@@ -92,6 +92,6 @@ function initLifePathCalculator() {
     }
 }
 
-if (document.getElementById('dob')) {
+if (document.getElementById('dateInput')) {
     initLifePathCalculator();
 }
