@@ -82,23 +82,23 @@ document.addEventListener('DOMContentLoaded', function() {
             
             if (!toolContent) throw new Error('Invalid tool format');
             
-            toolContent.classList.add('tool-container');
-            toolContainer.innerHTML = '';
-            toolContainer.appendChild(toolContent);
+            // Create wrapper with proper classes
+            const wrapper = document.createElement('div');
+            wrapper.className = `tool-container ${toolName}-container`;
+            wrapper.innerHTML = toolContent.innerHTML;
             
-            // Add mobile optimization
-            if (window.innerWidth <= 480) {
-                toolContent.classList.add('mobile-view');
-                toolContent.querySelectorAll('input, canvas, div').forEach(el => {
-                    el.style.maxWidth = '100%';
-                    el.style.boxSizing = 'border-box';
-                });
-            }
+            toolContainer.innerHTML = '';
+            toolContainer.appendChild(wrapper);
             
             // Load the tool's JS
             const script = document.createElement('script');
             script.src = `tools/${toolName}/script.js`;
             toolContainer.appendChild(script);
+            
+            // Apply mobile styles if needed
+            if (window.innerWidth <= 480) {
+                wrapper.classList.add('mobile-view');
+            }
             
         } catch (error) {
             toolContainer.innerHTML = `
@@ -111,18 +111,14 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // Handle mobile resize
+    // Handle window resize
     window.addEventListener('resize', function() {
-        const toolContent = document.querySelector('.tool-container');
-        if (toolContent) {
+        const toolWrapper = document.querySelector('.tool-container');
+        if (toolWrapper) {
             if (window.innerWidth <= 480) {
-                toolContent.classList.add('mobile-view');
-                toolContent.querySelectorAll('input, canvas, div').forEach(el => {
-                    el.style.maxWidth = '100%';
-                    el.style.boxSizing = 'border-box';
-                });
+                toolWrapper.classList.add('mobile-view');
             } else {
-                toolContent.classList.remove('mobile-view');
+                toolWrapper.classList.remove('mobile-view');
             }
         }
     });
