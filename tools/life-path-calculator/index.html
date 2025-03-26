@@ -1,28 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Life Path Calculator - Jason's Lab</title>
-    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/workshop.css">
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <div class="uv-background"></div>
-    <h1>Life Path Number, Personality, and Birth Card</h1>
-    <div class="container">
-        <label for="dob">Enter your Date of Birth:</label>
-        <div class="input-container">
-            <input type="date" id="dob" required>
-            <button onclick="calculateLifePath()">Calculate</button>
-        </div>
-        <div class="result" id="result">
-            <p><strong>Life Path Number:</strong> <span id="lifePathNumber"></span></p>
-            <p><strong>Personality:</strong> <span id="personality"></span></p>
-            <p><strong>Birth Card:</strong> <span id="birthCard"></span></p>
-        </div>
+<div class="container">
+    <h2>Life Path Calculator</h2>
+    <label for="dob">Enter your Date of Birth:</label>
+    <div class="input-container">
+        <input type="date" id="dob" required>
+        <button id="calculateBtn">Calculate</button>
     </div>
-    <script src="script.js"></script>
-</body>
-</html>
+    <div id="result" style="display: none;">
+        <p><strong>Life Path Number:</strong> <span id="lifePathNumber"></span></p>
+        <p><strong>Personality:</strong> <span id="personality"></span></p>
+        <p><strong>Birth Card:</strong> <span id="birthCard"></span></p>
+    </div>
+</div>
+
+<script>
+    // Initialize the tool when loaded into the SPA
+    if (typeof initLifePathCalculator === 'function') {
+        initLifePathCalculator();
+    }
+</script>
