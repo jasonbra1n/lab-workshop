@@ -59,6 +59,7 @@ header {
     flex: 1;
     display: flex;
     flex-direction: column;
+    min-height: 100%;
     max-width: 800px;
     width: 100%;
     margin: 0 auto;
@@ -107,12 +108,16 @@ footer {
 }
 
 .tool-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
     background-color: var(--card-bg);
     border-radius: 8px;
     padding: 20px;
     box-shadow: var(--card-shadow);
     width: 100%;
-    box-sizing: border-box;
+    min-height: 0;
+    overflow: auto;
 }
 
 /* Theme Toggle */
@@ -190,7 +195,6 @@ footer {
         font-size: 0.9rem;
     }
     
-    /* Force full width on mobile for tool contents */
     .tool-container > * {
         width: 100% !important;
         max-width: 100% !important;
@@ -199,7 +203,6 @@ footer {
         box-sizing: border-box;
     }
     
-    /* Specifically for Year Progress Calculator */
     #yearProgressChart {
         width: 100% !important;
         height: auto !important;
