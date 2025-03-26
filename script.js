@@ -1,4 +1,4 @@
-// Theme Management
+// Theme Management (unchanged)
 function initializeTheme() {
     const savedTheme = localStorage.getItem('theme');
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -72,10 +72,10 @@ document.addEventListener('DOMContentLoaded', function() {
         try {
             toolContainer.innerHTML = '<div class="loading">Loading tool...</div>';
             
-            const response = await fetch(`tools/${toolName}/index.html`);
-            if (!response.ok) throw new Error('Tool not found');
-            
-            const html = await response.text();
+            // Fetch tool HTML
+            const htmlResponse = await fetch(`tools/${toolName}/index.html`);
+            if (!htmlResponse.ok) throw new Error('Tool HTML not found');
+            const html = await htmlResponse.text();
             const parser = new DOMParser();
             const doc = parser.parseFromString(html, 'text/html');
             const toolContent = doc.querySelector('.container') || doc.querySelector('body > div');
@@ -94,6 +94,17 @@ document.addEventListener('DOMContentLoaded', function() {
             toolContainer.innerHTML = '';
             toolContainer.appendChild(wrapper);
             
+            // Fetch and apply tool CSS
+            const cssResponse = await fetch(`tools/${toolName}/styles.css`);
+            if (cssResponse.ok) {
+                const cssText = await cssResponse.text();
+                const styleElement = document.createElement('style');
+                styleElement.textContent = cssText;
+                toolContainer.appendChild(styleElement);
+            } else {
+                console.warn(`No styles.css found for ${toolName}, relying on main styles`);
+            }
+            
             // Load the tool's JS
             const script = document.createElement('script');
             script.src = `tools/${toolName}/script.js`;
@@ -110,7 +121,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // Handle window resize
+    // Handle window resize (unchanged)
     window.addEventListener('resize', function() {
         const toolWrapper = document.querySelector('.tool-container');
         if (toolWrapper) {
