@@ -11,16 +11,14 @@
     margin-bottom: 15px;
 }
 
-.year-progress-container input {
+#dateInput {
     padding: 10px;
-    margin: 10px auto;
     background-color: var(--card-bg);
     color: var(--text-color);
     border: 1px solid var(--primary-color);
     border-radius: 4px;
-    display: block;
-    width: 100%;
     max-width: 300px;
+    margin: 0 auto;
 }
 
 #result, #countdown {
@@ -31,5 +29,8 @@
 @media (max-width: 600px) {
     .year-progress-container {
         padding: 15px;
+    }
+    #dateInput {
+        max-width: 100%;
     }
 }
