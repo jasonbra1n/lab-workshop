@@ -6,14 +6,14 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
+    padding: 15px;
 }
 
 #yearProgressChart {
-    width: 100%;
-    max-width: 400px;
-    height: auto;
-    aspect-ratio: 1/1;
-    align-self: center;
+    width: 200px;
+    height: 200px;
+    margin: 0 auto;
+    display: block;
 }
 
 #progressBarContainer {
@@ -34,24 +34,56 @@
 }
 
 #dateInput {
-    padding: 8px;
+    display: block;
+    width: 100%;
+    max-width: 400px;
+    padding: 10px;
     border: 1px solid var(--primary-color);
     border-radius: 4px;
     background-color: var(--card-bg);
     color: var(--text-color);
-    max-width: 400px;
-    margin: 0 auto;
+    font-size: 1rem;
+    margin: 10px auto;
+    box-sizing: border-box;
+}
+
+#result, #countdown {
+    text-align: center;
+    margin: 10px 0;
+    line-height: 1.5;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 10px;
+    color: var(--primary-color);
+}
+
+label {
+    display: block;
+    text-align: center;
+    margin-bottom: 5px;
+    font-weight: bold;
 }
 
 /* Mobile styles */
 @media (max-width: 480px) {
     .year-progress-container .tool-content {
         gap: 15px;
+        padding: 10px;
     }
-    
-    #yearProgressChart,
+
+    #yearProgressChart {
+        width: 150px;
+        height: 150px;
+    }
+
     #progressBarContainer,
     #dateInput {
         max-width: 100%;
+    }
+
+    #dateInput {
+        padding: 8px;
     }
 }
