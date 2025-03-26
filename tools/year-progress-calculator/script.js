@@ -1,13 +1,6 @@
-// Main calculator functionality
 function initYearProgress() {
-    // Set up date picker
+    // Initialize date picker
     const dateInput = document.getElementById('dateInput');
-    if (!dateInput.value) {
-        const today = new Date();
-        dateInput.value = today.toISOString().split('T')[0];
-    }
-
-    // Add event listener
     dateInput.addEventListener('change', handleDateChange);
     
     // Initial calculation
@@ -54,13 +47,11 @@ function calculateProgress() {
 function drawPieChart(percent) {
     const canvas = document.getElementById('yearProgressChart');
     const ctx = canvas.getContext('2d');
-    const size = Math.min(200, window.innerWidth * 0.8);
+    const size = canvas.parentElement.clientWidth;
     
     // Set canvas dimensions
     canvas.width = size;
     canvas.height = size;
-    canvas.style.width = size + 'px';
-    canvas.style.height = size + 'px';
 
     const center = size / 2;
     const radius = center * 0.8;
@@ -88,9 +79,12 @@ function drawPieChart(percent) {
 function updateCountdownAndProgressBar() {
     const dateInput = document.getElementById('dateInput');
     const selectedDate = new Date(dateInput.value + 'T23:59:59');
+    
+    if (isNaN(selectedDate.getTime())) return;
+
     const year = selectedDate.getFullYear();
     const endOfYear = new Date(year, 11, 31, 23, 59, 59);
-
+    
     // Calculate days remaining
     const days = Math.floor((endOfYear - selectedDate) / (1000 * 60 * 60 * 24));
     document.getElementById('countdown').innerText = `${days} days remaining in ${year}`;
@@ -107,12 +101,15 @@ function animateProgressBar(target) {
     
     const step = () => {
         current += (target - current) * 0.1;
-        progressBar.style.width = `${Math.min(current, 100)}%`;
-        if (Math.abs(current - target) > 0.5) requestAnimationFrame(step);
+        progressBar.style.width = `${current}%`;
+        if (Math.abs(current - target) > 0.5) {
+            requestAnimationFrame(step);
+        }
     };
     
     requestAnimationFrame(step);
 }
 
 // Initialize when loaded
-initYearProgress();
+document.addEventListener('DOMContentLoaded', initYearProgress);
+initYearProgress(); // Also call immediately for SPA loading
