@@ -45,6 +45,12 @@
     margin-top: 5px;
     font-size: 0.8em;
 }
+.image-info p:first-child { /* Targets the filename <p> */
+    margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
 .card-download-btn {
     margin-top: 5px;
     width: 100%;
