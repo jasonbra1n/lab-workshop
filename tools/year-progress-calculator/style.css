@@ -5,14 +5,14 @@
 .year-progress-container .tool-content {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 15px;
     padding: 15px;
 }
 
 #yearProgressChart {
     width: 200px;
     height: 200px;
-    margin: 0 auto;
+    margin: 10px auto;
     display: block;
 }
 
@@ -43,33 +43,33 @@
     background-color: var(--card-bg);
     color: var(--text-color);
     font-size: 1rem;
-    margin: 10px auto;
+    margin: 5px auto 15px;
     box-sizing: border-box;
 }
 
 #result, #countdown {
     text-align: center;
-    margin: 10px 0;
+    margin: 5px 0;
     line-height: 1.5;
 }
 
 h2 {
     text-align: center;
-    margin-bottom: 10px;
+    margin: 0 0 5px 0;
     color: var(--primary-color);
 }
 
 label {
     display: block;
     text-align: center;
-    margin-bottom: 5px;
+    margin-top: 10px;
     font-weight: bold;
 }
 
 /* Mobile styles */
 @media (max-width: 480px) {
     .year-progress-container .tool-content {
-        gap: 15px;
+        gap: 12px;
         padding: 10px;
     }
 
@@ -85,5 +85,6 @@ label {
 
     #dateInput {
         padding: 8px;
+        margin-bottom: 10px;
     }
 }
