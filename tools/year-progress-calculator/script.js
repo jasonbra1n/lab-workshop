@@ -1,13 +1,16 @@
-// Set current date on load
 document.addEventListener('DOMContentLoaded', function() {
-    const now = new Date();
-    const year = now.getFullYear();
-    const month = String(now.getMonth() + 1).padStart(2, '0');
-    const day = String(now.getDate()).padStart(2, '0');
+    // Set current date by default
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const day = String(today.getDate()).padStart(2, '0');
     const dateInput = document.getElementById("dateInput");
     
     dateInput.value = `${year}-${month}-${day}`;
-    dateInput.dispatchEvent(new Event('change'));
+    dateInput.addEventListener('change', handleDateChange);
+    
+    // Calculate immediately
+    handleDateChange();
 });
 
 function handleDateChange() {
@@ -58,15 +61,23 @@ function calculateProgress() {
 function drawPieChart(percent) {
     const canvas = document.getElementById("yearProgressChart");
     const ctx = canvas.getContext("2d");
-    const size = Math.min(canvas.width, canvas.height);
+    const size = 200; // Fixed size for better control
     
-    canvas.width = 200;
-    canvas.height = 200;
-    const centerX = canvas.width / 2;
-    const centerY = canvas.height / 2;
-    const radius = centerX * 0.8;
+    // Set display size
+    canvas.style.width = size + 'px';
+    canvas.style.height = size + 'px';
+    
+    // Set internal size for sharp rendering
+    const scale = window.devicePixelRatio || 1;
+    canvas.width = size * scale;
+    canvas.height = size * scale;
+    ctx.scale(scale, scale);
 
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const centerX = size / 2;
+    const centerY = size / 2;
+    const radius = size / 2 * 0.8;
+
+    ctx.clearRect(0, 0, size, size);
 
     // Background circle
     ctx.beginPath();
