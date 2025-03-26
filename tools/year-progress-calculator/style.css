@@ -6,11 +6,6 @@
     color: var(--text-color);
 }
 
-.year-progress-container h2 {
-    color: var(--primary-color);
-    margin-bottom: 15px;
-}
-
 #dateInput {
     padding: 10px;
     background-color: var(--card-bg);
