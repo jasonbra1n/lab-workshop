@@ -4,11 +4,6 @@
     gap: 20px;
     font-family: var(--font-family, Arial, sans-serif);
 }
-h1 {
-    text-align: center;
-    color: var(--primary-color);
-    margin-bottom: 20px;
-}
 #dropZone {
     border: 2px dashed var(--border-color);
     padding: 40px;
