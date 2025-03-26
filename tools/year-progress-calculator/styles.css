@@ -1,4 +1,7 @@
 .container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
     font-family: var(--font-family, Arial, sans-serif);
     text-align: center;
     margin: 0 auto;
@@ -14,6 +17,14 @@
     border-radius: 4px;
     max-width: 300px;
     margin: 0 auto;
+    /* Normalize placeholder and picker */
+    appearance: none; /* Remove default browser styling */
+    -webkit-appearance: none; /* For Safari/Chrome */
+    -moz-appearance: none; /* For Firefox */
+}
+
+#dateInput::-webkit-calendar-picker-indicator {
+    filter: invert(48%) sepia(13%) saturate(3207%) hue-rotate(130deg) brightness(95%) contrast(80%); /* Match --primary-color */
 }
 
 #result, #countdown {
