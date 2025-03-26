@@ -9,7 +9,7 @@
 
 .year-progress-container h2 {
     color: var(--primary-color);
-    margin-bottom: 1rem;
+    margin-bottom: 15px;
 }
 
 .year-progress-container input {
@@ -50,7 +50,6 @@
 #result, #countdown {
     margin: 15px 0;
     line-height: 1.6;
-    color: var(--text-color);
 }
 
 @media (max-width: 600px) {
