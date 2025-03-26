@@ -6,29 +6,23 @@
     <div id="result"></div>
     <div id="countdown"></div>
 
-    <div id="progressBarContainer">
-        <div id="progressBar"></div>
+    <!-- Progress Bar Container - Added explicit dimensions -->
+    <div id="progressBarContainer" style="width: 100%; height: 20px; background-color: var(--console-bg); border-radius: 5px; margin: 20px auto; overflow: hidden;">
+        <div id="progressBar" style="width: 0%; height: 100%; background-color: var(--primary-color); transition: width 0.5s ease;"></div>
     </div>
 
-    <canvas id="yearProgressChart"></canvas>
+    <!-- Canvas with explicit inline styles -->
+    <canvas id="yearProgressChart" style="display: block; margin: 20px auto; background: var(--card-bg); border-radius: 50%;"></canvas>
 </div>
 
 <script>
-    // Initialize immediately when loaded in SPA
+    // Immediate initialization for SPA
     (function() {
         // Set current date
         const today = new Date();
         const dateInput = document.getElementById('dateInput');
         dateInput.value = today.toISOString().split('T')[0];
         
-        // Set up event listener
-        dateInput.addEventListener('change', function() {
-            // Re-import the script to ensure fresh state
-            const script = document.createElement('script');
-            script.src = 'script.js';
-            document.body.appendChild(script);
-        });
-
         // Load main script
         const script = document.createElement('script');
         script.src = 'script.js';
