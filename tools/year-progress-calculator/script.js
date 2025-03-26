@@ -12,8 +12,14 @@ function initYearProgress() {
         progressBar.style.width = '0%';
     }
 
-    // Set up event listener
+    // Set up event listeners
     dateInput.addEventListener('change', handleDateChange);
+    
+    // Listen for theme changes
+    const observer = new MutationObserver(() => {
+        handleDateChange(); // Redraw chart with current date on theme change
+    });
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
     
     // Initial calculation
     handleDateChange();
@@ -69,13 +75,14 @@ function drawPieChart(percent) {
     const startAngle = -Math.PI / 2;
     const endAngle = startAngle + (percent / 100) * 2 * Math.PI;
 
-    // Draw
+    // Draw background circle
     ctx.clearRect(0, 0, size, size);
     ctx.beginPath();
     ctx.arc(center, center, radius, 0, Math.PI * 2);
     ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--console-bg').trim();
     ctx.fill();
     
+    // Draw progress slice
     ctx.beginPath();
     ctx.moveTo(center, center);
     ctx.arc(center, center, radius, startAngle, endAngle);
