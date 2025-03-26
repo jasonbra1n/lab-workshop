@@ -23,32 +23,35 @@ h1 {
     background: var(--console-bg);
     border-color: var(--primary-color);
 }
+.dark-theme #dropZone {
+    border-color: #6b7280; /* Lighter gray for dark mode visibility */
+}
 #result {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Reduced from 250px to 150px for thumbnails */
-    gap: 15px; /* Slightly smaller gap */
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 15px;
 }
 .image-card {
     background: var(--card-bg);
     border: 1px solid var(--border-color);
     border-radius: 8px;
-    padding: 10px; /* Reduced padding */
+    padding: 10px;
     box-shadow: var(--card-shadow);
     color: var(--text-color);
-    max-width: 150px; /* Cap the width for thumbnail size */
+    max-width: 150px;
 }
 .image-card img {
     max-width: 100%;
     height: auto;
     border-radius: 4px;
-    display: block; /* Ensure no extra spacing */
+    display: block;
 }
 .image-info {
-    margin-top: 5px; /* Reduced margin */
-    font-size: 0.8em; /* Smaller text for compactness */
+    margin-top: 5px;
+    font-size: 0.8em;
 }
 button {
-    padding: 8px 16px; /* Slightly smaller buttons */
+    padding: 8px 16px;
     background-color: var(--primary-color);
     color: white;
     border: none;
@@ -61,7 +64,7 @@ button:hover {
     background-color: var(--primary-hover);
 }
 .card-download-btn {
-    margin-top: 5px; /* Reduced margin */
+    margin-top: 5px;
     width: 100%;
 }
 #actionButtons {
@@ -71,7 +74,7 @@ button:hover {
     margin-top: 20px;
 }
 #downloadAllBtn, #clearAllBtn {
-    padding: 10px 20px; /* Slightly smaller than before */
+    padding: 10px 20px;
     display: none;
 }
 #error {
@@ -88,16 +91,16 @@ button:hover {
     margin: 20px 0;
 }
 .size-smaller {
-    color: #10b981; /* Green for size reduction */
+    color: #10b981;
 }
 .size-larger {
-    color: #ef4444; /* Red for size increase */
+    color: #ef4444;
 }
 .dark-theme .size-smaller {
-    color: #34d399; /* Lighter green for dark mode */
+    color: #34d399;
 }
 .dark-theme .size-larger {
-    color: #f87171; /* Lighter red for dark mode */
+    color: #f87171;
 }
 @media (max-width: 768px) {
     #result {
