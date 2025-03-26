@@ -88,3 +88,9 @@ label {
         margin-bottom: 10px;
     }
 }
+/* Add this to ensure input is visible */
+#dateInput {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
