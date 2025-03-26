@@ -1,13 +1,18 @@
-// Main calculator functionality
 function initYearProgress() {
-    // Set up date picker
+    // Ensure date is set
     const dateInput = document.getElementById('dateInput');
     if (!dateInput.value) {
         const today = new Date();
         dateInput.value = today.toISOString().split('T')[0];
     }
 
-    // Add event listener
+    // Initialize progress bar with explicit style
+    const progressBar = document.getElementById('progressBar');
+    if (!progressBar.style.width) {
+        progressBar.style.width = '0%';
+    }
+
+    // Set up event listener
     dateInput.addEventListener('change', handleDateChange);
     
     // Initial calculation
@@ -21,27 +26,24 @@ function handleDateChange() {
 
 function calculateProgress() {
     const dateInput = document.getElementById('dateInput');
-    const date = new Date(dateInput.value + 'T00:00:00');
-    
-    if (isNaN(date.getTime())) {
-        document.getElementById('result').innerText = 'Please enter a valid date.';
-        return;
-    }
+    const dateStr = dateInput.value;
+    if (!dateStr) return;
+
+    const date = new Date(dateStr + 'T00:00:00');
+    if (isNaN(date.getTime())) return;
 
     const year = date.getFullYear();
     const month = date.getMonth() + 1;
     const day = date.getDate();
 
-    // Check for leap year
+    // Calculate progress
     const isLeap = new Date(year, 1, 29).getMonth() === 1;
     const daysInMonth = [31, isLeap ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-
-    // Calculate day of year
     let dayOfYear = daysInMonth.slice(0, month - 1).reduce((a, b) => a + b, 0) + day;
     const totalDays = isLeap ? 366 : 365;
     const percentPassed = (dayOfYear / totalDays) * 100;
 
-    // Update results
+    // Update display
     document.getElementById('result').innerHTML = `
         On ${month}/${day}/${year} (Day ${dayOfYear} of ${totalDays}),<br>
         <strong>${percentPassed.toFixed(2)}%</strong> of the year has passed.<br>
@@ -59,24 +61,21 @@ function drawPieChart(percent) {
     // Set canvas dimensions
     canvas.width = size;
     canvas.height = size;
-    canvas.style.width = size + 'px';
-    canvas.style.height = size + 'px';
+    canvas.style.width = `${size}px`;
+    canvas.style.height = `${size}px`;
 
     const center = size / 2;
     const radius = center * 0.8;
     const startAngle = -Math.PI / 2;
     const endAngle = startAngle + (percent / 100) * 2 * Math.PI;
 
-    // Clear and redraw
+    // Draw
     ctx.clearRect(0, 0, size, size);
-    
-    // Background circle
     ctx.beginPath();
     ctx.arc(center, center, radius, 0, Math.PI * 2);
     ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--console-bg').trim();
     ctx.fill();
     
-    // Progress arc
     ctx.beginPath();
     ctx.moveTo(center, center);
     ctx.arc(center, center, radius, startAngle, endAngle);
@@ -87,32 +86,39 @@ function drawPieChart(percent) {
 
 function updateCountdownAndProgressBar() {
     const dateInput = document.getElementById('dateInput');
-    const selectedDate = new Date(dateInput.value + 'T23:59:59');
+    const dateStr = dateInput.value;
+    if (!dateStr) return;
+
+    const selectedDate = new Date(dateStr + 'T23:59:59');
+    if (isNaN(selectedDate.getTime())) return;
+
     const year = selectedDate.getFullYear();
     const endOfYear = new Date(year, 11, 31, 23, 59, 59);
-
-    // Calculate days remaining
-    const days = Math.floor((endOfYear - selectedDate) / (1000 * 60 * 60 * 24));
-    document.getElementById('countdown').innerText = `${days} days remaining in ${year}`;
+    const startOfYear = new Date(year, 0, 1);
+    
+    // Update countdown
+    const daysRemaining = Math.floor((endOfYear - selectedDate) / (1000 * 60 * 60 * 24));
+    document.getElementById('countdown').innerText = `${daysRemaining} days remaining in ${year}`;
 
     // Update progress bar
-    const startOfYear = new Date(year, 0, 1);
-    const progress = ((selectedDate - startOfYear) / (endOfYear - startOfYear)) * 100;
-    animateProgressBar(progress);
+    const progressPercent = ((selectedDate - startOfYear) / (endOfYear - startOfYear)) * 100;
+    animateProgressBar(progressPercent);
 }
 
-function animateProgressBar(target) {
+function animateProgressBar(targetPercent) {
     const progressBar = document.getElementById('progressBar');
-    let current = parseFloat(progressBar.style.width) || 0;
+    let currentWidth = parseFloat(progressBar.style.width) || 0;
     
-    const step = () => {
-        current += (target - current) * 0.1;
-        progressBar.style.width = `${Math.min(current, 100)}%`;
-        if (Math.abs(current - target) > 0.5) requestAnimationFrame(step);
+    const animate = () => {
+        currentWidth += (targetPercent - currentWidth) * 0.1;
+        progressBar.style.width = `${currentWidth}%`;
+        if (Math.abs(currentWidth - targetPercent) > 0.5) {
+            requestAnimationFrame(animate);
+        }
     };
     
-    requestAnimationFrame(step);
+    requestAnimationFrame(animate);
 }
 
-// Initialize when loaded
+// Initialize
 initYearProgress();
