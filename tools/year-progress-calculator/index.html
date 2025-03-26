@@ -10,5 +10,28 @@
         <div id="progressBar"></div>
     </div>
 
-    <canvas id="yearProgressChart" width="200" height="200"></canvas>
+    <canvas id="yearProgressChart"></canvas>
 </div>
+
+<script>
+    // Initialize immediately when loaded in SPA
+    (function() {
+        // Set current date
+        const today = new Date();
+        const dateInput = document.getElementById('dateInput');
+        dateInput.value = today.toISOString().split('T')[0];
+        
+        // Set up event listener
+        dateInput.addEventListener('change', function() {
+            // Re-import the script to ensure fresh state
+            const script = document.createElement('script');
+            script.src = 'script.js';
+            document.body.appendChild(script);
+        });
+
+        // Load main script
+        const script = document.createElement('script');
+        script.src = 'script.js';
+        document.body.appendChild(script);
+    })();
+</script>
