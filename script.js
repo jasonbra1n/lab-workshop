@@ -82,11 +82,15 @@ document.addEventListener('DOMContentLoaded', function() {
             
             if (!toolContent) throw new Error('Invalid tool format');
             
-            // Create wrapper with proper classes
+            // Create wrapper with proper structure
             const wrapper = document.createElement('div');
             wrapper.className = `tool-container ${toolName}-container`;
-            wrapper.innerHTML = toolContent.innerHTML;
             
+            const contentWrapper = document.createElement('div');
+            contentWrapper.className = 'tool-content';
+            contentWrapper.innerHTML = toolContent.innerHTML;
+            
+            wrapper.appendChild(contentWrapper);
             toolContainer.innerHTML = '';
             toolContainer.appendChild(wrapper);
             
@@ -94,11 +98,6 @@ document.addEventListener('DOMContentLoaded', function() {
             const script = document.createElement('script');
             script.src = `tools/${toolName}/script.js`;
             toolContainer.appendChild(script);
-            
-            // Apply mobile styles if needed
-            if (window.innerWidth <= 480) {
-                wrapper.classList.add('mobile-view');
-            }
             
         } catch (error) {
             toolContainer.innerHTML = `
