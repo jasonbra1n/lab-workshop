@@ -1,4 +1,4 @@
-// Theme Management (unchanged)
+// Theme Management
 function initializeTheme() {
     const savedTheme = localStorage.getItem('theme');
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -64,7 +64,13 @@ document.addEventListener('DOMContentLoaded', function() {
         button.addEventListener('click', function() {
             toolButtons.forEach(btn => btn.classList.remove('active'));
             this.classList.add('active');
-            loadTool(this.dataset.tool);
+            const toolName = this.dataset.tool;
+            loadTool(toolName);
+            // Virtual pageview tracking for Google Analytics
+            gtag('event', 'page_view', {
+                page_title: toolName.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase()), // e.g., "Image To Webp Converter"
+                page_path: `/tools/${toolName}`
+            });
         });
     });
     
@@ -121,7 +127,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // Handle window resize (unchanged)
+    // Handle window resize
     window.addEventListener('resize', function() {
         const toolWrapper = document.querySelector('.tool-container');
         if (toolWrapper) {
