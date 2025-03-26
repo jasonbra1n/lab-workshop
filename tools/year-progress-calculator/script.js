@@ -1,3 +1,38 @@
+// Set current date immediately when script loads
+document.addEventListener('DOMContentLoaded', function() {
+    // First create the date input element if it doesn't exist
+    if (!document.getElementById('dateInput')) {
+        const input = document.createElement('input');
+        input.type = 'date';
+        input.id = 'dateInput';
+        input.onchange = handleDateChange;
+        document.querySelector('.tool-content').prepend(input);
+    }
+
+    // Set current date (works in all browsers)
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const day = String(today.getDate()).padStart(2, '0');
+    const dateStr = `${year}-${month}-${day}`;
+    
+    const dateInput = document.getElementById('dateInput');
+    dateInput.value = dateStr;
+    
+    // Double-ensure the value sticks (some browsers need this)
+    setTimeout(() => {
+        dateInput.value = dateStr;
+        handleDateChange();
+    }, 50);
+});
+
+function handleDateChange() {
+    calculateProgress();
+    updateCountdown();
+}
+
+
+
 window.onload = function() {
     // Set current date by default (fixed version)
     const today = new Date();
