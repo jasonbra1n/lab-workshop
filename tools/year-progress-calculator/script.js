@@ -1,16 +1,16 @@
 window.onload = function() {
-    // Set default to current date
-    const now = new Date();
-    const year = now.getFullYear();
-    const month = String(now.getMonth() + 1).padStart(2, '0');
-    const day = String(now.getDate()).padStart(2, '0');
+    // Set current date by default
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const day = String(today.getDate()).padStart(2, '0');
+    const dateStr = `${year}-${month}-${day}`;
+    
     const dateInput = document.getElementById("dateInput");
+    dateInput.value = dateStr;
+    dateInput.defaultValue = dateStr; // Ensure it sticks
     
-    // Set both the value and the HTML5 date input's displayed value
-    dateInput.value = `${year}-${month}-${day}`;
-    dateInput.defaultValue = `${year}-${month}-${day}`;
-    
-    handleDateChange();
+    handleDateChange(); // Calculate immediately
 };
 
 function handleDateChange() {
@@ -63,17 +63,24 @@ function drawPieChart(percent) {
     const ctx = canvas.getContext("2d");
     const size = Math.min(canvas.width, canvas.height);
     
-    canvas.width = size;
-    canvas.height = size;
+    // Set display size (smaller visual size)
+    canvas.style.width = '200px';
+    canvas.style.height = '200px';
+    
+    // Set actual internal size for sharp rendering
+    const scale = window.devicePixelRatio || 1;
+    canvas.width = 200 * scale;
+    canvas.height = 200 * scale;
+    ctx.scale(scale, scale);
 
-    const centerX = size / 2;
-    const centerY = size / 2;
-    const radius = size / 2 * 0.8;
+    const centerX = 100;
+    const centerY = 100;
+    const radius = 80;
     const startAngle = -Math.PI / 2;
     const endAngle = startAngle + (percent / 100) * 2 * Math.PI;
 
     // Clear canvas
-    ctx.clearRect(0, 0, size, size);
+    ctx.clearRect(0, 0, 200, 200);
 
     // Draw background circle
     ctx.beginPath();
