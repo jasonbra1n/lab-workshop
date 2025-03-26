@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto Image to WebP Converter</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Auto Image to WebP Converter</h1>
+        <input type="file" id="imageInput" accept="image/jpeg,image/png" multiple style="display: none;">
+        <div id="dropZone">Drag images here or click to select</div>
+        <div id="error"></div>
+        <div id="loading">Converting images... Please wait.</div>
+        <div id="result"></div>
+        <div id="actionButtons">
+            <button id="downloadAllBtn" onclick="downloadAllAsZip()">Download All as ZIP</button>
+            <button id="clearAllBtn" onclick="clearAll()">Clear All</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
