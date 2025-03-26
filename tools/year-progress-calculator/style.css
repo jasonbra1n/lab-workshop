@@ -37,3 +37,35 @@
     margin: 20px auto;
     max-width: 100%;
 }
+/* Mobile-specific styles */
+@media (max-width: 480px) {
+    .container {
+        padding: 10px !important;
+        margin: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box;
+    }
+    
+    #dateInput {
+        width: calc(100% - 20px) !important;
+        max-width: calc(100% - 20px) !important;
+        margin: 10px !important;
+    }
+    
+    #yearProgressChart {
+        width: 100% !important;
+        height: auto !important;
+        max-width: 100vw !important;
+    }
+    
+    #progressBarContainer {
+        width: calc(100% - 20px) !important;
+        margin: 10px auto !important;
+    }
+    
+    #result, #countdown {
+        padding: 0 10px;
+        word-wrap: break-word;
+    }
+}
