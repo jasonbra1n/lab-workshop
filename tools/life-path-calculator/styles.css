@@ -6,11 +6,6 @@
     text-align: center;
 }
 
-h2 {
-    color: var(--primary-color);
-    margin-bottom: 15px;
-}
-
 label {
     color: var(--text-color);
     font-size: 1.2em;
