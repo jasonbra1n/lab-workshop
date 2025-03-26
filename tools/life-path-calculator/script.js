@@ -1,11 +1,20 @@
 function initLifePathCalculator() {
-    const calculateBtn = document.getElementById('calculateBtn');
-    calculateBtn.addEventListener('click', calculateLifePath);
+    const dobInput = document.getElementById('dob');
+
+    // Set default date to today
+    const today = new Date();
+    dobInput.value = today.toISOString().split('T')[0]; // Format: YYYY-MM-DD
+
+    // Initial calculation
+    calculateLifePath();
+
+    // Recalculate on date change
+    dobInput.addEventListener('input', calculateLifePath);
 
     function calculateLifePath() {
-        const dob = document.getElementById("dob").value;
+        const dob = dobInput.value;
         if (!dob) {
-            alert("Please enter a valid date of birth.");
+            document.getElementById("result").style.display = "none";
             return;
         }
 
@@ -83,7 +92,6 @@ function initLifePathCalculator() {
     }
 }
 
-// Run initialization when the script loads
-if (document.getElementById('calculateBtn')) {
+if (document.getElementById('dob')) {
     initLifePathCalculator();
 }
