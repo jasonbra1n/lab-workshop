@@ -1,4 +1,4 @@
-// Theme Management
+// Theme Management (unchanged)
 function initializeTheme() {
     const savedTheme = localStorage.getItem('theme');
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -58,27 +58,55 @@ document.addEventListener('DOMContentLoaded', function() {
     addThemeToggle();
     
     const toolButtons = document.querySelectorAll('.tool-btn');
+    const pillarButtons = document.querySelectorAll('.pillar-btn');
     const toolContainer = document.getElementById('tool-container');
     
+    // Tool button clicks (unchanged)
     toolButtons.forEach(button => {
         button.addEventListener('click', function() {
             toolButtons.forEach(btn => btn.classList.remove('active'));
             this.classList.add('active');
             const toolName = this.dataset.tool;
             loadTool(toolName);
-            // Virtual pageview tracking for Google Analytics
             gtag('event', 'page_view', {
-                page_title: toolName.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase()), // e.g., "Image To Webp Converter"
+                page_title: toolName.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase()),
                 page_path: `/tools/${toolName}`
             });
         });
+    });
+    
+    // Pillar button clicks for touch devices
+    pillarButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            const toolList = this.nextElementSibling;
+            const isActive = toolList.classList.contains('active');
+            
+            // Close all other tool lists
+            document.querySelectorAll('.tool-list').forEach(list => {
+                list.classList.remove('active');
+            });
+            
+            // Toggle this tool list
+            if (!isActive) {
+                toolList.classList.add('active');
+            }
+        });
+    });
+    
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('.pillar')) {
+            document.querySelectorAll('.tool-list').forEach(list => {
+                list.classList.remove('active');
+            });
+        }
     });
     
     async function loadTool(toolName) {
         try {
             toolContainer.innerHTML = '<div class="loading">Loading tool...</div>';
             
-            // Fetch tool HTML
             const htmlResponse = await fetch(`tools/${toolName}/index.html`);
             if (!htmlResponse.ok) throw new Error('Tool HTML not found');
             const html = await htmlResponse.text();
@@ -88,7 +116,6 @@ document.addEventListener('DOMContentLoaded', function() {
             
             if (!toolContent) throw new Error('Invalid tool format');
             
-            // Create wrapper with proper structure
             const wrapper = document.createElement('div');
             wrapper.className = `tool-container ${toolName}-container`;
             
@@ -100,7 +127,6 @@ document.addEventListener('DOMContentLoaded', function() {
             toolContainer.innerHTML = '';
             toolContainer.appendChild(wrapper);
             
-            // Fetch and apply tool CSS
             const cssResponse = await fetch(`tools/${toolName}/styles.css`);
             if (cssResponse.ok) {
                 const cssText = await cssResponse.text();
@@ -111,7 +137,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 console.warn(`No styles.css found for ${toolName}, relying on main styles`);
             }
             
-            // Load the tool's JS
             const script = document.createElement('script');
             script.src = `tools/${toolName}/script.js`;
             toolContainer.appendChild(script);
@@ -127,7 +152,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // Handle window resize
     window.addEventListener('resize', function() {
         const toolWrapper = document.querySelector('.tool-container');
         if (toolWrapper) {
