@@ -1,12 +1,18 @@
-.container {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 20px;
-    font-family: var(--font-family, Arial, sans-serif);
-    text-align: center;
+.calculator {
+    background: #222;
+    border-radius: 16px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    padding: 20px;
     width: auto;
     max-width: 400px;
     margin: 0 auto;
+    text-align: center;
+    color: #fff;
+}
+
+.calculator.light {
+    background: #f0f0f0;
+    color: #000;
 }
 
 .display {
@@ -23,12 +29,7 @@
     width: calc(100% - 20px);
 }
 
-.dark-theme .display {
-    background: #333;
-    color: #0f0;
-}
-
-:root:not(.dark-theme) .display {
+.calculator.light .display {
     background: #ddd;
     color: #000;
 }
@@ -45,12 +46,7 @@
     font-size: 1rem;
 }
 
-.dark-theme .history {
-    background: #333;
-    color: #0f0;
-}
-
-:root:not(.dark-theme) .history {
+.calculator.light .history {
     background: #ddd;
     color: #000;
 }
@@ -67,16 +63,12 @@
     border-radius: 8px;
     color: #fff;
     font-size: 1.5rem;
+    padding: 15px;
     cursor: pointer;
     transition: background 0.3s, transform 0.1s;
 }
 
-.dark-theme .button {
-    background: #555;
-    color: #fff;
-}
-
-:root:not(.dark-theme) .button {
+.calculator.light .button {
     background: #ccc;
     color: #000;
 }
@@ -89,11 +81,7 @@
     background: #f90;
 }
 
-.dark-theme .button.operator {
-    background: #f90;
-}
-
-:root:not(.dark-theme) .button.operator {
+.calculator.light .button.operator {
     background: #ffa500;
 }
 
@@ -105,11 +93,7 @@
     background: #e00;
 }
 
-.dark-theme .button.clear {
-    background: #e00;
-}
-
-:root:not(.dark-theme) .button.clear {
+.calculator.light .button.clear {
     background: #ff4444;
 }
 
@@ -121,11 +105,7 @@
     background: #0c0;
 }
 
-.dark-theme .button.equal {
-    background: #0c0;
-}
-
-:root:not(.dark-theme) .button.equal {
+.calculator.light .button.equal {
     background: #00cc00;
 }
 
@@ -133,12 +113,23 @@
     background: #0f0;
 }
 
+.button.theme-toggle, .button.copy-result, .button.clear-history {
+    background: #555;
+    font-size: 1.2rem;
+}
+
+.calculator.light .button.theme-toggle, .calculator.light .button.copy-result, .calculator.light .button.clear-history {
+    background: #ccc;
+}
+
 @media (max-width: 400px) {
-    .container {
+    .calculator {
         width: 90%;
+        padding: 15px;
     }
     .button {
         font-size: 1.2rem;
+        padding: 10px;
     }
     .display {
         font-size: 1.5rem;
