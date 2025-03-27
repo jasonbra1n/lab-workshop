@@ -1,147 +1,112 @@
-.eightball-container {
-  text-align: center;
-  perspective: 1200px;
-  padding: 2rem;
+.container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    font-family: var(--font-family, Arial, sans-serif);
+    text-align: center;
 }
 
 .ball {
-  position: relative;
-  width: 300px;
-  height: 300px;
-  border-radius: 50%;
-  background: radial-gradient(circle at 40% 40%, #333, #000);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 20px #00f0ff;
-  margin: 2rem auto;
-  cursor: pointer; /* Indicates tappability */
-  transition: transform 0.3s ease;
-  overflow: hidden;
-}
-
-.ball:active {
-  transform: scale(0.95); /* Visual feedback on tap */
+    position: relative;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 40% 40%, #333, #000); /* Always black gradient */
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+    margin: 2rem auto;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    overflow: hidden;
 }
 
 .ball::before {
-  content: '';
-  position: absolute;
-  top: 10%;
-  left: 10%;
-  width: 60%;
-  height: 40%;
-  background: rgba(57, 255, 20, 0.2);
-  border-radius: 50%;
-  transform: rotate(-30deg);
-  filter: blur(4px);
+    content: '';
+    position: absolute;
+    top: 10%;
+    left: 10%;
+    width: 60%;
+    height: 40%;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    transform: rotate(-30deg);
+    filter: blur(4px);
 }
 
 .inner-circle {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 150px;
-  height: 150px;
-  background: #000;
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 5px solid #39ff14;
-  box-shadow: inset 0 0 10px #00f0ff;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 150px;
+    height: 150px;
+    background: #000; /* Always black */
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 5px solid #fff;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.8);
 }
 
 .triangle-container {
-  position: relative;
-  width: 95%;
-  height: 95%;
-  opacity: 1;
-  transition: opacity 0.3s ease;
+    position: relative;
+    width: 95%;
+    height: 95%;
+    opacity: 1;
+    transition: opacity 0.3s ease;
 }
 
 .triangle-container svg {
-  width: 100%;
-  height: 100%;
-  display: block;
-  filter: drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.5));
+    width: 100%;
+    height: 100%;
+    display: block;
+    filter: drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.5));
 }
 
 .triangle-text {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: #fff;
-  text-align: center;
-  padding: 0 10px;
-  font-size: 0.9em;
-  font-weight: bold;
-  pointer-events: none;
-  text-shadow: 0 0 8px #00f0ff;
-  font-family: 'Share Tech Mono', monospace;
-}
-
-button {
-  background: #00f0ff;
-  color: #000;
-  font-size: 1.2em;
-  padding: 0.5rem 1rem;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
-  box-shadow: 0 0 10px #00f0ff;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-top: 1rem;
-  font-family: 'Share Tech Mono', monospace;
-}
-
-button:hover {
-  background: #39ff14;
-  transform: translateY(-2px);
-  box-shadow: 0 0 15px #39ff14;
-}
-
-button:active {
-  transform: translateY(0);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #fff;
+    text-align: center;
+    padding: 0 10px;
+    font-size: 0.9em;
+    font-weight: bold;
+    pointer-events: none;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
 }
 
 @keyframes shake {
-  0% { transform: rotate(0deg); }
-  25% { transform: rotate(15deg); }
-  50% { transform: rotate(-15deg); }
-  75% { transform: rotate(10deg); }
-  100% { transform: rotate(0deg); }
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(15deg); }
+    50% { transform: rotate(-15deg); }
+    75% { transform: rotate(10deg); }
+    100% { transform: rotate(0deg); }
 }
 
 @keyframes float {
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
-  100% { transform: translateY(0px); }
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
 }
 
 .shake {
-  animation: shake 0.8s ease-in-out;
+    animation: shake 0.8s ease-in-out;
 }
 
 .float {
-  animation: float 3s ease-in-out infinite;
+    animation: float 3s ease-in-out infinite;
 }
 
 @media (max-width: 600px) {
-  .eightball-container {
-    padding: 1.5rem;
-  }
-  .ball {
-    width: 250px;
-    height: 250px;
-  }
-  .inner-circle {
-    width: 125px;
-    height: 125px;
-    border-width: 4px;
-  }
-  button {
-    font-size: 1em;
-  }
+    .ball {
+        width: 250px;
+        height: 250px;
+    }
+    .inner-circle {
+        width: 125px;
+        height: 125px;
+        border-width: 4px;
+    }
 }
