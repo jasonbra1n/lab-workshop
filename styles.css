@@ -369,22 +369,36 @@ button:hover {
     }
     
     .tool-nav {
-        flex-direction: row;
-        overflow-x: auto;
-        justify-content: flex-start;
-        padding: 5px 3px;
-        white-space: nowrap;
+        flex-direction: column; /* Stack pillars vertically */
+        align-items: stretch; /* Stretch pillars to full width */
+        padding: 5px;
+        overflow-x: hidden; /* Remove horizontal scroll */
     }
     
-    .pillar-btn,
-    .tool-btn {
-        padding: 8px 12px;
+    .pillar-btn {
+        padding: 6px 12px; /* Reduced padding for mobile */
         font-size: 0.9rem;
     }
     
     .tool-list {
-        position: static; /* Stack below on mobile */
+        display: block; /* Stack items vertically by default when active */
+        position: static; /* Stack below pillar-btn */
+        width: 100%; /* Full width for stacking */
+        padding: 5px; /* Reduce padding */
         box-shadow: none;
         border: 1px solid var(--border-color);
+    }
+    
+    .tool-list.active {
+        display: block; /* Ensure it stays block when active */
+    }
+    
+    .tool-btn {
+        width: 100%; /* Full width to stack naturally */
+        padding: 6px 10px; /* Reduce padding for smaller screens */
+        margin: 3px 0; /* Tighten spacing between buttons */
+        font-size: 0.85rem; /* Slightly smaller font for mobile */
+        box-sizing: border-box; /* Ensure padding doesn’t overflow */
+        text-align: center; /* Center text for a cleaner look */
     }
 }
