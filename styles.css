@@ -21,7 +21,7 @@
     --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
     --console-bg: #1f2937;
     --border-color: #374151;
-    --primary-hover: #3b82f6;
+    --primary-hover: #60a5fa; /* Adjusted for hover contrast */
     --primary-active: #2563eb;
 }
 
@@ -59,7 +59,7 @@ h2 {
     border-radius: 4px;
     max-width: 300px;
     margin: 0 auto;
-    display: block; /* Ensures centering */
+    display: block;
     appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -102,10 +102,6 @@ footer {
     border-top: 1px solid var(--border-color);
     min-height: var(--footer-height);
     box-sizing: border-box;
-}
-
-footer p {
-    font-size: 0.9em;
     color: var(--text-color);
 }
 
