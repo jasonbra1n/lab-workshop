@@ -21,6 +21,15 @@ const ctx = waveCanvas.getContext('2d');
 let leftOsc, rightOsc, leftGain, rightGain, lfoLeft, lfoRight, masterGain, startTime, totalDuration, intervalId, beatFrequency;
 let animationFrameId;
 
+// Set initial canvas width and handle resize
+function resizeCanvas() {
+  const containerWidth = waveCanvas.parentElement.clientWidth - 20; // Account for 10px padding on each side
+  waveCanvas.width = containerWidth; // Set canvas width dynamically
+}
+
+window.addEventListener('resize', resizeCanvas);
+resizeCanvas(); // Initial call to set width
+
 // Toggle mode options
 modeRadios.forEach(radio => {
   radio.addEventListener('change', () => {
@@ -163,7 +172,6 @@ resetButton.addEventListener('click', () => {
     }, 2000);
   }
 
-  // Reset all inputs to default values
   carrierFrequencyInput.value = 200;
   volumeSlider.value = 50;
   panningCheckbox.checked = false;
@@ -308,9 +316,9 @@ function visualizeBeatFrequency() {
 
     // Left ear (blue)
     ctx.beginPath();
-    ctx.moveTo(0, waveCanvas.height / 2); // Start at left edge
+    ctx.moveTo(0, waveCanvas.height / 2);
     for (let x = 0; x <= waveCanvas.width; x++) {
-      const t = x / waveCanvas.width * 2 * Math.PI; // Full cycle across width
+      const t = x / waveCanvas.width * 2 * Math.PI;
       const y = waveCanvas.height / 2 + Math.sin(t + phaseLeft) * 50;
       ctx.lineTo(x, y);
     }
@@ -319,9 +327,9 @@ function visualizeBeatFrequency() {
 
     // Right ear (red)
     ctx.beginPath();
-    ctx.moveTo(0, waveCanvas.height / 2); // Start at left edge
+    ctx.moveTo(0, waveCanvas.height / 2);
     for (let x = 0; x <= waveCanvas.width; x++) {
-      const t = x / waveCanvas.width * 2 * Math.PI; // Full cycle across width
+      const t = x / waveCanvas.width * 2 * Math.PI;
       const y = waveCanvas.height / 2 + Math.sin(t + phaseRight) * 50;
       ctx.lineTo(x, y);
     }
@@ -354,11 +362,11 @@ function visualizeSleepCycle() {
 
     // Left ear (blue)
     ctx.beginPath();
-    ctx.moveTo(0, waveCanvas.height / 2); // Start at left edge
+    ctx.moveTo(0, waveCanvas.height / 2);
     for (let x = 0; x <= waveCanvas.width; x++) {
       const time = (x / waveCanvas.width) * totalDuration;
       const carrier = getCurrentCarrier(time, transitionTime, riseTime, totalDuration, startCarrier, secondCarrier);
-      const t = x / waveCanvas.width * 2 * Math.PI; // Full cycle across width
+      const t = x / waveCanvas.width * 2 * Math.PI;
       const y = waveCanvas.height / 2 + Math.sin(t * beatFrequency + phaseLeft) * (carrier / 1000) * 50;
       ctx.lineTo(x, y);
     }
@@ -367,11 +375,11 @@ function visualizeSleepCycle() {
 
     // Right ear (red)
     ctx.beginPath();
-    ctx.moveTo(0, waveCanvas.height / 2); // Start at left edge
+    ctx.moveTo(0, waveCanvas.height / 2);
     for (let x = 0; x <= waveCanvas.width; x++) {
       const time = (x / waveCanvas.width) * totalDuration;
       const carrier = getCurrentCarrier(time, transitionTime, riseTime, totalDuration, startCarrier, secondCarrier);
-      const t = x / waveCanvas.width * 2 * Math.PI; // Full cycle across width
+      const t = x / waveCanvas.width * 2 * Math.PI;
       const y = waveCanvas.height / 2 + Math.sin(t * beatFrequency + phaseRight) * (carrier / 1000) * 50;
       ctx.lineTo(x, y);
     }
