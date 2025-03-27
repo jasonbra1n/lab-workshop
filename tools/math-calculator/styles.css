@@ -1,23 +1,18 @@
 .calculator {
-    background: #222;
+    background: var(--card-bg); /* #f8fafc light, #334155 dark */
     border-radius: 16px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    box-shadow: var(--card-shadow); /* Matches SPA card shadow */
     padding: 20px;
     width: auto;
     max-width: 400px;
     margin: 0 auto;
     text-align: center;
-    color: #fff;
-}
-
-.calculator.light {
-    background: #f0f0f0;
-    color: #000;
+    color: var(--text-color); /* #333 light, #f8fafc dark */
 }
 
 .display {
-    background: #333;
-    color: #0f0;
+    background: var(--console-bg); /* #f5f5f5 light, #1f2937 dark */
+    color: var(--text-color);
     border: none;
     border-radius: 8px;
     font-size: 2rem;
@@ -29,14 +24,9 @@
     width: calc(100% - 20px);
 }
 
-.calculator.light .display {
-    background: #ddd;
-    color: #000;
-}
-
 .history {
-    background: #333;
-    color: #0f0;
+    background: var(--console-bg);
+    color: var(--text-color);
     border-radius: 8px;
     padding: 8px 20px 1px 10px;
     margin-bottom: 10px;
@@ -46,11 +36,6 @@
     font-size: 1rem;
 }
 
-.calculator.light .history {
-    background: #ddd;
-    color: #000;
-}
-
 .buttons {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -58,19 +43,18 @@
 }
 
 .button {
-    background: #555;
+    background: var(--sub-button-color); /* #3b82f6 light, #2563eb dark */
     border: none;
     border-radius: 8px;
-    color: #fff;
+    color: white;
     font-size: 1.5rem;
     padding: 15px;
     cursor: pointer;
     transition: background 0.3s, transform 0.1s;
 }
 
-.calculator.light .button {
-    background: #ccc;
-    color: #000;
+.button:hover {
+    background: var(--primary-hover); /* #1d4ed8 light, #60a5fa dark */
 }
 
 .button:active {
@@ -78,48 +62,48 @@
 }
 
 .button.operator {
-    background: #f90;
+    background: var(--primary-color); /* #2563eb light, #3b82f6 dark */
 }
 
-.calculator.light .button.operator {
-    background: #ffa500;
+.button.operator:hover {
+    background: var(--primary-hover);
 }
 
 .button.operator:active {
-    background: #fc0;
+    background: var(--primary-active); /* #1e40af light, #2563eb dark */
 }
 
 .button.clear {
-    background: #e00;
+    background: #e00; /* Keep red for clear, distinct from blue theme */
 }
 
-.calculator.light .button.clear {
-    background: #ff4444;
-}
-
-.button.clear:active {
+.button.clear:hover {
     background: #f33;
 }
 
+.button.clear:active {
+    background: #c00;
+}
+
 .button.equal {
-    background: #0c0;
+    background: #0c0; /* Keep green for equals, distinct from blue theme */
 }
 
-.calculator.light .button.equal {
-    background: #00cc00;
-}
-
-.button.equal:active {
+.button.equal:hover {
     background: #0f0;
 }
 
+.button.equal:active {
+    background: #090;
+}
+
 .button.theme-toggle, .button.copy-result, .button.clear-history {
-    background: #555;
+    background: var(--sub-button-color);
     font-size: 1.2rem;
 }
 
-.calculator.light .button.theme-toggle, .calculator.light .button.copy-result, .calculator.light .button.clear-history {
-    background: #ccc;
+.button.theme-toggle:hover, .button.copy-result:hover, .button.clear-history:hover {
+    background: var(--primary-hover);
 }
 
 @media (max-width: 400px) {
