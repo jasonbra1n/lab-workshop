@@ -1,0 +1,39 @@
+/* Unique styles for Binaural Beats */
+.mode-selection,
+.carrier-frequency,
+.volume-control,
+.controls,
+.timeline {
+  margin: 15px 0; /* Slightly less than original 20px to match SPA tightness */
+}
+
+.timeline input[type="range"] {
+  width: 100%;
+}
+
+.visualization {
+  margin-top: 15px;
+  background: var(--console-bg); /* Matches SPA console background */
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: var(--card-shadow);
+}
+
+@media (max-width: 768px) {
+  .visualization canvas {
+    width: 100%;
+    height: 150px; /* Adjusted for smaller screens */
+  }
+  
+  .controls button {
+    width: 100%;
+    margin: 5px 0;
+  }
+  
+  .carrier-frequency input[type="number"],
+  #sleep-options input[type="number"],
+  #tone-options input[type="number"],
+  #tone-options select {
+    width: 100%;
+  }
+}
