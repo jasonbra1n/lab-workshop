@@ -112,54 +112,66 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    async function loadTool(toolName) {
-        try {
-            toolContainer.innerHTML = '<div class="loading">Loading tool...</div>';
-            
-            const htmlResponse = await fetch(`tools/${toolName}/index.html`);
-            if (!htmlResponse.ok) throw new Error('Tool HTML not found');
-            const html = await htmlResponse.text();
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(html, 'text/html');
-            const toolContent = doc.querySelector('.container') || doc.querySelector('body > div');
-            
-            if (!toolContent) throw new Error('Invalid tool format');
-            
-            const wrapper = document.createElement('div');
-            wrapper.className = `tool-container ${toolName}-container`;
-            
-            const contentWrapper = document.createElement('div');
-            contentWrapper.className = 'tool-content';
-            contentWrapper.innerHTML = toolContent.innerHTML;
-            
-            wrapper.appendChild(contentWrapper);
-            toolContainer.innerHTML = '';
-            toolContainer.appendChild(wrapper);
-            
-            const cssResponse = await fetch(`tools/${toolName}/styles.css`);
-            if (cssResponse.ok) {
-                const cssText = await cssResponse.text();
-                const styleElement = document.createElement('style');
-                styleElement.textContent = cssText;
-                toolContainer.appendChild(styleElement);
-            } else {
-                console.warn(`No styles.css found for ${toolName}, relying on main styles`);
-            }
-            
-            const script = document.createElement('script');
-            script.src = `tools/${toolName}/script.js`;
-            toolContainer.appendChild(script);
-            
-        } catch (error) {
-            toolContainer.innerHTML = `
-                <div class="error">
-                    <h3>Error loading tool</h3>
-                    <p>${error.message}</p>
-                    <button onclick="location.reload()">Return Home</button>
-                </div>
-            `;
-        }
+   async function loadTool(toolName) {
+  try {
+    toolContainer.innerHTML = '<div class="loading">Loading tool...</div>';
+    
+    const htmlResponse = await fetch(`tools/${toolName}/index.html`);
+    if (!htmlResponse.ok) throw new Error('Tool HTML not found');
+    const html = await htmlResponse.text();
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, 'text/html');
+    const toolContent = doc.querySelector('.container') || doc.querySelector('body > div');
+    
+    if (!toolContent) throw new Error('Invalid tool format');
+    
+    const wrapper = document.createElement('div');
+    wrapper.className = `tool-container ${toolName}-container`;
+    
+    const contentWrapper = document.createElement('div');
+    contentWrapper.className = 'tool-content';
+    contentWrapper.innerHTML = toolContent.innerHTML;
+    
+    wrapper.appendChild(contentWrapper);
+    toolContainer.innerHTML = '';
+    toolContainer.appendChild(wrapper);
+    
+    const cssResponse = await fetch(`tools/${toolName}/styles.css`);
+    if (cssResponse.ok) {
+      const cssText = await cssResponse.text();
+      const styleElement = document.createElement('style');
+      styleElement.textContent = cssText;
+      toolContainer.appendChild(styleElement);
+    } else {
+      console.warn(`No styles.css found for ${toolName}, relying on main styles`);
     }
+    
+    // Load Tone.js for binaural-beats tool
+    if (toolName === 'binaural-beats' && !window.Tone) {
+      const toneScript = document.createElement('script');
+      toneScript.src = 'https://cdn.jsdelivr.net/npm/tone@14.7.77/build/Tone.js';
+      toneScript.onload = () => {
+        const script = document.createElement('script');
+        script.src = `tools/${toolName}/script.js`;
+        toolContainer.appendChild(script);
+      };
+      toolContainer.appendChild(toneScript);
+    } else {
+      const script = document.createElement('script');
+      script.src = `tools/${toolName}/script.js`;
+      toolContainer.appendChild(script);
+    }
+    
+  } catch (error) {
+    toolContainer.innerHTML = `
+      <div class="error">
+        <h3>Error loading tool</h3>
+        <p>${error.message}</p>
+        <button onclick="location.reload()">Return Home</button>
+      </div>
+    `;
+  }
+}
     
     window.addEventListener('resize', function() {
         const toolWrapper = document.querySelector('.tool-container');
