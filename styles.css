@@ -133,7 +133,11 @@ footer a:hover {
     flex-wrap: wrap;
 }
 
-.tool-btn {
+.pillar {
+    position: relative;
+}
+
+.pillar-btn {
     padding: 8px 16px;
     background-color: var(--primary-color);
     color: white;
@@ -141,6 +145,42 @@ footer a:hover {
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.2s;
+    font-family: var(--font-family);
+}
+
+.pillar-btn:hover,
+.pillar-btn.active {
+    background-color: var(--primary-hover);
+}
+
+.tool-list {
+    display: none; /* Hidden by default */
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: var(--card-bg);
+    padding: 10px;
+    border-radius: 4px;
+    box-shadow: var(--card-shadow);
+    min-width: 150px;
+    z-index: 10;
+}
+
+.tool-list.active {
+    display: block; /* Shown when pillar-btn clicked */
+}
+
+.tool-btn {
+    padding: 8px 16px;
+    background-color: var(--sub-button-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    width: 100%;
+    text-align: left;
+    margin: 5px 0;
 }
 
 .tool-btn:hover {
@@ -195,7 +235,7 @@ button:hover {
     bottom: 20px;
     right: 20px;
     z-index: 1000;
-    background: var(--primary-color); /* Keep as primary for toggle */
+    background: var(--primary-color);
     color: white;
     border: none;
     border-radius: 50%;
@@ -259,8 +299,15 @@ button:hover {
         white-space: nowrap;
     }
     
+    .pillar-btn,
     .tool-btn {
         padding: 8px 12px;
         font-size: 0.9rem;
+    }
+    
+    .tool-list {
+        position: static; /* Stack below on mobile */
+        box-shadow: none;
+        border: 1px solid var(--border-color);
     }
 }
