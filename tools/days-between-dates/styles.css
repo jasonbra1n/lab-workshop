@@ -1,0 +1,79 @@
+body {
+            background: transparent !important; /* Transparent background, overrides any defaults */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .datecalculator {
+            background: #FFF; /* White background for the calculator itself */
+            border-radius: 16px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            width: 90%; /* Responsive width */
+            max-width: 400px; /* Cap for larger screens */
+            margin: auto;
+            text-align: center;
+            color: #000;
+            box-sizing: border-box;
+        }
+
+        .datecalculator h1 {
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="date"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #444;
+            border-radius: 5px;
+            background: #FFF;
+            color: #000;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #555;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #777;
+        }
+
+        .result {
+            margin-top: 20px;
+            font-size: 1.2em;
+            word-wrap: break-word;
+        }
+
+        /* Media query for smaller screens */
+        @media (max-width: 500px) {
+            .datecalculator {
+                padding: 15px;
+            }
+            .datecalculator h1 {
+                font-size: 1.2em;
+            }
+            button {
+                padding: 8px 16px;
+            }
+        }
