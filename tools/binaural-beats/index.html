@@ -1,5 +1,9 @@
 <div class="container">
   <h1>Best Binaural Beats Generator</h1>
+  <!-- Visualization moved here -->
+  <div class="visualization">
+    <canvas id="wave-canvas" width="600" height="200"></canvas>
+  </div>
   <p class="note">Please use headphones for the binaural effect.</p>
 
   <!-- Mode Selection -->
@@ -33,11 +37,11 @@
   <div id="tone-options" style="display: none;">
     <label for="state">Select Brainwave State:</label>
     <select id="state">
-      <option value="delta">Delta (&lt;4 Hz) - Deep Sleep</option>
+      <option value="delta">Delta (<4 Hz) - Deep Sleep</option>
       <option value="theta">Theta (4-8 Hz) - REM/Light Sleep</option>
       <option value="alpha">Alpha (8-12 Hz) - Relaxation</option>
       <option value="beta">Beta (13-30 Hz) - Focus</option>
-      <option value="gamma">Gamma (&gt;30 Hz) - High Cognition</option>
+      <option value="gamma">Gamma (>30 Hz) - High Cognition</option>
     </select>
     <div id="beat-frequency-control">
       <label for="beat-frequency">Beat Frequency (Hz):</label>
@@ -63,10 +67,5 @@
   <div class="controls">
     <button id="play">Play</button>
     <button id="stop">Stop</button>
-  </div>
-
-  <!-- Visualization -->
-  <div class="visualization">
-    <canvas id="wave-canvas" width="600" height="200"></canvas>
   </div>
 </div>
