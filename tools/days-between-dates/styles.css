@@ -1,19 +1,14 @@
 .datecalculator {
-    background: #FFF;
+    background: var(--card-bg); /* #f8fafc light, #334155 dark */
     border-radius: 16px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    box-shadow: var(--card-shadow); /* Matches SPA card shadow */
     padding: 20px;
     width: 90%;
     max-width: 400px;
     margin: 0 auto;
     text-align: center;
-    color: #000;
+    color: var(--text-color); /* #333 light, #f8fafc dark */
     box-sizing: border-box;
-}
-
-.dark-theme .datecalculator {
-    background: #222;
-    color: #fff;
 }
 
 .input-group {
@@ -30,17 +25,11 @@ input[type="date"] {
     width: 100%;
     padding: 8px;
     margin-bottom: 10px;
-    border: 1px solid #444;
+    border: 1px solid var(--border-color); /* #ddd light, #374151 dark */
     border-radius: 5px;
-    background: #FFF;
-    color: #000;
+    background: var(--card-bg); /* Matches container */
+    color: var(--text-color);
     box-sizing: border-box;
-}
-
-.dark-theme input[type="date"] {
-    background: #333;
-    color: #fff;
-    border-color: #666;
 }
 
 .result {
