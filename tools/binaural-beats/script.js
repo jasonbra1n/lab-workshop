@@ -24,18 +24,19 @@ let animationFrameId;
 // Set initial canvas width and handle resize
 function resizeCanvas() {
   const containerWidth = waveCanvas.parentElement.clientWidth - 20; // Account for 10px padding on each side
-  waveCanvas.width = containerWidth; // Set canvas width dynamically
+  waveCanvas.width = containerWidth;
 }
 
 window.addEventListener('resize', resizeCanvas);
 resizeCanvas(); // Initial call to set width
 
-// Toggle mode options
+// Toggle mode options and update visualization
 modeRadios.forEach(radio => {
   radio.addEventListener('change', () => {
     sleepOptions.style.display = radio.value === 'sleep' ? 'block' : 'none';
     toneOptions.style.display = radio.value === 'tone' ? 'block' : 'none';
     updateAudio();
+    startVisualization(); // Update canvas when mode changes
   });
 });
 
@@ -189,6 +190,7 @@ resetButton.addEventListener('click', () => {
 
   updateAudio();
   updateVolume();
+  startVisualization(); // Update canvas after reset
 });
 
 // Update audio parameters and visualization
@@ -319,7 +321,7 @@ function visualizeBeatFrequency() {
     ctx.moveTo(0, waveCanvas.height / 2);
     for (let x = 0; x <= waveCanvas.width; x++) {
       const t = x / waveCanvas.width * 2 * Math.PI;
-      const y = waveCanvas.height / 2 + Math.sin(t + phaseLeft) * 50;
+      const y = waveCanvas.height / 2 + Math.sin(t + (leftOsc ? phaseLeft : 0)) * 50;
       ctx.lineTo(x, y);
     }
     ctx.strokeStyle = '#00f';
@@ -330,16 +332,17 @@ function visualizeBeatFrequency() {
     ctx.moveTo(0, waveCanvas.height / 2);
     for (let x = 0; x <= waveCanvas.width; x++) {
       const t = x / waveCanvas.width * 2 * Math.PI;
-      const y = waveCanvas.height / 2 + Math.sin(t + phaseRight) * 50;
+      const y = waveCanvas.height / 2 + Math.sin(t + (leftOsc ? phaseRight : 0)) * 50;
       ctx.lineTo(x, y);
     }
     ctx.strokeStyle = '#f00';
     ctx.stroke();
 
-    phaseLeft += beatFrequency * 0.01;
-    phaseRight += (carrier + beatFrequency) * 0.01;
-
-    animationFrameId = requestAnimationFrame(draw);
+    if (leftOsc) {
+      phaseLeft += beatFrequency * 0.01;
+      phaseRight += (carrier + beatFrequency) * 0.01;
+      animationFrameId = requestAnimationFrame(draw);
+    }
   }
   draw();
 }
@@ -367,7 +370,7 @@ function visualizeSleepCycle() {
       const time = (x / waveCanvas.width) * totalDuration;
       const carrier = getCurrentCarrier(time, transitionTime, riseTime, totalDuration, startCarrier, secondCarrier);
       const t = x / waveCanvas.width * 2 * Math.PI;
-      const y = waveCanvas.height / 2 + Math.sin(t * beatFrequency + phaseLeft) * (carrier / 1000) * 50;
+      const y = waveCanvas.height / 2 + Math.sin(t * beatFrequency + (leftOsc ? phaseLeft : 0)) * (carrier / 1000) * 50;
       ctx.lineTo(x, y);
     }
     ctx.strokeStyle = '#00f';
@@ -380,7 +383,7 @@ function visualizeSleepCycle() {
       const time = (x / waveCanvas.width) * totalDuration;
       const carrier = getCurrentCarrier(time, transitionTime, riseTime, totalDuration, startCarrier, secondCarrier);
       const t = x / waveCanvas.width * 2 * Math.PI;
-      const y = waveCanvas.height / 2 + Math.sin(t * beatFrequency + phaseRight) * (carrier / 1000) * 50;
+      const y = waveCanvas.height / 2 + Math.sin(t * beatFrequency + (leftOsc ? phaseRight : 0)) * (carrier / 1000) * 50;
       ctx.lineTo(x, y);
     }
     ctx.strokeStyle = '#f00';
@@ -394,12 +397,14 @@ function visualizeSleepCycle() {
       ctx.lineTo(progress, waveCanvas.height);
       ctx.strokeStyle = '#fff';
       ctx.stroke();
+
+      phaseLeft += beatFrequency * 0.01;
+      phaseRight += (beatFrequency + 2) * 0.01;
+      animationFrameId = requestAnimationFrame(draw);
     }
-
-    phaseLeft += beatFrequency * 0.01;
-    phaseRight += (beatFrequency + 2) * 0.01;
-
-    animationFrameId = requestAnimationFrame(draw);
   }
   draw();
 }
+
+// Initial visualization on page load
+startVisualization();
