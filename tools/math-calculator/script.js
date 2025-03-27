@@ -10,6 +10,15 @@ function initMathCalculator() {
         calculator.classList.add('light');
     }
 
+    // Listen for SPA theme changes
+    document.addEventListener('themeChange', (event) => {
+        if (event.detail.isDark) {
+            calculator.classList.remove('light');
+        } else {
+            calculator.classList.add('light');
+        }
+    });
+
     function appendValue(value) {
         const validChars = "0123456789.+-*/";
         if (display.value.length < 20 && validChars.includes(value)) {
