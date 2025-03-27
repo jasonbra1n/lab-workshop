@@ -1,13 +1,13 @@
 .datecalculator {
-    background: var(--card-bg); /* #f8fafc light, #334155 dark */
+    background: var(--card-bg);
     border-radius: 16px;
-    box-shadow: var(--card-shadow); /* Matches SPA card shadow */
+    box-shadow: var(--card-shadow);
     padding: 20px;
     width: 90%;
     max-width: 400px;
     margin: 0 auto;
     text-align: center;
-    color: var(--text-color); /* #333 light, #f8fafc dark */
+    color: var(--text-color);
     box-sizing: border-box;
 }
 
@@ -21,15 +21,25 @@ label {
     font-weight: bold;
 }
 
-input[type="date"] {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
-    border: 1px solid var(--border-color); /* #ddd light, #374151 dark */
-    border-radius: 5px;
-    background: var(--card-bg); /* Matches container */
+#startDate, #endDate {
+    padding: 10px; /* Matches #dateInput */
+    background-color: var(--card-bg);
     color: var(--text-color);
+    border: 1px solid var(--primary-color); /* #2563eb light, #3b82f6 dark */
+    border-radius: 4px;
+    max-width: 300px;
+    margin: 0 auto;
+    display: block;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 100%; /* Keep full width from original */
     box-sizing: border-box;
+}
+
+#startDate::-webkit-calendar-picker-indicator,
+#endDate::-webkit-calendar-picker-indicator {
+    filter: invert(48%) sepia(13%) saturate(3207%) hue-rotate(130deg) brightness(95%) contrast(80%);
 }
 
 .result {
