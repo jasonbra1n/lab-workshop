@@ -1,28 +1,31 @@
 <div class="container">
     <h2>Math Calculator</h2>
-    <input type="text" id="display" class="display" disabled />
-    <div class="history" id="history"></div>
-    <div class="buttons">
-        <button class="button console-btn" onclick="appendValue('7')">7</button>
-        <button class="button console-btn" onclick="appendValue('8')">8</button>
-        <button class="button console-btn" onclick="appendValue('9')">9</button>
-        <button class="button console-btn operator" onclick="appendValue('/')">÷</button>
-        <button class="button console-btn" onclick="appendValue('4')">4</button>
-        <button class="button console-btn" onclick="appendValue('5')">5</button>
-        <button class="button console-btn" onclick="appendValue('6')">6</button>
-        <button class="button console-btn operator" onclick="appendValue('*')">×</button>
-        <button class="button console-btn" onclick="appendValue('1')">1</button>
-        <button class="button console-btn" onclick="appendValue('2')">2</button>
-        <button class="button console-btn" onclick="appendValue('3')">3</button>
-        <button class="button console-btn operator" onclick="appendValue('-')">−</button>
-        <button class="button console-btn" onclick="appendValue('0')">0</button>
-        <button class="button console-btn" onclick="appendValue('.')">.</button>
-        <button class="button console-btn clear" onclick="clearDisplay()">C</button>
-        <button class="button console-btn operator" onclick="appendValue('+')">+</button>
-        <button class="button console-btn equal" style="grid-column: span 4;" onclick="calculate()">=</button>
-        <button class="button console-btn clear" onclick="backspace()">⌫</button>
-        <button class="button console-btn copy-result" onclick="copyResult()">📋</button>
-        <button class="button console-btn clear-history" onclick="clearHistory()">🗑️</button>
+    <div class="calculator">
+        <input type="text" id="display" class="display" disabled />
+        <div class="history" id="history"></div>
+        <div class="buttons">
+            <button class="button" onclick="appendValue('7')">7</button>
+            <button class="button" onclick="appendValue('8')">8</button>
+            <button class="button" onclick="appendValue('9')">9</button>
+            <button class="button operator" onclick="appendValue('/')">÷</button>
+            <button class="button" onclick="appendValue('4')">4</button>
+            <button class="button" onclick="appendValue('5')">5</button>
+            <button class="button" onclick="appendValue('6')">6</button>
+            <button class="button operator" onclick="appendValue('*')">×</button>
+            <button class="button" onclick="appendValue('1')">1</button>
+            <button class="button" onclick="appendValue('2')">2</button>
+            <button class="button" onclick="appendValue('3')">3</button>
+            <button class="button operator" onclick="appendValue('-')">−</button>
+            <button class="button" onclick="appendValue('0')">0</button>
+            <button class="button" onclick="appendValue('.')">.</button>
+            <button class="button clear" onclick="clearDisplay()">C</button>
+            <button class="button operator" onclick="appendValue('+')">+</button>
+            <button class="button equal" style="grid-column: span 4;" onclick="calculate()">=</button>
+            <button class="button clear console-btn" onclick="backspace()">⌫</button>
+            <button class="button theme-toggle console-btn" onclick="toggleTheme()">🌙</button>
+            <button class="button copy-result console-btn" onclick="copyResult()">📋</button>
+            <button class="button clear-history console-btn" onclick="clearHistory()">🗑️</button>
+        </div>
     </div>
 </div>
 
