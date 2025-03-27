@@ -62,7 +62,6 @@
     margin-top: 20px;
 }
 #downloadAllBtn, #clearAllBtn {
-    padding: 10px 20px; /* Slightly larger, override main button padding */
     display: none;
 }
 #error {
