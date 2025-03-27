@@ -153,201 +153,154 @@ J: 5, K: 5, L: 5, M: 6, N: 6, O: 6, P: 7, Q: 7, R: 7,
 S: 7, T: 8, U: 8, V: 8, W: 9, X: 9, Y: 9, Z: 9
 };
 
-document.addEventListener('DOMContentLoaded', () => {
-  const overlay = document.getElementById('systems-overlay');
-  const openBtn = document.getElementById('open-systems-overlay');
-  const closeBtn = document.getElementById('close-overlay');
-  const saveBtn = document.getElementById('save-systems');
-  const gematriaWord = document.getElementById('gematria-word');
+// [All mapping objects remain unchanged: standardMap, reverseStandardMap, etc.]
 
-  openBtn.addEventListener('click', () => overlay.style.display = 'flex');
-  closeBtn.addEventListener('click', () => overlay.style.display = 'none');
-  saveBtn.addEventListener('click', () => {
-    overlay.style.display = 'none';
-    calculateGematria();
-  });
+function initGematriaCalculator() {
+    const overlay = document.getElementById('systems-overlay');
+    const openBtn = document.getElementById('open-systems-overlay');
+    const closeBtn = document.getElementById('close-overlay');
+    const saveBtn = document.getElementById('save-systems');
+    const gematriaWord = document.getElementById('gematria-word');
 
-// Select Base Button Function
-document.getElementById('select-base-systems').addEventListener('click', () => {
-const baseSystems = ['ordinal', 'reverse', 'reduction', 'reverse-reduction'];
-document.querySelectorAll('[name="system"]').forEach(cb => {
-cb.checked = baseSystems.includes(cb.value);
-});
-});
+    openBtn.addEventListener('click', () => overlay.style.display = 'flex');
+    closeBtn.addEventListener('click', () => overlay.style.display = 'none');
+    saveBtn.addEventListener('click', () => {
+        overlay.style.display = 'none';
+        calculateGematria();
+    });
 
-  document.getElementById('select-all-systems').addEventListener('click', () => {
-    document.querySelectorAll('[name="system"]').forEach(cb => cb.checked = true);
-  });
+    document.getElementById('select-base-systems').addEventListener('click', () => {
+        const baseSystems = ['ordinal', 'reverse', 'reduction', 'reverse-reduction'];
+        document.querySelectorAll('[name="system"]').forEach(cb => {
+            cb.checked = baseSystems.includes(cb.value);
+        });
+    });
 
-  document.getElementById('clear-selected-systems').addEventListener('click', () => {
-    document.querySelectorAll('[name="system"]').forEach(cb => cb.checked = false);
-  });
+    document.getElementById('select-all-systems').addEventListener('click', () => {
+        document.querySelectorAll('[name="system"]').forEach(cb => cb.checked = true);
+    });
 
-  gematriaWord.addEventListener('input', calculateGematria);
+    document.getElementById('clear-selected-systems').addEventListener('click', () => {
+        document.querySelectorAll('[name="system"]').forEach(cb => cb.checked = false);
+    });
 
-  if (gematriaWord.value) {
-    calculateGematria();
-  }
-});
+    gematriaWord.addEventListener('input', calculateGematria);
+
+    if (gematriaWord.value) {
+        calculateGematria();
+    }
+
+    document.getElementById("gematria-form").addEventListener("submit", function(event) {
+        event.preventDefault();
+    });
+
+    // Expose functions globally for inline handlers
+    window.clearResults = clearResults;
+}
 
 function calculateGematria() {
-  const word = document.getElementById('gematria-word').value.trim().replace(/ /g, '');
-  const showReduced = document.getElementById('overlay-display-reduced').checked;
-  const systems = Array.from(document.querySelectorAll('[name="system"]:checked')).map(cb => cb.value);
-  
-  if (!word) {
-    showError('Please enter a word or phrase');
-    return;
-  }
+    const word = document.getElementById('gematria-word').value.trim().replace(/ /g, '');
+    const showReduced = document.getElementById('overlay-display-reduced').checked;
+    const systems = Array.from(document.querySelectorAll('[name="system"]:checked')).map(cb => cb.value);
+    
+    if (!word) {
+        showError('Please enter a word or phrase');
+        return;
+    }
 
-  if (systems.length === 0) {
-    showError('Please select at least one system');
-    return;
-  }
+    if (systems.length === 0) {
+        showError('Please select at least one system');
+        return;
+    }
 
-  const results = systems.map(system => {
-    const value = calculateSystemValue(word, system);
-    return {
-      system,
-      value,
-      reduced: showReduced ? reduceNumber(value) : null
-    };
-  });
+    const results = systems.map(system => {
+        const value = calculateSystemValue(word, system);
+        return {
+            system,
+            value,
+            reduced: showReduced ? reduceNumber(value) : null
+        };
+    });
 
-  displayResults(results);
+    displayResults(results);
 }
 
 function calculateSystemValue(word, system) {
-  const upperWord = word.toUpperCase();
-  let total = 0;
-  
-  for (const char of upperWord) {
-    const code = char.charCodeAt(0) - 64;
-    if (code < 1 || code > 26) continue;
+    const upperWord = word.toUpperCase();
+    let total = 0;
     
-    switch(system) {
-      case 'ordinal':
-        total += code;
-        break;
-      case 'reduction':
-        total += ((code - 1) % 9) + 1;
-        break;
-      case 'reverse':
-        total += (27 - code);
-        break;
-      case 'reverse-reduction':
-        total += ((26 - code) % 9) + 1;
-        break;
-      case 'standard':
-        total += standardMap[char] || 0;
-        break;
-      case 'reverse-standard':
-        total += reverseStandardMap[char] || 0;
-        break;
-      case 'latin':
-        total += latinMap[char] || 0;
-        break;
-      case 'sumerian':
-        total += sumerianMap[char] || 0;
-        break;
-      case 'reverse-sumerian':
-        total += reverseSumerianMap[char] || 0;
-        break;
-      case 'satanic':
-        total += satanicMap[char] || 0;
-        break;
-      case 'reverse-satanic':
-        total += reverseSatanicMap[char] || 0;
-        break;
-      case 'single-reduction':
-        total += singleReductionMap[char] || 0;
-        break;
-    case 'kv-exception':
-    total += kvExceptionMap[char] || 0;
-    break;
-    case 'skv-exception':
-    total += skvExceptionMap[char] || 0;
-    break;
-    case 'single-reverse-reduction':
-    total += singleReverseReductionMap[char] || 0;
-    break;
-    case 'ep-exception':
-    total += epExceptionMap[char] || 0;
-    break;
-    case 'ehp-exception':
-    total += ehpExceptionMap[char] || 0;
-    break;
-    case 'primes':
-    total += primesMap[char] || 0;
-    break;
-    case 'trigonal':
-    total += trigonalMap[char] || 0;
-    break;
-    case 'squares':
-    total += squaresMap[char] || 0;
-    break;
-    case 'fibonacci':
-    total += fibonacciMap[char] || 0;
-    break;
-    case 'reverse-primes':
-    total += reversePrimesMap[char] || 0;
-    break;
-    case 'reverse-trigonal':
-    total += reverseTrigonalMap[char] || 0;
-    break;
-    case 'reverse-squares':
-    total += reverseSquaresMap[char] || 0;
-    break;
-    case 'chaldean':
-    total += chaldeanMap[char] || 0;
-    break;
-    case 'septenary':
-    total += septenaryMap[char] || 0;
-    break;
-    case 'keypad':
-    total += keypadMap[char] || 0;
-    break;
-      default:
-        break;
+    for (const char of upperWord) {
+        const code = char.charCodeAt(0) - 64;
+        if (code < 1 || code > 26) continue;
+        
+        switch(system) {
+            case 'ordinal': total += code; break;
+            case 'reduction': total += ((code - 1) % 9) + 1; break;
+            case 'reverse': total += (27 - code); break;
+            case 'reverse-reduction': total += ((26 - code) % 9) + 1; break;
+            case 'standard': total += standardMap[char] || 0; break;
+            case 'reverse-standard': total += reverseStandardMap[char] || 0; break;
+            case 'latin': total += latinMap[char] || 0; break;
+            case 'sumerian': total += sumerianMap[char] || 0; break;
+            case 'reverse-sumerian': total += reverseSumerianMap[char] || 0; break;
+            case 'satanic': total += satanicMap[char] || 0; break;
+            case 'reverse-satanic': total += reverseSatanicMap[char] || 0; break;
+            case 'single-reduction': total += singleReductionMap[char] || 0; break;
+            case 'kv-exception': total += kvExceptionMap[char] || 0; break;
+            case 'skv-exception': total += skvExceptionMap[char] || 0; break;
+            case 'single-reverse-reduction': total += singleReverseReductionMap[char] || 0; break;
+            case 'ep-exception': total += epExceptionMap[char] || 0; break;
+            case 'ehp-exception': total += ehpExceptionMap[char] || 0; break;
+            case 'primes': total += primesMap[char] || 0; break;
+            case 'trigonal': total += trigonalMap[char] || 0; break;
+            case 'squares': total += squaresMap[char] || 0; break;
+            case 'fibonacci': total += fibonacciMap[char] || 0; break;
+            case 'reverse-primes': total += reversePrimesMap[char] || 0; break;
+            case 'reverse-trigonal': total += reverseTrigonalMap[char] || 0; break;
+            case 'reverse-squares': total += reverseSquaresMap[char] || 0; break;
+            case 'chaldean': total += chaldeanMap[char] || 0; break;
+            case 'septenary': total += septenaryMap[char] || 0; break;
+            case 'keypad': total += keypadMap[char] || 0; break;
+            default: break;
+        }
     }
-  }
-  return total;
+    return total;
 }
 
 function reduceNumber(num) {
-  while (num > 9) {
-    num = String(num)
-      .split('')
-      .reduce((sum, d) => sum + Number(d), 0);
-  }
-  return num;
+    while (num > 9) {
+        num = String(num)
+            .split('')
+            .reduce((sum, d) => sum + Number(d), 0);
+    }
+    return num;
 }
 
 function displayResults(results) {
-  const container = document.getElementById('gematria-results');
-  container.innerHTML = '';
-  
-  const resultsHTML = results.map(result => `
-    <div class="result-column">
-      <div class="system-name">${result.system}</div>
-      <div class="primary-result">${result.value}</div>
-      ${result.reduced ? `<div class="reduced-result">${result.reduced}</div>` : ''}
-    </div>
-  `).join('');
+    const container = document.getElementById('gematria-results');
+    container.innerHTML = '';
+    
+    const resultsHTML = results.map(result => `
+        <div class="result-column">
+            <div class="system-name">${result.system}</div>
+            <div class="primary-result">${result.value}</div>
+            ${result.reduced ? `<div class="reduced-result">${result.reduced}</div>` : ''}
+        </div>
+    `).join('');
 
-  container.innerHTML = `<div class="results-container">${resultsHTML}</div>`;
+    container.innerHTML = `<div class="results-container">${resultsHTML}</div>`;
 }
 
 function showError(message) {
-  document.getElementById('gematria-results').innerHTML = `
-    <div class="result-error">${message}</div>
-  `;
+    document.getElementById('gematria-results').innerHTML = `
+        <div class="result-error">${message}</div>
+    `;
 }
 
 function clearResults() {
-  document.getElementById('gematria-results').innerHTML = '';
+    document.getElementById('gematria-results').innerHTML = '';
 }
 
-document.getElementById("gematria-form").addEventListener("submit", function(event) {
-  event.preventDefault(); // Prevent form submission
-});
+if (document.getElementById('gematria-word')) {
+    initGematriaCalculator();
+}
