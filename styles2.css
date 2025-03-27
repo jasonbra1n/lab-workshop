@@ -29,11 +29,11 @@
     border-radius: 5px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     min-width: 150px;
+    z-index: 10; /* Ensure it’s above other content */
 }
 
-.pillar:hover .tool-list,
-.pillar:focus-within .tool-list {
-    display: block; /* Show on hover or focus */
+.tool-list.active {
+    display: block; /* Show when toggled */
 }
 
 .tool-btn {
@@ -49,10 +49,11 @@
     text-align: left;
 }
 
-.tool-btn:hover {
+.tool-btn:hover,
+.tool-btn:focus {
     background: #777;
 }
 
 .tool-btn.active {
-    background: #008CBA; /* Matches your Magic 8 Ball button gradient start */
+    background: #008CBA;
 }
