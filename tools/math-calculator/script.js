@@ -1,4 +1,5 @@
-function appendValue(value) {
+function initMathCalculator() {
+    function appendValue(value) {
         const display = document.getElementById("display");
         const validChars = "0123456789.+-*/";
         if (display.value.length < 20 && validChars.includes(value)) {
@@ -16,25 +17,20 @@ function appendValue(value) {
         display.value = display.value.slice(0, -1);
     }
 
-function calculate() {
-    const display = document.getElementById("display");
-    const history = document.getElementById("history");
-    try {
-        const result = Function('"use strict"; return (' + display.value.replace("×", "*").replace("÷", "/") + ')')();
-        if (isNaN(result) || !isFinite(result)) {
-            display.value = "Invalid Input";
-        } else {
-            history.textContent = display.value + " = " + result;
-            display.value = result;
+    function calculate() {
+        const display = document.getElementById("display");
+        const history = document.getElementById("history");
+        try {
+            const result = Function('"use strict"; return (' + display.value.replace("×", "*").replace("÷", "/") + ')')();
+            if (isNaN(result) || !isFinite(result)) {
+                display.value = "Invalid Input";
+            } else {
+                history.textContent = display.value + " = " + result;
+                display.value = result;
+            }
+        } catch (error) {
+            display.value = "Error";
         }
-    } catch (error) {
-        display.value = "Error";
-    }
-}
-
-    function toggleTheme() {
-        const calculator = document.querySelector(".calculator");
-        calculator.classList.toggle("light");
     }
 
     function copyResult() {
@@ -63,3 +59,16 @@ function calculate() {
             }
         }
     });
+
+    // Expose functions to global scope for onclick handlers
+    window.appendValue = appendValue;
+    window.clearDisplay = clearDisplay;
+    window.backspace = backspace;
+    window.calculate = calculate;
+    window.copyResult = copyResult;
+    window.clearHistory = clearHistory;
+}
+
+if (document.getElementById("display")) {
+    initMathCalculator();
+}
