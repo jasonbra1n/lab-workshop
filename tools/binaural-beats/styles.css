@@ -12,8 +12,8 @@
 }
 
 .visualization {
-  margin-top: 15px;
-  background: var(--console-bg); /* Matches SPA console background */
+  margin: 10px 0; /* Adjusted from 15px top margin to fit below h1 */
+  background: var(--console-bg);
   border-radius: 8px;
   padding: 10px;
   box-shadow: var(--card-shadow);
