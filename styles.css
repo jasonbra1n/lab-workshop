@@ -207,6 +207,10 @@ button:hover {
     background-color: var(--primary-hover);
 }
 
+.console-btn {
+    padding: 10px 20px; /* Matches image-to-webp-converter buttons */
+}
+
 .tool-container {
     flex: 1;
     display: flex;
