@@ -1,8 +1,10 @@
 :root {
+    --header-height: 120px; /* Reduced from 180px */
+    /* Keep other variables unchanged */
     --bg-color: #ffffff;
     --text-color: #333333;
     --primary-color: #2563eb;
-    --sub-button-color: #3b82f6; /* Lighter blue for light mode */
+    --sub-button-color: #3b82f6;
     --card-bg: #f8fafc;
     --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     --console-bg: #f5f5f5;
@@ -10,7 +12,6 @@
     --primary-hover: #1d4ed8;
     --primary-active: #1e40af;
     --font-family: 'Segoe UI', system-ui, sans-serif;
-    --header-height: 180px;
     --footer-height: 40px;
 }
 
@@ -73,10 +74,22 @@ h2 {
 
 header {
     text-align: center;
-    padding: 1rem;
+    padding: 0.5rem; /* Reduced from 1rem */
     border-bottom: 1px solid var(--border-color);
     min-height: var(--header-height);
     box-sizing: border-box;
+}
+
+header h1 {
+    font-size: 2em;
+    color: var(--text-color);
+    text-align: center;
+    margin: 0.5rem 0; /* Reduced from 20px bottom margin */
+}
+
+header p {
+    margin: 0.25rem 0; /* Added to reduce default spacing */
+    font-size: 1rem;
 }
 
 #console-container {
@@ -129,7 +142,7 @@ footer a:hover {
     display: flex;
     gap: 10px;
     justify-content: center;
-    padding: 10px;
+    padding: 5px; /* Reduced from 10px */
     flex-wrap: wrap;
 }
 
@@ -255,11 +268,11 @@ button:hover {
 /* Mobile Styles */
 @media (max-width: 768px) {
     :root {
-        --header-height: 160px;
+        --header-height: 100px; /* Reduced from 160px */
     }
     
     .tool-nav {
-        padding: 5px;
+        padding: 3px;
     }
     
     #console-container {
@@ -269,14 +282,24 @@ button:hover {
 
 @media (max-width: 480px) {
     :root {
-        --header-height: auto;
+        --header-height: auto; /* Still auto, no change needed */
         --footer-height: 60px;
     }
     
     header {
-        padding: 10px;
+        padding: 5px; /* Reduced from 10px */
     }
-
+    
+    header h1 {
+        font-size: 1.5em; /* Slightly smaller for mobile */
+        margin: 0.3rem 0; /* Even tighter for mobile */
+    }
+    
+    header p {
+        font-size: 0.9rem;
+        margin: 0.2rem 0;
+    }
+    
     footer {
         padding: 5px; /* Reduced from 10px */
     }
@@ -303,7 +326,7 @@ button:hover {
         flex-direction: row;
         overflow-x: auto;
         justify-content: flex-start;
-        padding: 10px 5px;
+        padding: 5px 3px;
         white-space: nowrap;
     }
     
