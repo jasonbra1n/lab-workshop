@@ -1,6 +1,16 @@
 function initMathCalculator() {
+    const display = document.getElementById("display");
+    const history = document.getElementById("history");
+    const calculator = document.querySelector(".calculator");
+
+    // Sync calculator theme with SPA theme on load
+    if (document.documentElement.classList.contains('dark-theme')) {
+        calculator.classList.remove('light');
+    } else {
+        calculator.classList.add('light');
+    }
+
     function appendValue(value) {
-        const display = document.getElementById("display");
         const validChars = "0123456789.+-*/";
         if (display.value.length < 20 && validChars.includes(value)) {
             display.value += value;
@@ -8,18 +18,14 @@ function initMathCalculator() {
     }
 
     function clearDisplay() {
-        const display = document.getElementById("display");
         display.value = "";
     }
 
     function backspace() {
-        const display = document.getElementById("display");
         display.value = display.value.slice(0, -1);
     }
 
     function calculate() {
-        const display = document.getElementById("display");
-        const history = document.getElementById("history");
         try {
             const result = Function('"use strict"; return (' + display.value.replace("×", "*").replace("÷", "/") + ')')();
             if (isNaN(result) || !isFinite(result)) {
@@ -33,15 +39,30 @@ function initMathCalculator() {
         }
     }
 
+    function toggleTheme() {
+        // Sync with SPA's theme toggle
+        const htmlEl = document.documentElement;
+        if (htmlEl.classList.contains('dark-theme')) {
+            htmlEl.classList.remove('dark-theme');
+            htmlEl.classList.add('light-theme');
+            calculator.classList.add('light');
+            localStorage.setItem('theme', 'light-theme');
+        } else {
+            htmlEl.classList.remove('light-theme');
+            htmlEl.classList.add('dark-theme');
+            calculator.classList.remove('light');
+            localStorage.setItem('theme', 'dark-theme');
+        }
+        updateThemeIcon(); // Call SPA's theme icon update
+    }
+
     function copyResult() {
-        const display = document.getElementById("display");
         navigator.clipboard.writeText(display.value)
             .then(() => alert("Result copied to clipboard!"))
             .catch(() => alert("Failed to copy result."));
     }
 
     function clearHistory() {
-        const history = document.getElementById("history");
         history.textContent = "";
     }
 
@@ -60,11 +81,12 @@ function initMathCalculator() {
         }
     });
 
-    // Expose functions to global scope for onclick handlers
+    // Expose functions globally for inline onclick handlers
     window.appendValue = appendValue;
     window.clearDisplay = clearDisplay;
     window.backspace = backspace;
     window.calculate = calculate;
+    window.toggleTheme = toggleTheme;
     window.copyResult = copyResult;
     window.clearHistory = clearHistory;
 }
