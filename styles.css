@@ -11,7 +11,7 @@
     --primary-active: #1e40af;
     --font-family: 'Segoe UI', system-ui, sans-serif;
     --header-height: 180px;
-    --footer-height: 60px;
+    --footer-height: 40px;
 }
 
 .dark-theme {
@@ -100,7 +100,7 @@ header {
 
 footer {
     text-align: center;
-    padding: 1rem;
+    padding: 0.5rem; /* Reduced from 1rem */
     border-top: 1px solid var(--border-color);
     min-height: var(--footer-height);
     box-sizing: border-box;
@@ -270,11 +270,15 @@ button:hover {
 @media (max-width: 480px) {
     :root {
         --header-height: auto;
-        --footer-height: 80px;
+        --footer-height: 60px;
     }
     
-    header, footer {
+    header {
         padding: 10px;
+    }
+
+    footer {
+        padding: 5px; /* Reduced from 10px */
     }
     
     #console-container {
