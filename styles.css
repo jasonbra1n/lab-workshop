@@ -381,7 +381,7 @@ button:hover {
     }
     
     .tool-list {
-        display: block; /* Stack items vertically by default when active */
+        display: none; /* Hidden by default, matching desktop */
         position: static; /* Stack below pillar-btn */
         width: 100%; /* Full width for stacking */
         padding: 5px; /* Reduce padding */
@@ -390,7 +390,7 @@ button:hover {
     }
     
     .tool-list.active {
-        display: block; /* Ensure it stays block when active */
+        display: block; /* Show only when active */
     }
     
     .tool-btn {
