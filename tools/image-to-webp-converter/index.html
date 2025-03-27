@@ -6,15 +6,12 @@
     <div id="loading">Converting images... Please wait.</div>
     <div id="result"></div>
     <div id="actionButtons">
-        <button id="downloadAllBtn">Download All as ZIP</button>
-        <button id="clearAllBtn">Clear All</button>
+        <button id="downloadAllBtn" class="console-btn">Download All as ZIP</button>
+        <button id="clearAllBtn" class="console-btn">Clear All</button>
     </div>
 </div>
 
-<link rel="stylesheet" href="styles.css">
-
 <script>
-    // Initialize the tool when loaded into the SPA
     if (typeof initImageToWebP === 'function') {
         initImageToWebP();
     }
