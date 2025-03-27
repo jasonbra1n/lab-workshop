@@ -1,4 +1,4 @@
-// Theme Management (unchanged)
+// Theme Management
 function initializeTheme() {
     const savedTheme = localStorage.getItem('theme');
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -9,6 +9,8 @@ function initializeTheme() {
         document.documentElement.classList.add('dark-theme');
     }
     updateThemeIcon();
+    // Dispatch initial theme state
+    dispatchThemeEvent();
 }
 
 function toggleTheme() {
@@ -24,6 +26,7 @@ function toggleTheme() {
         localStorage.setItem('theme', 'dark-theme');
     }
     updateThemeIcon();
+    dispatchThemeEvent(); // Notify tools of theme change
 }
 
 function updateThemeIcon() {
@@ -35,6 +38,12 @@ function updateThemeIcon() {
         sunIcon.style.display = isDark ? 'none' : 'block';
         moonIcon.style.display = isDark ? 'block' : 'none';
     }
+}
+
+function dispatchThemeEvent() {
+    const isDark = document.documentElement.classList.contains('dark-theme');
+    const event = new CustomEvent('themeChange', { detail: { isDark } });
+    document.dispatchEvent(event);
 }
 
 function addThemeToggle() {
