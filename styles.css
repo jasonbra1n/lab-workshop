@@ -97,10 +97,9 @@ header {
 }
 
 footer {
-    background: #f8f9fa;
     text-align: center;
-    padding: 20px;
-    border-top: 1px solid #e9ecef;
+    padding: 1rem;
+    border-top: 1px solid var(--border-color);
     min-height: var(--footer-height);
     box-sizing: border-box;
 }
