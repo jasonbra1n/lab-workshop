@@ -1,0 +1,58 @@
+.tool-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding: 1rem;
+}
+
+.pillar {
+    position: relative;
+}
+
+.pillar-btn {
+    background: #333;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.1em;
+}
+
+.tool-list {
+    display: none; /* Hidden by default */
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: #222;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    min-width: 150px;
+}
+
+.pillar:hover .tool-list,
+.pillar:focus-within .tool-list {
+    display: block; /* Show on hover or focus */
+}
+
+.tool-btn {
+    display: block;
+    width: 100%;
+    background: #555;
+    color: white;
+    padding: 8px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    margin: 5px 0;
+    text-align: left;
+}
+
+.tool-btn:hover {
+    background: #777;
+}
+
+.tool-btn.active {
+    background: #008CBA; /* Matches your Magic 8 Ball button gradient start */
+}
