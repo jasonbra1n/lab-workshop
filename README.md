@@ -18,7 +18,7 @@ Welcome to **LAB: Digital Workshop**, an open-source single-page application (SP
 ### Factory: Work Tools
 - **Image to WebP Converter:** Convert images to WebP format with drag-and-drop support and ZIP download.
 - **Year Progress Calculator:** Visualize your year’s progress with a dynamic chart.
-- **Days Between Dates:** Calculate the days between two dates (in development).
+- **Days Between Dates:** Calculate the number of days between two dates, with an option to include the end date.
 - **Math Calculator:** Perform basic arithmetic operations with history and clipboard support.
 - **DJ Audio Visualizer:** Create audio visualizations (in development).
 
