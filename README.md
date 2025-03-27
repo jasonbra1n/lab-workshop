@@ -24,7 +24,7 @@ Welcome to **LAB: Digital Workshop**, an open-source single-page application (SP
 
 ### Classroom: Learn Tools
 - **Life Path Calculator:** Compute your numerology-based life path number and personality traits.
-- **Gematria Scripts:** Explore gematria calculations (in development).
+- **Gematria Calculator:** Calculate gematria values for words using multiple systems, with customizable options and reduced value display.
 
 ### Retreat: Rest Tools
 - *Coming soon...*
