@@ -369,10 +369,11 @@ button:hover {
     }
     
     .tool-nav {
-        flex-direction: column; /* Stack pillars vertically */
-        align-items: stretch; /* Stretch pillars to full width */
+        flex-direction: row; /* Keep pillars horizontal */
+        justify-content: center; /* Center the pillars */
         padding: 5px;
-        overflow-x: hidden; /* Remove horizontal scroll */
+        flex-wrap: nowrap; /* Prevent wrapping to keep on one line */
+        overflow-x: auto; /* Allow horizontal scrolling if needed */
     }
     
     .pillar-btn {
@@ -381,12 +382,13 @@ button:hover {
     }
     
     .tool-list {
-        display: none; /* Hidden by default, matching desktop */
-        position: static; /* Stack below pillar-btn */
+        display: none; /* Hidden by default */
+        position: static; /* Stack below the entire tool-nav */
         width: 100%; /* Full width for stacking */
         padding: 5px; /* Reduce padding */
         box-shadow: none;
         border: 1px solid var(--border-color);
+        margin-top: 5px; /* Space between tool-nav and tool-list */
     }
     
     .tool-list.active {
