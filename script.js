@@ -70,13 +70,21 @@ document.addEventListener('DOMContentLoaded', function() {
     const pillarButtons = document.querySelectorAll('.pillar-btn');
     const toolContainer = document.getElementById('tool-container');
     
-    // Tool button clicks (unchanged)
+    // Tool button clicks
     toolButtons.forEach(button => {
         button.addEventListener('click', function() {
+            // Remove active class from all tool buttons
             toolButtons.forEach(btn => btn.classList.remove('active'));
+            // Add active class to clicked button
             this.classList.add('active');
+            // Load the tool
             const toolName = this.dataset.tool;
             loadTool(toolName);
+            // Hide all tool lists after selection
+            document.querySelectorAll('.tool-list').forEach(list => {
+                list.classList.remove('active');
+            });
+            // Track page view
             gtag('event', 'page_view', {
                 page_title: toolName.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase()),
                 page_path: `/tools/${toolName}`
