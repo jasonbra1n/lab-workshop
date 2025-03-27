@@ -2,6 +2,7 @@
     --bg-color: #ffffff;
     --text-color: #333333;
     --primary-color: #2563eb;
+    --sub-button-color: #3b82f6; /* Lighter blue for light mode */
     --card-bg: #f8fafc;
     --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     --console-bg: #f5f5f5;
@@ -17,11 +18,12 @@
     --bg-color: #1e293b;
     --text-color: #f8fafc;
     --primary-color: #3b82f6;
+    --sub-button-color: #2563eb; /* Darker blue for dark mode */
     --card-bg: #334155;
     --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
     --console-bg: #1f2937;
     --border-color: #374151;
-    --primary-hover: #60a5fa; /* Adjusted for hover contrast */
+    --primary-hover: #60a5fa;
     --primary-active: #2563eb;
 }
 
@@ -150,6 +152,21 @@ footer a:hover {
     font-weight: bold;
 }
 
+button {
+    padding: 8px 16px;
+    background-color: var(--sub-button-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    font-family: var(--font-family);
+}
+
+button:hover {
+    background-color: var(--primary-hover);
+}
+
 .tool-container {
     flex: 1;
     display: flex;
@@ -178,7 +195,7 @@ footer a:hover {
     bottom: 20px;
     right: 20px;
     z-index: 1000;
-    background: var(--primary-color);
+    background: var(--primary-color); /* Keep as primary for toggle */
     color: white;
     border: none;
     border-radius: 50%;
