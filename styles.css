@@ -104,6 +104,22 @@ footer {
     box-sizing: border-box;
 }
 
+footer p {
+    font-size: 0.9em;
+    color: var(--text-color);
+}
+
+footer a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+footer a:hover {
+    color: var(--primary-hover);
+    text-decoration: underline;
+}
+
 /* Content Styles */
 .welcome-message {
     margin: auto;
