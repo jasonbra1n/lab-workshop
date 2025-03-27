@@ -146,8 +146,46 @@ document.addEventListener('DOMContentLoaded', function() {
       console.warn(`No styles.css found for ${toolName}, relying on main styles`);
     }
     
-    // Load Tone.js for binaural-beats tool
-    if (toolName === 'binaural-beats' && !window.Tone) {
+    // Load dependencies based on tool
+    if (toolName === 'image-to-webp-converter') {
+      // Check if JSZip is already loaded
+      if (!window.JSZip) {
+        const jszipScript = document.createElement('script');
+        jszipScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js';
+        toolContainer.appendChild(jszipScript);
+        
+        jszipScript.onload = () => {
+          // Load FileSaver.js after JSZip
+          if (!window.saveAs) {
+            const fileSaverScript = document.createElement('script');
+            fileSaverScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js';
+            fileSaverScript.onload = () => {
+              const script = document.createElement('script');
+              script.src = `tools/${toolName}/script.js`;
+              toolContainer.appendChild(script);
+            };
+            toolContainer.appendChild(fileSaverScript);
+          } else {
+            const script = document.createElement('script');
+            script.src = `tools/${toolName}/script.js`;
+            toolContainer.appendChild(script);
+          }
+        };
+      } else if (!window.saveAs) {
+        const fileSaverScript = document.createElement('script');
+        fileSaverScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js';
+        fileSaverScript.onload = () => {
+          const script = document.createElement('script');
+          script.src = `tools/${toolName}/script.js`;
+          toolContainer.appendChild(script);
+        };
+        toolContainer.appendChild(fileSaverScript);
+      } else {
+        const script = document.createElement('script');
+        script.src = `tools/${toolName}/script.js`;
+        toolContainer.appendChild(script);
+      }
+    } else if (toolName === 'binaural-beats' && !window.Tone) {
       const toneScript = document.createElement('script');
       toneScript.src = 'https://cdn.jsdelivr.net/npm/tone@14.7.77/build/Tone.js';
       toneScript.onload = () => {
