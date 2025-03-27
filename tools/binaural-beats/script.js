@@ -29,34 +29,33 @@ modeRadios.forEach(radio => {
   });
 });
 
-// Update beat frequency input range based on selected state
+// Update beat frequency based on selected preset
 stateSelect.addEventListener('change', () => {
   const state = stateSelect.value;
   switch (state) {
     case 'gamma':
-      beatFrequencyInput.min = 30.1;
-      beatFrequencyInput.max = 100;
       beatFrequencyInput.value = 40;
       break;
     case 'beta':
-      beatFrequencyInput.min = 13;
-      beatFrequencyInput.max = 30;
       beatFrequencyInput.value = 20;
       break;
     case 'alpha':
-      beatFrequencyInput.min = 8;
-      beatFrequencyInput.max = 12;
       beatFrequencyInput.value = 10;
       break;
     case 'theta':
-      beatFrequencyInput.min = 4;
-      beatFrequencyInput.max = 8;
       beatFrequencyInput.value = 6;
       break;
     case 'delta':
-      beatFrequencyInput.min = 0.5;
-      beatFrequencyInput.max = 4;
       beatFrequencyInput.value = 2;
+      break;
+    case 'study':
+      beatFrequencyInput.value = 14;
+      break;
+    case 'meditation':
+      beatFrequencyInput.value = 7;
+      break;
+    case 'energy':
+      beatFrequencyInput.value = 25;
       break;
   }
   updateAudio();
@@ -156,7 +155,7 @@ stopButton.addEventListener('click', () => {
       lfoRight = null;
       clearInterval(intervalId);
       timelineSlider.value = 0;
-      cancelAnimationFrame(animationFrameId); // Stop visualization
+      cancelAnimationFrame(animationFrameId);
     }, 2000);
   }
 });
@@ -208,7 +207,6 @@ function updateAudio() {
       }
     }
   }
-  // Visualization updates automatically via the ongoing animation loop
 }
 
 // Update volume
@@ -265,7 +263,7 @@ function getCurrentCarrier(elapsed, transitionTime, riseTime, totalDuration, sta
 
 // Start visualization loop
 function startVisualization() {
-  cancelAnimationFrame(animationFrameId); // Clear any existing animation
+  cancelAnimationFrame(animationFrameId);
   const mode = document.querySelector('input[name="mode"]:checked').value;
   if (mode === 'sleep') {
     visualizeSleepCycle();
@@ -291,7 +289,7 @@ function visualizeBeatFrequency() {
       const y = waveCanvas.height / 2 + Math.sin(x * 0.01 + phaseLeft) * 50;
       ctx.lineTo(x, y);
     }
-    ctx.strokeStyle = '#00f'; // Blue for left ear
+    ctx.strokeStyle = '#00f';
     ctx.stroke();
 
     // Right ear (red)
@@ -300,7 +298,7 @@ function visualizeBeatFrequency() {
       const y = waveCanvas.height / 2 + Math.sin(x * 0.01 + phaseRight) * 50;
       ctx.lineTo(x, y);
     }
-    ctx.strokeStyle = '#f00'; // Red for right ear
+    ctx.strokeStyle = '#f00';
     ctx.stroke();
 
     phaseLeft += beatFrequency * 0.01;
@@ -335,7 +333,7 @@ function visualizeSleepCycle() {
       const y = waveCanvas.height / 2 + Math.sin(x * 0.01 * beatFrequency + phaseLeft) * 50;
       ctx.lineTo(x, y);
     }
-    ctx.strokeStyle = '#00f'; // Blue for left ear
+    ctx.strokeStyle = '#00f';
     ctx.stroke();
 
     // Right ear (red)
@@ -346,7 +344,7 @@ function visualizeSleepCycle() {
       const y = waveCanvas.height / 2 + Math.sin(x * 0.01 * beatFrequency + phaseRight) * 50;
       ctx.lineTo(x, y);
     }
-    ctx.strokeStyle = '#f00'; // Red for right ear
+    ctx.strokeStyle = '#f00';
     ctx.stroke();
 
     // Current position indicator (if playing)
@@ -355,12 +353,12 @@ function visualizeSleepCycle() {
       ctx.beginPath();
       ctx.moveTo(progress, 0);
       ctx.lineTo(progress, waveCanvas.height);
-      ctx.strokeStyle = '#fff'; // White for visibility
+      ctx.strokeStyle = '#fff';
       ctx.stroke();
     }
 
     phaseLeft += beatFrequency * 0.01;
-    phaseRight += (beatFrequency + 2) * 0.01; // Offset by beat frequency
+    phaseRight += (beatFrequency + 2) * 0.01;
 
     animationFrameId = requestAnimationFrame(draw);
   }
