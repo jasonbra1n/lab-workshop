@@ -25,7 +25,6 @@
     --primary-active: #2563eb;
 }
 
-/* Base Layout */
 body {
     font-family: var(--font-family);
     margin: 0;
@@ -37,7 +36,6 @@ body {
     flex-direction: column;
     min-height: 100vh;
 }
-
 
 h1 {
     font-size: 2em;
@@ -51,6 +49,24 @@ h2 {
     color: var(--primary-color);
     text-align: center;
     margin-bottom: 15px;
+}
+
+#dateInput {
+    padding: 10px;
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    border: 1px solid var(--primary-color);
+    border-radius: 4px;
+    max-width: 300px;
+    margin: 0 auto;
+    display: block; /* Ensures centering */
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+#dateInput::-webkit-calendar-picker-indicator {
+    filter: invert(48%) sepia(13%) saturate(3207%) hue-rotate(130deg) brightness(95%) contrast(80%);
 }
 
 header {
