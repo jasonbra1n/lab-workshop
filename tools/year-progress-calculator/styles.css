@@ -9,24 +9,6 @@
     color: var(--text-color);
 }
 
-#dateInput {
-    padding: 10px;
-    background-color: var(--card-bg);
-    color: var(--text-color);
-    border: 1px solid var(--primary-color);
-    border-radius: 4px;
-    max-width: 300px;
-    margin: 0 auto;
-    /* Normalize placeholder and picker */
-    appearance: none; /* Remove default browser styling */
-    -webkit-appearance: none; /* For Safari/Chrome */
-    -moz-appearance: none; /* For Firefox */
-}
-
-#dateInput::-webkit-calendar-picker-indicator {
-    filter: invert(48%) sepia(13%) saturate(3207%) hue-rotate(130deg) brightness(95%) contrast(80%); /* Match --primary-color */
-}
-
 #result, #countdown {
     margin: 15px 0;
     line-height: 1.6;
