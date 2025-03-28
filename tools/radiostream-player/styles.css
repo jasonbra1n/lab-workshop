@@ -1,0 +1,59 @@
+.radiostream-player {
+    background: var(--card-bg); /* #f8fafc light, #334155 dark */
+    border-radius: 16px;
+    box-shadow: var(--card-shadow);
+    padding: 20px;
+    max-width: 400px;
+    margin: 0 auto;
+    text-align: center;
+    color: var(--text-color); /* #333 light, #f8fafc dark */
+}
+
+.station-selector {
+    margin-bottom: 15px;
+}
+
+.station-selector label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.station-selector select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid var(--border-color); /* #ddd light, #374151 dark */
+    border-radius: 5px;
+    background: var(--card-bg);
+    color: var(--text-color);
+    font-size: 16px;
+}
+
+.player-controls {
+    margin-bottom: 15px;
+}
+
+.volume-control {
+    margin-top: 10px;
+}
+
+.volume-control label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.volume-control input[type="range"] {
+    width: 100%;
+}
+
+.now-playing {
+    font-size: 1.2em;
+    color: var(--primary-color); /* #2563eb light, #3b82f6 dark */
+}
+
+@media (max-width: 400px) {
+    .radiostream-player {
+        padding: 15px;
+    }
+}
