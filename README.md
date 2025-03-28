@@ -30,7 +30,8 @@ Welcome to **LAB: Digital Workshop**, an open-source single-page application (SP
 - *Coming soon...*
 
 ### Arcade: Play Tools
-- **Magic 8 Ball:** Ask questions and get randomized answers with a retro vibe.
+- **DJ Audio Visualizer:** Create audio visualizations (in development).
+- **Radio Stream Player:** Stream your favorite radio stations, including ETN-FM, Psyndora Psytrance, Proton Radio (Melodic House), and PsyStation Progressive Psytrance, with play/pause and volume controls.
 
 ## Getting Started
 
