@@ -1,26 +1,15 @@
-// Global audio state to persist across tool loads
-window.radioStreamState = window.radioStreamState || {
-    audio: null,
-    isPlaying: false,
-    currentStation: null,
-    volume: 0.5,
-    audioContext: null,
-    source: null,
-    splitter: null,
-    analyserLeft: null,
-    analyserRight: null,
-    animationFrameId: null
-};
+// Global variables to persist across page changes
+let audio = null;
+let audioContext = null;
+let source = null;
+let splitter = null;
+let analyserLeft = null;
+let analyserRight = null;
+let isPlaying = false;
+let currentStation = 'https://stream.pcradio.ru/etnfm_trance-hi'; // Default station
+let volume = 0.5; // Default volume
 
 function initRadioStreamPlayer() {
-    const state = window.radioStreamState;
-    let audio = state.audio;
-    let audioContext = state.audioContext;
-    let source = state.source;
-    let splitter = state.splitter;
-    let analyserLeft = state.analyserLeft;
-    let analyserRight = state.analyserRight;
-
     const stationSelect = document.getElementById('station-select');
     const playPauseBtn = document.getElementById('play-pause-btn');
     const volumeSlider = document.getElementById('volume-slider');
@@ -28,12 +17,12 @@ function initRadioStreamPlayer() {
     const leftVuLevel = document.getElementById('left-vu-level');
     const rightVuLevel = document.getElementById('right-vu-level');
 
-    // Initialize audio and Web Audio API if not already set up
+    // Initialize audio and Web Audio API if not already done
     if (!audio) {
         audio = new Audio();
         audio.crossOrigin = 'anonymous';
-        state.audio = audio;
 
+        // Web Audio API setup
         audioContext = new (window.AudioContext || window.webkitAudioContext)();
         source = audioContext.createMediaElementSource(audio);
         splitter = audioContext.createChannelSplitter(2);
@@ -42,16 +31,11 @@ function initRadioStreamPlayer() {
         analyserLeft.fftSize = 256;
         analyserRight.fftSize = 256;
 
+        // Connect audio nodes
         source.connect(splitter);
         splitter.connect(analyserLeft, 0);
         splitter.connect(analyserRight, 1);
         source.connect(audioContext.destination);
-
-        state.audioContext = audioContext;
-        state.source = source;
-        state.splitter = splitter;
-        state.analyserLeft = analyserLeft;
-        state.analyserRight = analyserRight;
     }
 
     // Arrays to hold frequency data
@@ -59,23 +43,23 @@ function initRadioStreamPlayer() {
     const dataArrayLeft = new Uint8Array(bufferLength);
     const dataArrayRight = new Uint8Array(bufferLength);
 
-    // Restore or set initial state
-    audio.src = state.currentStation || stationSelect.value;
-    audio.volume = state.volume || volumeSlider.value;
-    let isPlaying = state.isPlaying;
-
-    // Update UI based on state
-    if (state.currentStation) {
-        stationSelect.value = state.currentStation;
-    }
-    volumeSlider.value = audio.volume;
+    // Restore state
+    audio.src = currentStation;
+    audio.volume = volume;
+    stationSelect.value = currentStation;
+    volumeSlider.value = volume;
     playPauseBtn.textContent = isPlaying ? 'Pause' : 'Play';
+    if (isPlaying) {
+        audio.play().catch(err => {
+            console.error('Playback failed:', err);
+            nowPlaying.textContent = 'Error: Unable to play stream';
+        });
+    }
 
     // Update now-playing display
     function updateNowPlaying() {
         const stationName = stationSelect.options[stationSelect.selectedIndex].text;
         nowPlaying.textContent = `Now Playing: ${stationName}`;
-        state.currentStation = stationSelect.value;
     }
 
     // VU meter animation
@@ -85,13 +69,15 @@ function initRadioStreamPlayer() {
             rightVuLevel.style.height = '0%';
             leftVuLevel.style.background = 'green';
             rightVuLevel.style.background = 'green';
-            state.animationFrameId = requestAnimationFrame(updateVUMeters);
+            requestAnimationFrame(updateVUMeters);
             return;
         }
 
+        // Get time-domain data (waveform)
         analyserLeft.getByteTimeDomainData(dataArrayLeft);
         analyserRight.getByteTimeDomainData(dataArrayRight);
 
+        // Calculate RMS for left channel
         let sumLeft = 0;
         for (let i = 0; i < bufferLength; i++) {
             const sample = (dataArrayLeft[i] - 128) / 128;
@@ -100,6 +86,7 @@ function initRadioStreamPlayer() {
         const rmsLeft = Math.sqrt(sumLeft / bufferLength);
         const levelLeft = Math.min(rmsLeft * 200, 100);
 
+        // Calculate RMS for right channel
         let sumRight = 0;
         for (let i = 0; i < bufferLength; i++) {
             const sample = (dataArrayRight[i] - 128) / 128;
@@ -108,15 +95,17 @@ function initRadioStreamPlayer() {
         const rmsRight = Math.sqrt(sumRight / bufferLength);
         const levelRight = Math.min(rmsRight * 200, 100);
 
+        // Update VU meter heights
         leftVuLevel.style.height = `${levelLeft}%`;
         rightVuLevel.style.height = `${levelRight}%`;
 
+        // Update colors based on level
         const colorLeft = levelLeft < 60 ? 'green' : levelLeft < 85 ? 'yellow' : 'red';
         const colorRight = levelRight < 60 ? 'green' : levelRight < 85 ? 'yellow' : 'red';
         leftVuLevel.style.background = colorLeft;
         rightVuLevel.style.background = colorRight;
 
-        state.animationFrameId = requestAnimationFrame(updateVUMeters);
+        requestAnimationFrame(updateVUMeters);
     }
 
     // Play/Pause toggle
@@ -132,14 +121,13 @@ function initRadioStreamPlayer() {
             playPauseBtn.textContent = 'Pause';
         }
         isPlaying = !isPlaying;
-        state.isPlaying = isPlaying;
         updateNowPlaying();
     });
 
     // Station change
     stationSelect.addEventListener('change', () => {
-        audio.src = stationSelect.value;
-        state.currentStation = stationSelect.value;
+        currentStation = stationSelect.value;
+        audio.src = currentStation;
         updateNowPlaying();
         if (isPlaying) {
             audio.play().catch(err => {
@@ -151,8 +139,8 @@ function initRadioStreamPlayer() {
 
     // Volume control
     volumeSlider.addEventListener('input', () => {
-        audio.volume = volumeSlider.value;
-        state.volume = audio.volume;
+        volume = volumeSlider.value;
+        audio.volume = volume;
     });
 
     // Start VU meter animation
@@ -160,24 +148,15 @@ function initRadioStreamPlayer() {
 
     // Update now-playing on load
     updateNowPlaying();
-
-    // Cleanup function to pause audio and stop animation when tool unloads
-    window.addEventListener('beforeunload', cleanup);
-    document.addEventListener('toolUnload', cleanup);
-
-    function cleanup() {
-        if (isPlaying) {
-            audio.pause();
-            isPlaying = false;
-            state.isPlaying = false;
-            playPauseBtn.textContent = 'Play';
-        }
-        if (state.animationFrameId) {
-            cancelAnimationFrame(state.animationFrameId);
-            state.animationFrameId = null;
-        }
-    }
 }
+
+// Pause audio when leaving the page
+document.addEventListener('toolChange', (e) => {
+    if (e.detail.tool !== 'radiostream-player' && audio && isPlaying) {
+        audio.pause();
+        isPlaying = false;
+    }
+});
 
 if (document.getElementById('station-select')) {
     initRadioStreamPlayer();
