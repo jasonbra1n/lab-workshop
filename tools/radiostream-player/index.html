@@ -17,9 +17,11 @@
             </div>
         </div>
         <div class="now-playing" id="now-playing">Now Playing: ETN-FM Trance</div>
+        <div class="current-song" id="current-song"></div>
     </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/icecast-metadata-js@0.5.0/dist/icecast-metadata-player-0.5.0.min.js"></script>
 <script>
     if (typeof initRadioStreamPlayer === 'function') {
         initRadioStreamPlayer();
