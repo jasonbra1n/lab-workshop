@@ -6,8 +6,14 @@ function initPopoutPlayer() {
     const nowPlaying = document.getElementById('now-playing');
     let isPlaying = false;
 
-    // Set initial station from URL parameter
+    // Apply the theme from the URL parameter
     const urlParams = new URLSearchParams(window.location.search);
+    const theme = urlParams.get('theme');
+    if (theme) {
+        document.documentElement.classList.add(theme);
+    }
+
+    // Set initial station from URL parameter
     const initialStation = urlParams.get('station') || stationSelect.value;
     stationSelect.value = initialStation;
     audio.src = initialStation;
