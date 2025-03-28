@@ -13,7 +13,7 @@ function initRadioStreamPlayer() {
     // Update now-playing display
     function updateNowPlaying() {
         const stationName = stationSelect.options[stationSelect.selectedIndex].text;
-        nowPlaying.textContent = `Now Playing: ${stationName}`;
+        nowPlaying.textContent = `Now Playing: ${stationName} (Song info not available)`;
     }
 
     // Play/Pause toggle
@@ -29,6 +29,7 @@ function initRadioStreamPlayer() {
             playPauseBtn.textContent = 'Pause';
         }
         isPlaying = !isPlaying;
+        updateNowPlaying();
     });
 
     // Station change
