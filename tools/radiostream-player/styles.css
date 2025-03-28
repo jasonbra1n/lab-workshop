@@ -4,17 +4,53 @@
     box-shadow: var(--card-shadow);
     padding: 25px;
     width: 90%;
-    max-width: 450px;
-    min-width: 350px;
+    max-width: 600px; /* Increased to accommodate VU meters */
+    min-width: 400px; /* Adjusted for new layout */
     margin: 0 auto;
-    text-align: center;
     color: var(--text-color);
     border: 1px solid var(--border-color);
     transition: all 0.3s ease;
+    display: flex; /* Flex layout for VU meters and content */
+    gap: 20px;
+    align-items: stretch; /* Ensure content and VU meters align */
+}
+
+.vu-meters {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+    width: 60px; /* Fixed width for VU meters */
+}
+
+.vu-meter {
+    background: var(--console-bg);
+    border-radius: 8px;
+    height: 150px; /* Fixed height for VU meters */
+    width: 20px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--border-color);
+}
+
+.vu-level {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background: green; /* Default color */
+    transition: height 0.1s ease, background 0.1s ease; /* Smooth transitions */
+}
+
+.player-content {
+    flex: 1; /* Take remaining space */
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
 .station-selector {
-    margin-bottom: 20px;
+    margin-bottom: 0; /* Adjusted for new layout */
 }
 
 .station-selector label {
@@ -43,7 +79,7 @@
 }
 
 .player-controls {
-    margin-bottom: 20px;
+    margin-bottom: 0; /* Adjusted for new layout */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -112,10 +148,30 @@
     text-overflow: ellipsis;
 }
 
-@media (max-width: 400px) {
+@media (max-width: 500px) {
     .radiostream-player {
+        flex-direction: column; /* Stack VU meters and content on small screens */
         padding: 20px;
         min-width: 300px;
+    }
+
+    .vu-meters {
+        flex-direction: row;
+        width: 100%;
+        justify-content: center;
+        gap: 20px;
+    }
+
+    .vu-meter {
+        width: 60px;
+        height: 20px;
+    }
+
+    .vu-level {
+        height: 100%;
+        width: 0%; /* Animate width instead of height on small screens */
+        bottom: auto;
+        left: 0;
     }
 
     .station-selector label,
