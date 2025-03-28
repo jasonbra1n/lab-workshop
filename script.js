@@ -68,34 +68,24 @@ document.addEventListener('DOMContentLoaded', function() {
     const toolButtons = document.querySelectorAll('.tool-btn');
     const pillarButtons = document.querySelectorAll('.pillar-btn');
     const toolContainer = document.getElementById('tool-container');
-    let currentTool = null; // Track the currently loaded tool
     
     // Tool button clicks
     toolButtons.forEach(button => {
         button.addEventListener('click', function() {
-            // Dispatch toolUnload event for the current tool
-            if (currentTool) {
-                const unloadEvent = new CustomEvent('toolUnload', { detail: { toolName: currentTool } });
-                document.dispatchEvent(unloadEvent);
-            }
-            
-            // Remove active class from all tool buttons
             toolButtons.forEach(btn => btn.classList.remove('active'));
-            // Add active class to clicked button
             this.classList.add('active');
-            // Load the tool
             const toolName = this.dataset.tool;
-            currentTool = toolName; // Update current tool
             loadTool(toolName);
-            // Hide all tool lists after selection
             document.querySelectorAll('.tool-list').forEach(list => {
                 list.classList.remove('active');
             });
-            // Track page view
             gtag('event', 'page_view', {
                 page_title: toolName.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase()),
                 page_path: `/tools/${toolName}`
             });
+            // Dispatch toolChange event
+            const event = new CustomEvent('toolChange', { detail: { tool: toolName } });
+            document.dispatchEvent(event);
         });
     });
     
@@ -106,19 +96,16 @@ document.addEventListener('DOMContentLoaded', function() {
             const toolList = this.nextElementSibling;
             const isActive = toolList.classList.contains('active');
             
-            // Close all other tool lists
             document.querySelectorAll('.tool-list').forEach(list => {
                 list.classList.remove('active');
             });
             
-            // Toggle this tool list
             if (!isActive) {
                 toolList.classList.add('active');
             }
         });
     });
     
-    // Close dropdowns when clicking outside
     document.addEventListener('click', function(e) {
         if (!e.target.closest('.pillar')) {
             document.querySelectorAll('.tool-list').forEach(list => {
@@ -161,7 +148,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 console.warn(`No styles.css found for ${toolName}, relying on main styles`);
             }
             
-            // Load dependencies based on tool
             if (toolName === 'image-to-webp-converter') {
                 if (!window.JSZip) {
                     const jszipScript = document.createElement('script');
