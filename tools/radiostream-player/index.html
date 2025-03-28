@@ -1,0 +1,26 @@
+<div class="container">
+    <h2>Radio Stream Player</h2>
+    <div class="radiostream-player">
+        <div class="station-selector">
+            <label for="station-select">Select Station:</label>
+            <select id="station-select">
+                <option value="http://8.43.48.6:8130/" selected>ETN-FM</option>
+                <!-- Add more stations here in the future -->
+            </select>
+        </div>
+        <div class="player-controls">
+            <button class="console-btn" id="play-pause-btn">Play</button>
+            <div class="volume-control">
+                <label for="volume-slider">Volume:</label>
+                <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="0.5">
+            </div>
+        </div>
+        <div class="now-playing" id="now-playing">Now Playing: ETN-FM</div>
+    </div>
+</div>
+
+<script>
+    if (typeof initRadioStreamPlayer === 'function') {
+        initRadioStreamPlayer();
+    }
+</script>
