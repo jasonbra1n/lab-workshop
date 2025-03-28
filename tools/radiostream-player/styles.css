@@ -110,48 +110,6 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    margin-bottom: 20px;
-}
-
-.vu-meters {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    margin-top: 10px;
-}
-
-.vu-meter-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.vu-meter-container label {
-    font-size: 0.9em;
-    font-weight: bold;
-    color: var(--primary-color);
-    margin-bottom: 5px;
-}
-
-.vu-meter {
-    width: 20px;
-    height: 100px;
-    background: var(--border-color);
-    border-radius: 4px;
-    position: relative;
-    overflow: hidden;
-    border: 1px solid var(--primary-color);
-}
-
-.vu-meter::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 0%;
-    background: green; /* Default to green, will be updated dynamically */
-    transition: height 0.3s ease; /* Smooth transition to mimic VU meter ballistics */
 }
 
 @media (max-width: 400px) {
@@ -167,10 +125,5 @@
 
     .now-playing {
         font-size: 1em;
-    }
-
-    .vu-meter {
-        width: 15px;
-        height: 80px;
     }
 }
