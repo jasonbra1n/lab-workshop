@@ -13,7 +13,7 @@ function initRadioStreamPlayer() {
     // Update now-playing display
     function updateNowPlaying() {
         const stationName = stationSelect.options[stationSelect.selectedIndex].text;
-        nowPlaying.textContent = `Now Playing: ${stationName} (Song info not available)`;
+        nowPlaying.textContent = `Now Playing: ${stationName}`;
     }
 
     // Play/Pause toggle
