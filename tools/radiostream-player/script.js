@@ -1,4 +1,3 @@
-// Global audio state to persist across tool loads
 window.radioStreamState = window.radioStreamState || {
     audio: null,
     isPlaying: false,
@@ -30,7 +29,6 @@ function initRadioStreamPlayer() {
     const leftVuLevel = document.getElementById('left-vu-level');
     const rightVuLevel = document.getElementById('right-vu-level');
 
-    // Initialize audio and Web Audio API if not already set up
     if (!audio) {
         audio = new Audio();
         audio.crossOrigin = 'anonymous';
@@ -56,31 +54,26 @@ function initRadioStreamPlayer() {
         state.analyserRight = analyserRight;
     }
 
-    // Arrays to hold frequency data
     const bufferLength = analyserLeft.frequencyBinCount;
     const dataArrayLeft = new Uint8Array(bufferLength);
     const dataArrayRight = new Uint8Array(bufferLength);
 
-    // Restore or set initial state
     audio.src = state.currentStation || stationSelect.value;
     audio.volume = state.volume || volumeSlider.value;
     let isPlaying = state.isPlaying;
 
-    // Update UI based on state
     if (state.currentStation) {
         stationSelect.value = state.currentStation;
     }
     volumeSlider.value = audio.volume;
     playPauseBtn.textContent = isPlaying ? 'Pause' : 'Play';
 
-    // Update now-playing display
     function updateNowPlaying() {
         const stationName = stationSelect.options[stationSelect.selectedIndex].text;
         nowPlaying.textContent = `Now Playing: ${stationName}`;
         state.currentStation = stationSelect.value;
     }
 
-    // VU meter animation
     function updateVUMeters() {
         if (!isPlaying) {
             leftVuLevel.style.height = '0%';
@@ -121,7 +114,6 @@ function initRadioStreamPlayer() {
         state.animationFrameId = requestAnimationFrame(updateVUMeters);
     }
 
-    // Play/Pause toggle
     playPauseBtn.addEventListener('click', () => {
         if (isPlaying) {
             audio.pause();
@@ -138,7 +130,6 @@ function initRadioStreamPlayer() {
         updateNowPlaying();
     });
 
-    // Station change
     stationSelect.addEventListener('change', () => {
         audio.src = stationSelect.value;
         state.currentStation = stationSelect.value;
@@ -151,20 +142,17 @@ function initRadioStreamPlayer() {
         }
     });
 
-    // Volume control
     volumeSlider.addEventListener('input', () => {
         audio.volume = volumeSlider.value;
         state.volume = audio.volume;
     });
 
-    // Pop-out button
     popoutBtn.addEventListener('click', () => {
         if (state.popoutWindow && !state.popoutWindow.closed) {
             state.popoutWindow.focus();
             return;
         }
 
-        // Pause main player
         if (isPlaying) {
             audio.pause();
             isPlaying = false;
@@ -172,12 +160,12 @@ function initRadioStreamPlayer() {
             playPauseBtn.textContent = 'Play';
         }
 
-        // Open pop-out window
-        const popoutUrl = `tools/radiostream-player/popout.html?station=${encodeURIComponent(stationSelect.value)}`;
+        // Pass the current theme to the pop-out window
+        const currentTheme = document.documentElement.classList.contains('dark-theme') ? 'dark-theme' : 'light-theme';
+        const popoutUrl = `tools/radiostream-player/popout.html?station=${encodeURIComponent(stationSelect.value)}&theme=${currentTheme}`;
         state.popoutWindow = window.open(popoutUrl, 'RadioStreamPopout', 'width=300,height=400');
     });
 
-    // Listen for pop-out close event
     window.addEventListener('message', (event) => {
         if (event.data.type === 'popoutClosed') {
             state.popoutWindow = null;
@@ -192,13 +180,9 @@ function initRadioStreamPlayer() {
         }
     });
 
-    // Start VU meter animation
     updateVUMeters();
-
-    // Update now-playing on load
     updateNowPlaying();
 
-    // Cleanup function to pause audio and stop animation when tool unloads
     window.addEventListener('beforeunload', cleanup);
     document.addEventListener('toolUnload', cleanup);
 
