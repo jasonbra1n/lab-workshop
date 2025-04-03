@@ -72,8 +72,8 @@
 
             const reader = new FileReader();
             reader.onload = function(e) {
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(e.target.result, "image/svg+xml");
+                const domParser = new DOMParser();
+                const doc = domParser.parseFromString(e.target.result, "image/svg+xml");
                 const pathElement = doc.querySelector('path');
                 if (!pathElement) {
                     alert("No <path> element found in the SVG.");
@@ -85,9 +85,9 @@
                     alert("SVG Path library is not available.");
                     return;
                 }
-                const parser = new window.PathParser();
-                parser.setPath(pathData);
-                const segments = parser.getSegments();
+                const pathParser = new window.PathParser();
+                pathParser.setPath(pathData);
+                const segments = pathParser.getSegments();
 
                 // Collect points from segments
                 let points = [];
