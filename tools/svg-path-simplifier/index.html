@@ -20,6 +20,13 @@
     <a id="downloadLink" style="display: none;" download="simplified.svg">Download Simplified SVG</a>
 
     <script>
+        // Ensure the library is loaded
+        window.onload = function() {
+            if (!window.PathParser) {
+                alert("SVG Path library failed to load. Please check your internet connection or try a different browser.");
+            }
+        };
+
         // Ramer-Douglas-Peucker algorithm
         function perpendicularDistance(point, lineStart, lineEnd) {
             if (lineStart[0] === lineEnd[0] && lineStart[1] === lineEnd[1]) {
@@ -74,14 +81,21 @@
                 }
 
                 const pathData = pathElement.getAttribute('d');
-                const path = SVGPath.parse(pathData);
+                if (!window.PathParser) {
+                    alert("SVG Path library is not available.");
+                    return;
+                }
+                const parser = new window.PathParser();
+                parser.setPath(pathData);
+                const segments = parser.getSegments();
 
                 // Collect points from segments
                 let points = [];
-                for (const segment of path) {
+                for (const segment of segments) {
                     if (segment.start && segment.end) {
-                        if (!points.length || points[points.length - 1] !== [segment.start.x, segment.start.y]) {
-                            points.push([segment.start.x, segment.start.y]);
+                        const start = [segment.start.x, segment.start.y];
+                        if (!points.length || points[points.length - 1][0] !== start[0] || points[points.length - 1][1] !== start[1]) {
+                            points.push(start);
                         }
                         if (segment.type === 'L') {
                             points.push([segment.end.x, segment.end.y]);
@@ -96,7 +110,7 @@
                 }
 
                 // Remove duplicate end point if closed
-                if (points[points.length - 1][0] === points[0][0] && points[points.length - 1][1] === points[0][1]) {
+                if (points.length > 1 && points[points.length - 1][0] === points[0][0] && points[points.length - 1][1] === points[0][1]) {
                     points.pop();
                 }
 
