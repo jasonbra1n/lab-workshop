@@ -55,7 +55,7 @@
             if (dmax > epsilon) {
                 const recResults1 = rdp(points.slice(0, index + 1), epsilon);
                 const recResults2 = rdp(points.slice(index), epsilon);
-                return recResults1-slice(0, -1).concat(recResults2);
+                return recResults1.slice(0, -1).concat(recResults2);
             } else {
                 return [points[0], points[points.length - 1]];
             }
