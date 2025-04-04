@@ -163,7 +163,7 @@ function initRadioStreamPlayer() {
         // Pass the current theme to the pop-out window
         const currentTheme = document.documentElement.classList.contains('dark-theme') ? 'dark-theme' : 'light-theme';
         const popoutUrl = `tools/radiostream-player/popout.html?station=${encodeURIComponent(stationSelect.value)}&theme=${currentTheme}`;
-        state.popoutWindow = window.open(popoutUrl, 'RadioStreamPopout', 'width=300,height=250'); // Reduced height to 250px
+        state.popoutWindow = window.open(popoutUrl, 'RadioStreamPopout', 'width=300,height=278'); // Reduced height to 250px
     });
 
     window.addEventListener('message', (event) => {
